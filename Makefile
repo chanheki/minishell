@@ -1,0 +1,95 @@
+
+# ---- NAME ---- #
+
+NAME		= minishell
+
+LIBFT		= ./lib/libft.a
+LIBFTCC		= -L./lib -lft
+
+CC = cc
+CFLAGS = -Wall -Wextra -Werror $(DBGS)
+DBGS = -fsanitize=address -g3
+
+AR = ar
+ARFLAG = ruc
+RM = rm -rf
+
+object_dir = ./objects
+
+# ---- escape ---- #
+
+DELINE = \033[K
+CURSUP = \033[A
+
+RESET = \033[0m
+RESTINT = \033[22m
+
+BOLD = \033[1m
+
+MAGENTA = \033[35m
+GREEN = \033[32m
+RED = \033[31m
+
+# ---- Mandatory ---- #
+
+sources1 :=	
+
+sources1 += main.c
+
+
+# ---- Bonus ---- #
+
+sources2 :=	
+
+sources2 += main_bonus.c
+
+# ---- Elements ---- #
+
+all_sources = $(sources1) $(sources2)
+
+objects1 = $(sources1:.c=.o)
+objects2 = $(sources2:.c=.o)
+all_objects = $(objects1) $(objects2)
+
+define objects_goal
+$(addprefix $(object_dir)/, $(call $(if $(filter bonus, $(MAKECMDGOALS)), objects2, objects1))) 
+endef
+
+define react
+$(if $(filter bonus, $(MAKECMDGOALS)), bonus, all)
+endef
+
+# ---- Command ---- #
+
+.PHONY : all bonus clean fclean re
+
+all : $(NAME)
+
+$(NAME) : $(objects_goal) $(LIBFT)
+	@$(CC) $(CFLAGS) -o $@ $(objects_goal) $(LIBFTCC)
+	@echo "$(DELINE) $(MAGENTA)$@ $(RESET) is compiled $(GREEN)$(BOLD) OK ✅ $(RESET)"
+
+bonus : $(NAME)
+
+$(object_dir)/%.o : %.c
+	@#mkdir -p $(object_dir)
+	@mkdir -p $(object_dir)/$(dir $^)
+	@$(CC) $(CFLAGS) -c $^ -o $@
+	@echo " $(MAGENTA)$(NAME) $(RESET)objects file compiling... $(DELINE)$(GREEN) $^ $(RESET)$(CURSUP)"
+
+$(LIBFT) :
+	@make -C ./lib all
+
+clean :
+	@$(RM) $(all_objects)
+	@rm -rf $(object_dir)
+	@make -C ./lib clean
+	@echo "$(RED) Delete$(BOLD) objects $(RESTINT)file $(RESET)"
+
+fclean : clean
+	@$(RM) $(NAME)
+	@make -C ./lib fclean
+	@echo "$(RED) Delete$(BOLD) $(NAME) $(RESTINT)file $(RESET)"
+
+re : fclean
+	@make $(react)
