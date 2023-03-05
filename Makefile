@@ -1,10 +1,10 @@
 
 # ---- NAME ---- #
 
-NAME		= minishell
+NAME		=	minishell
 
-LIBFT		= ./lib/libft.a
-LIBFTCC		= -L./lib -lft
+LIB			=	./lib/libft.a
+LIBCC		=	-L./lib -lft
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror $(DBGS)
@@ -14,7 +14,15 @@ AR = ar
 ARFLAG = ruc
 RM = rm -rf
 
-object_dir = ./objects
+RDLINE_DIR	=	$(shell brew --prefix readline)
+READLINE	=	-L$(RDLINE_DIR)/lib/ -lreadline
+
+object_dir	=	./objects
+
+PROMPT		=	prompt/
+PARSE		=	pars/
+HISTORY		=	history/
+EXECUTE		=	execute/
 
 # ---- escape ---- #
 
@@ -35,6 +43,9 @@ RED = \033[31m
 sources1 :=	
 
 sources1 += main.c
+
+sources1 += $(PROMPT)/prompt.c
+sources1 += $(EXECUTE)/execute.c
 
 
 # ---- Bonus ---- #
@@ -65,8 +76,8 @@ endef
 
 all : $(NAME)
 
-$(NAME) : $(objects_goal) $(LIBFT)
-	@$(CC) $(CFLAGS) -o $@ $(objects_goal) $(LIBFTCC)
+$(NAME) : $(objects_goal) $(LIB)
+	@$(CC) $(CFLAGS) -o $@ $(objects_goal) $(LIBCC) $(READLINE)
 	@echo "$(DELINE) $(MAGENTA)$@ $(RESET) is compiled $(GREEN)$(BOLD) OK ✅ $(RESET)"
 
 bonus : $(NAME)
@@ -74,10 +85,10 @@ bonus : $(NAME)
 $(object_dir)/%.o : %.c
 	@#mkdir -p $(object_dir)
 	@mkdir -p $(object_dir)/$(dir $^)
-	@$(CC) $(CFLAGS) -c $^ -o $@
+	@$(CC) $(CFLAGS) -c $^ -o $@ 
 	@echo " $(MAGENTA)$(NAME) $(RESET)objects file compiling... $(DELINE)$(GREEN) $^ $(RESET)$(CURSUP)"
 
-$(LIBFT) :
+$(LIB) :
 	@make -C ./lib all
 
 clean :
