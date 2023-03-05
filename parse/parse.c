@@ -1,14 +1,19 @@
-void	parse_command_line(char *line)
+#include "../include/minishell.h"
+
+char	**parse_command_line(char *line)
 {
 	char		**trimmed_line;
-	char		**token;
-	t_ASTnode	**ast_nodes;
-	int			i;
+	char		**preprocessed_line;
+	t_token		*token;
+	t_ASTnode	*ast_tree;
 
 	trimmed_line = ft_strtrim(line, ' ');
 	if (!trimmed_line)
 		return ;
-	preprocess_line(trimmed_line);
-	i = -1;
-	// TODO => create ASTnode and ASTtree
+	token = tokenize_line(trimmed_line);
+	free(trimmed_line);
+	if (is_valid_syntax(token))
+		//TODO => implements is_valid_syntax()
+	else
+		return (NULL);
 }

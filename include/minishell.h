@@ -1,27 +1,29 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include "../libft/libft.h"
+# include "../libft/libft.h"
+# include <stdbool.h>
+# include <stdio.h>
 
 enum	e_token_type {
-	NORMAL = -1,
+	NORMAL,
 	PIPE = '|',
-	DPIPE = "||",
-	AMPERSAND = '&',
-	DAMPERSAND = "&&",
+	DPIPE,
 	QUOTE = '\'',
 	DQUOTE = '\"',
+	REDIRECT_IN = '<',
+	DREDIRECT_IN,
+	REDIRECT_OUT = '>',
+	DREDIRECT_OUT,
 	SEMICOLON = ';',
-	ESCAPE_SEQUENCE = '\\',
-	TAB = '\t',
-	NEW_LINE = '\n',
-	REDIRECT_IN = '>',
-	REDIRECT_OUT = '<',
-	DREDIRECT_IN = '<<',
-	DREDIRECT_OUT = '>>',
+	AMPERSAND = '&',
+	DAMPERSAND,
 	WILDCARD = '*',
 	PARENTHESIS_OPEN = '(',
 	PARENTHESIS_CLOSE = ')',
+	EXPANSION = '$',
+	SPACE = ' ',
+	ESCAPE = '\\',
 };
 
 enum	e_node_type {
@@ -35,6 +37,29 @@ enum	e_node_type {
 	ARGUMENT_NODE,
 };
 
+enum	e_node_direction {
+	LEFT,
+	RIGHT,
+	PARENT,
+};
+
+enum	e_token_status {
+	IN_NORMAL,
+	IN_QUOTE,
+	IN_DQUOTE,
+	IN_PARENTHESIS,
+	IN_ESCAPE,
+	IN_EXPANSION,
+};
+
+typedef struct s_token {
+	char				*value;
+	enum e_token_type	type;
+	enum e_token_status	status;
+	struct s_token		*next;
+
+}	t_token;
+
 typedef struct s_ASTnode
 {
 	int					type;
@@ -43,5 +68,41 @@ typedef struct s_ASTnode
 	struct s_ASTnode	*left;
 	struct s_ASTnode	*right;
 }	t_ASTnode;
+
+/*---------------------------------- PARSE ----------------------------------*/
+char				**preprocess_line(char *line);
+char				**parse_command_line(char *line);
+
+/*--------------------------------- AST_TREE --------------------------------*/
+void				add_node_to_direction(t_ASTnode **node, t_ASTnode *new,
+						int direction);
+void				clear_nodes(t_ASTnode **root);
+t_ASTnode			*create_new_node(void *value, int type);
+t_ASTnode			*set_ast_node(char *trimmed_line);
+
+/*---------------------------------- TOKEN ----------------------------------*/
+t_token				*add_token_to_tail(t_token **token, t_token *new);
+t_token				*create_new_token(void *value, enum e_token_type type,
+						enum e_token_status status);
+t_token				*get_tail_token(t_token **token);
+void				join_token_value(t_token **token,
+						char *trimmed_line, int *i);
+void				set_normal_token(t_token **token,
+						char *trimmed_line, int *i);
+void				set_quote_token(t_token **token,
+						char *trimmed_line, int *i);
+enum e_token_type	get_operator_token_type(char c);
+enum e_token_type	get_double_operator_token_type(char c);
+void				set_operator_token(t_token **token,
+						char *trimmed_line, int *i);
+void				set_redirection_token(t_token **token,
+						char *trimmed_line, int *i);
+void				set_token(t_token *token, char *trimmed_line, int *i);
+void				free_token_list(t_token **token);
+t_token				*tokenize_line(char *trimmed_line);
+
+/*------------------------------ COMMAND_SPLIT -------------------------------*/
+size_t				get_split_command_count(char *arguments);
+char				**split_command_line(char *argument_str);
 
 #endif

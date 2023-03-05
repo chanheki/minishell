@@ -1,17 +1,14 @@
-#include "minishell.h"
+#include "../include/minishell.h"
 
-void	delete_quotes(char *line)
+char	**preprocess_line(char *line)
 {
+	char		**split_line;
+	t_ASTnode	*root;
 
-}
-
-void	interpret_dollar_sign(char *line)
-{
-
-}
-
-void	preprocess_line(char *line)
-{
-	delete_quotes(line);
-	interpret_dollar_sign(line);
+	split_line = split_command_line(line);
+	root = tokenize_command_line(split_line);
+	free_strings(split_line);
+	interpret_env_var(root);
+	interpret_wildcard(root);
+	return (root);
 }
