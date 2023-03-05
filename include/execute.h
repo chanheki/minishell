@@ -5,6 +5,6 @@
 # include "minishell.h"
 
 // excute.c
-void	execute(char *argv);
+void	execute(char *str);
 
 #endif

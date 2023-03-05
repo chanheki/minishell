@@ -30,7 +30,7 @@ char	*find_path(char *cmd)
 	return (0);
 }
 
-void	execute(char *argv)
+void	_execute(char *argv)
 {
 	char	**cmd;
 	char	*path;
@@ -48,4 +48,20 @@ void	execute(char *argv)
 	}
 	if (execve(path, cmd, g_var.envp) == -1)
 		perror("execve error");
+}
+
+void	execute(char *str)
+{
+	pid_t	pid;
+	int		fd[2];
+
+	if (pipe(fd) == -1)
+		perror("pipe error");
+	pid = fork();
+	if (pid < 0)
+		perror("fork error");
+	if (pid == 0)
+		_execute(str);
+	if (wait(&pid) == -1)
+		perror("waitpid error");
 }
