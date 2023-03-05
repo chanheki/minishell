@@ -41,28 +41,11 @@ static void	hosting_loop(void)
 	}
 }
 
-void initialize_global_variable(char **env)
-{
-	g_var.envp = env;
-}
-
-void validator(argc)
-{	
-	if (argc > 1)
-	{
-		ft_putendl_fd("JIP-shell: \
-Do not support this mode\
-		", STDERR_FILENO);
-		exit(EXIT_FAILURE);
-	}
-}
-
 int	main(int argc, char **argv, char **env)
 {
-	(void) argv;
 	ft_putstr_fd(MINISHELLHEADER, 2);
-	initialize_global_variable(env);
-	validator(argc);
+	initialize_global_variable(argc, argv, env);
+	validator();
 	hosting_loop();
 	return 0;
 }
