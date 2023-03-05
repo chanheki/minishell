@@ -3,7 +3,7 @@
 
 extern t_global	g_var;
 
-t_error	initialize_setting(t_global	g_var)
+t_error	initialize_setting()
 {
 	// Setting
 	return (SUCCESS);
