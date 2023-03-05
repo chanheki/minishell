@@ -1,5 +1,5 @@
-#ifndef UTIL_H
-# define UTIL_H
+#ifndef PROMPT_H
+# define PROMPT_H
 
 # include "minishell.h"
 
