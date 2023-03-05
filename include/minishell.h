@@ -13,6 +13,7 @@
 /* custom includes */
 # include "execute.h"
 # include "utill.h"
+# include "prompt.h"
 
 enum	e_token_type {
 	NORMAL = -1,
@@ -38,9 +39,18 @@ typedef struct s_ASTnode
 	struct s_ASTnode	*right;
 }	t_ASTnode;
 
+typedef enum e_error
+{
+	ERROR	=	-2,
+	FAIL	=	-1,
+	SUCCESS	=	0
+}	t_error;
+
 typedef struct s_global
 {
-	char			**envp;
+	int		argc;
+	char	**argv;
+	char	**envp;
 }	t_global;
 
 extern t_global	g_var;
