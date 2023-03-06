@@ -15,17 +15,9 @@ static void	hosting_loop(void)
 	// base = NULL;
 	while (1)
 	{
+		set_signal();
 		str = readline(PROMPT);
-		if (str == NULL)
-		{
-			ft_putendl_fd("\x1b[1A\033[12Cexit", STDOUT_FILENO);
-			break ;
-		}
-		if (ft_strcmp(str, "") == 0)
-		{
-			free(str);
-			continue ;
-		}
+		check_EOF(str);
 		// TODO: history add
 		// add_history(str);
 
@@ -43,9 +35,9 @@ static void	hosting_loop(void)
 
 int	main(int argc, char **argv, char **env)
 {
-	ft_putstr_fd(MINISHELLHEADER, 2);
+	initialize_setting();
 	initialize_global_variable(argc, argv, env);
 	validator();
 	hosting_loop();
-	return 0;
+	return (g_var.exit_status);
 }

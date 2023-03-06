@@ -3,10 +3,9 @@
 
 extern t_global	g_var;
 
-t_error	initialize_setting()
+void	initialize_setting()
 {
 	// Setting
-	return (SUCCESS);
 }
 
 void initialize_global_variable(int argc, char **argv, char **env)
@@ -27,4 +26,13 @@ void validator()
 		exit(EXIT_FAILURE);
 	}
 	
+}
+
+void	check_EOF(char *str)
+{
+	if (str == NULL)
+	{
+		ft_putendl_fd("\x1b[1A\033[12Cexit", STDOUT_FILENO);
+		exit(EXIT_SUCCESS);
+	}
 }
