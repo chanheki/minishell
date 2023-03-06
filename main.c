@@ -15,11 +15,9 @@ static void	hosting_loop(void)
 	// base = NULL;
 	while (1)
 	{
-		set_signal();
 		str = readline(PROMPT);
 		check_EOF(str);
-		// TODO: history add
-		// add_history(str);
+		add_history(str);
 
 		// TODO: parsing line
 		// if (!parsing) - exception
