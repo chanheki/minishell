@@ -12,7 +12,7 @@ char	**parse_command_line(char *line)
 		return ;
 	token = tokenize_line(trimmed_line);
 	free(trimmed_line);
-	if (is_valid_syntax(token))
+	if (token && is_valid_syntax(token))
 		//TODO => implements is_valid_syntax()
 	else
 		return (NULL);
