@@ -18,6 +18,11 @@ t_token	*tokenize_line(char *trimmed_line)
 			return (NULL);
 		}
 		set_token(new_token, trimmed_line, i);
+		if (!new_token->value)
+		{
+			free_token_list(&token);
+			return (NULL);
+		}
 		add_token_to_tail(&token, new_token);
 	}
 	return (token);
