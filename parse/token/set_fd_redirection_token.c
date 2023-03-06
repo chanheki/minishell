@@ -1,6 +1,6 @@
 #include "../../include/parse.h"
 
-void	set_redirection_token(t_token **token, char *trimmed_line, int *i)
+void	set_fd_redirection_token(t_token **token, char *trimmed_line, int *i)
 {
 	while (trimmed_line[*i] && ft_isdigit(trimmed_line[*i]))
 	{

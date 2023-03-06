@@ -96,7 +96,7 @@ enum e_token_type	get_operator_token_type(char c);
 enum e_token_type	get_double_operator_token_type(char c);
 void				set_operator_token(t_token **token,
 						char *trimmed_line, int *i);
-void				set_redirection_token(t_token **token,
+void				set_fd_redirection_token(t_token **token,
 						char *trimmed_line, int *i);
 void				set_token(t_token *token, char *trimmed_line, int *i);
 void				free_token_list(t_token **token);
