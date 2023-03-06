@@ -57,7 +57,6 @@ typedef struct s_token {
 	enum e_token_type	type;
 	bool				is_in_quote;
 	bool				is_in_dquote;
-	bool				is_in_parenthesis;
 	bool				is_in_escape;
 	struct s_token		*next;
 
