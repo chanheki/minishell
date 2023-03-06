@@ -1,4 +1,4 @@
-#include "../../include/minishell.h"
+#include "../../include/parse.h"
 
 void	add_token_to_tail(t_token **token, t_token *new)
 {

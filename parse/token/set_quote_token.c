@@ -1,4 +1,4 @@
-#include "../../include/minishell.h"
+#include "../../include/parse.h"
 
 void	set_single_quote_token(t_token **token, char *trimmed_line, int *i)
 {

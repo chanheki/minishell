@@ -1,4 +1,4 @@
-#include "../../include/minishell.h"
+#include "../../include/parse.h"
 
 t_token	*get_tail_token(t_token *token)
 {

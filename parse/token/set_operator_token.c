@@ -1,4 +1,4 @@
-#include "../../include/minishell.h"
+#include "../../include/parse.h"
 
 enum e_token_type	get_operator_token_type(char c)
 {

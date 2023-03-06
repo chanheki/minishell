@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../include/parse.h"
 
 char	**preprocess_line(char *line)
 {

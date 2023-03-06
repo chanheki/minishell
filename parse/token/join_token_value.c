@@ -1,4 +1,4 @@
-#include "../../include/minishell.h"
+#include "../../include/parse.h"
 
 void	join_token_value(t_token **token, char *trimmed_line, int *i)
 {
