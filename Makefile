@@ -16,6 +16,7 @@ RM = rm -rf
 
 RDLINE_DIR	=	$(shell brew --prefix readline)
 READLINE	=	-L$(RDLINE_DIR)/lib/ -lreadline
+INCS		=	-I ./include -I$(RDLINE_DIR)/include 
 
 object_dir	=	./objects
 
@@ -23,6 +24,7 @@ PROMPT		=	prompt/
 PARSE		=	pars/
 HISTORY		=	history/
 EXECUTE		=	execute/
+SIGNAL		=	signal/
 
 # ---- escape ---- #
 
@@ -46,6 +48,7 @@ sources1 += main.c
 
 sources1 += $(PROMPT)/prompt.c
 sources1 += $(EXECUTE)/execute.c
+sources1 += $(SIGNAL)/signal.c
 
 
 # ---- Bonus ---- #
@@ -85,7 +88,7 @@ bonus : $(NAME)
 $(object_dir)/%.o : %.c
 	@#mkdir -p $(object_dir)
 	@mkdir -p $(object_dir)/$(dir $^)
-	@$(CC) $(CFLAGS) -c $^ -o $@ 
+	@$(CC) $(CFLAGS) -c $^ -o $@ $(INCS)
 	@echo " $(MAGENTA)$(NAME) $(RESET)objects file compiling... $(DELINE)$(GREEN) $^ $(RESET)$(CURSUP)"
 
 $(LIB) :
