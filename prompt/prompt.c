@@ -5,14 +5,16 @@ extern t_global	g_var;
 
 void	initialize_setting()
 {
-	// Setting
+	ft_putstr_fd(MINISHELLHEADER, 2);
+	set_signal();
 }
 
-void initialize_global_variable(int argc, char **argv, char **env)
+void	initialize_global_variable(int argc, char **argv, char **env)
 {
 	g_var.argv = argv;
 	g_var.argc = argc;
 	g_var.envp = env;
+	g_var.exit_status = 0;
 }
 
 void validator()
