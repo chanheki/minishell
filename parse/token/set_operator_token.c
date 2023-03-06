@@ -43,9 +43,7 @@ void	set_operator_token(t_token **token, char *trimmed_line, int *i)
 	operator = trimmed_line[*i];
 	if (ft_strchr("();", operator))
 	{
-		(*token)->value = (char *)malloc(sizeof(char) * 2);
-		(*token)->value[0] = operator;
-		(*token)->value[1] = '\0';
+		join_token_value(token, trimmed_line, i);
 		(*token)->type = get_operator_token_type(operator);
 		(*i)++;
 	}

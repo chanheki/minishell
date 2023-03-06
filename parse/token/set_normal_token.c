@@ -11,14 +11,14 @@ void	set_normal_token(t_token **token, char *trimmed_line, int *i)
 		}
 		else if (ft_strchr("<>()|;&", trimmed_line[*i]))
 			return ;
-		else if (*token->status != IN_ESCAPE && trimmed_line[*i] == ESCAPE)
+		else if (!((*token)->is_in_escape) && trimmed_line[*i] == ESCAPE)
 		{
-			*token->status = IN_ESCAPE;
+			(*token)->is_in_escape = true;
 			join_token_value(token, trimmed_line, i);
 			(*i)++;
 			continue ;
 		}
-		*token->status = IN_NORMAL;
+		(*token)->is_in_escape = false;
 		join_token_value(token, trimmed_line, i);
 		(*i)++;
 	}
