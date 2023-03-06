@@ -55,7 +55,10 @@ enum	e_token_status {
 typedef struct s_token {
 	char				*value;
 	enum e_token_type	type;
-	enum e_token_status	status;
+	bool				is_in_quote;
+	bool				is_in_dquote;
+	bool				is_in_parenthesis;
+	bool				is_in_escape;
 	struct s_token		*next;
 
 }	t_token;
@@ -82,8 +85,7 @@ t_ASTnode			*set_ast_node(char *trimmed_line);
 
 /*---------------------------------- TOKEN ----------------------------------*/
 t_token				*add_token_to_tail(t_token **token, t_token *new);
-t_token				*create_new_token(void *value, enum e_token_type type,
-						enum e_token_status status);
+t_token				*create_new_token(void *value, enum e_token_type type);
 t_token				*get_tail_token(t_token **token);
 void				join_token_value(t_token **token,
 						char *trimmed_line, int *i);
