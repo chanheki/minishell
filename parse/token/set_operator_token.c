@@ -56,7 +56,7 @@ void	set_operator_token(t_token **token, char *trimmed_line, int *i)
 			join_token_value(token, trimmed_line, i);
 			(*i)++;
 		}
-		if (*i > 1)
+		if ((trimmed_line[*i] - operator) > 1)
 			(*token)->type = get_double_operator_token_type(operator);
 		else
 			(*token)->type = get_operator_token_type(operator);
