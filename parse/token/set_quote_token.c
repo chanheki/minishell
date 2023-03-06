@@ -18,11 +18,7 @@ void	set_double_quote_token(t_token **token, char *trimmed_line, int *i)
 	{
 		join_token_value(token, trimmed_line, i);
 		if (!((*token)->is_in_escape) && trimmed_line[*i] == ESCAPE)
-		{
 			(*token)->is_in_escape = true;
-			(*i)++;
-			continue ;
-		}
 		(*i)++;
 	}
 	(*token)->is_in_dquote = false;
