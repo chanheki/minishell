@@ -7,6 +7,7 @@ void	set_single_quote_token(t_token **token, char *trimmed_line, int *i)
 		join_token_value(token, trimmed_line, i);
 		(*i)++;
 	}
+	join_token_value(token, trimmed_line, i);
 	(*token)->is_in_quote = false;
 	(*i)++;
 	set_token(token, trimmed_line, i);
@@ -21,6 +22,7 @@ void	set_double_quote_token(t_token **token, char *trimmed_line, int *i)
 			(*token)->is_in_escape = true;
 		(*i)++;
 	}
+	join_token_value(token, trimmed_line, i);
 	(*token)->is_in_dquote = false;
 	(*i)++;
 	set_token(token, trimmed_line, i);
