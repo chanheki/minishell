@@ -8,10 +8,14 @@ void	free_token_list(t_token **token)
 		return ;
 	while (*token)
 	{
-		temp = *token;
-		*token = (*token)->next;
-		if (temp->value)
-			free(temp->value);
-		free(temp);
+		temp = (*token)->next;
+		if ((*token)->value)
+		{
+			free((*token)->value);
+			(*token)->value = NULL;
+		}
+		free(*token);
+		*token = temp;
 	}
+	*token = NULL;
 }
