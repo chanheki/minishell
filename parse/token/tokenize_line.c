@@ -9,6 +9,7 @@ t_token	*tokenize_line(char *trimmed_line)
 	if (!*trimmed_line)
 		return (NULL);
 	i = 0;
+	token = NULL;
 	while (trimmed_line[i])
 	{
 		// TODO => ls ''-al(= -al로), ls -al ' '(에러) 처리 해야 함
