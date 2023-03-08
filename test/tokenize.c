@@ -40,7 +40,7 @@ int	main(void)
 		if (read_bytes < 1)
 			break ;
 		input[read_bytes] = '\0';
-		trimmed = ft_strtrim(input, " ");
+		trimmed = ft_strtrim(input, " \n");
 		token = tokenize_line(trimmed);
 		print_tokens(token);
 		free(trimmed);
