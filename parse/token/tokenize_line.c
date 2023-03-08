@@ -12,7 +12,7 @@ t_token	*tokenize_line(char *trimmed_line)
 	while (trimmed_line[i])
 	{
 		// TODO => ls ''-al(= -al로), ls -al ' '(에러) 처리 해야 함
-		new_token = create_new_token(NULL, NULL);
+		new_token = create_new_token(NULL, 0);
 		if (!new_token)
 		{
 			free_token_list(&token);
