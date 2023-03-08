@@ -6,14 +6,18 @@ void	print_tokens(t_token *token)
 	int		i;
 
 	i = 1;
+	if (!token)
+		return ;
 	head = token;
 	while (head->next)
 	{
-		printf("%d: \n", i);
-		printf("\tvalue: %s\n\ttype: %d\n\tis_in_dquote: %d\n\tis_in_quote: %d\n\tis_in_escape: %d\n\t",
+		printf("token %d info: \n", i);
+		printf("\tvalue: %s\n\ttype: %d\n\tis_in_dquote: %d\n\tis_in_quote: %d\n\tis_in_escape: %d\n",
 			   head->value, head->type, head->is_in_dquote, head->is_in_quote, head->is_in_escape);
 		head = head->next;
+		i++;
 	}
+	printf("\n");
 }
 
 void init_buffer(char *buffer, int length)
@@ -33,9 +37,9 @@ int	main(void)
 	t_token		*token;
 
 	input = (char *)malloc(sizeof(char) * (BUFSIZ + 1));
-	ft_putstr_fd("type command line => ", STDOUT_FILENO);
 	while (1)
 	{
+		ft_putstr_fd("type command line => ", STDOUT_FILENO);
 		read_bytes = read(STDIN_FILENO, input, BUFSIZ);
 		if (read_bytes < 1)
 			break ;
