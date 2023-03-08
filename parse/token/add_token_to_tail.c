@@ -11,6 +11,6 @@ void	add_token_to_tail(t_token **token, t_token *new)
 		*token = new;
 		return ;
 	}
-	tmp = get_tail_token(*token);
+	tmp = get_tail_token(token);
 	tmp->next = new;
 }
