@@ -1,12 +1,12 @@
 #include "../../include/parse.h"
 
-t_token	*get_tail_token(t_token *token)
+t_token	*get_tail_token(t_token **token)
 {
 	t_token	*tmp;
 
-	if (!token)
+	if (!*token)
 		return (NULL);
-	tmp = token;
+	tmp = *token;
 	while (tmp->next)
 		tmp = tmp->next;
 	return (tmp);
