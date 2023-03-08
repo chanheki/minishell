@@ -9,7 +9,7 @@ void	print_tokens(t_token *token)
 	if (!token)
 		return ;
 	head = token;
-	while (head->next)
+	while (head)
 	{
 		printf("token %d info: \n", i);
 		printf("\tvalue: %s\n\ttype: %d\n\tis_in_dquote: %d\n\tis_in_quote: %d\n\tis_in_escape: %d\n",
