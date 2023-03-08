@@ -83,7 +83,7 @@ t_ASTnode			*create_new_node(void *value, int type);
 t_ASTnode			*set_ast_node(char *trimmed_line);
 
 /*---------------------------------- TOKEN ----------------------------------*/
-t_token				*add_token_to_tail(t_token **token, t_token *new);
+void				add_token_to_tail(t_token **token, t_token *new);
 t_token				*create_new_token(void *value, enum e_token_type type);
 t_token				*get_tail_token(t_token **token);
 void				join_token_value(t_token **token,
