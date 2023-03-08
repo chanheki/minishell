@@ -6,7 +6,7 @@ void	join_token_value(t_token **token, char *trimmed_line, int *i)
 	char	*temp;
 
 	if (!token || !*token)
-		token = create_new_token(NULL, NULL);
+		*token = create_new_token(NULL, 0);
 	else if (!trimmed_line || !trimmed_line[*i])
 		return ;
 	if (!(*token)->value)
@@ -16,9 +16,9 @@ void	join_token_value(t_token **token, char *trimmed_line, int *i)
 	}
 	else
 	{
-		new_value = ft_strjoin(*token->value, &trimmed_line[*i]);
-		temp = *token->value;
-		*token->value = new_value;
+		new_value = ft_strjoin((*token)->value, &trimmed_line[*i]);
+		temp = (*token)->value;
+		(*token)->value = new_value;
 		free(temp);
 	}
 }
