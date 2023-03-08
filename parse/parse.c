@@ -7,7 +7,7 @@ char	**parse_command_line(char *line)
 	t_token		*token;
 	t_ASTnode	*ast_tree;
 
-	trimmed_line = ft_strtrim(line, ' ');
+	trimmed_line = ft_strtrim(line, " ");
 	if (!trimmed_line)
 		return ;
 	token = tokenize_line(trimmed_line);
