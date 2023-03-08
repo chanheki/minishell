@@ -11,18 +11,16 @@ t_token	*tokenize_line(char *trimmed_line)
 	i = 0;
 	while (trimmed_line[i])
 	{
+		// TODO => ls ''-al(= -al로), ls -al ' '(에러) 처리 해야 함
 		new_token = create_new_token(NULL, NULL);
 		if (!new_token)
 		{
 			free_token_list(&token);
 			return (NULL);
 		}
-		set_token(new_token, trimmed_line, i);
-		if (!new_token->value)
-		{
-			free_token_list(&token);
-			return (NULL);
-		}
+		set_token(new_token, trimmed_line, &i);
+		while (trimmed_line[i] && trimmed_line[i] == SPACE)
+			i++;
 		add_token_to_tail(&token, new_token);
 	}
 	return (token);

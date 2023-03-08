@@ -12,6 +12,4 @@ void	set_token(t_token *token, char *trimmed_line, int *i)
 		set_fd_redirection_token(&token, trimmed_line, i);
 	else
 		set_normal_token(&token, trimmed_line, i);
-	while (trimmed_line[i] && trimmed_line[i] == SPACE)
-		i++;
 }
