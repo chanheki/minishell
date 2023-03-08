@@ -1,5 +1,13 @@
 #include "../include/parse.h"
 
+char	*int_to_bool_string(int i)
+{
+	if (!i)
+		return ("false");
+	else
+		return ("true");
+}
+
 void	print_tokens(t_token *token)
 {
 	t_token	*head;
@@ -12,8 +20,11 @@ void	print_tokens(t_token *token)
 	while (head)
 	{
 		printf("token %d info: \n", i);
-		printf("\tvalue: %s\n\ttype: %d\n\tis_in_dquote: %d\n\tis_in_quote: %d\n\tis_in_escape: %d\n",
-			   head->value, head->type, head->is_in_dquote, head->is_in_quote, head->is_in_escape);
+		printf("\tvalue: %s\n", head->value);
+		printf("\ttype: %d\n", head->type);
+		printf("\tis_in_dquote: %s\n", int_to_bool_string(head->is_in_dquote));
+		printf("\tis_in_quote: %s\n", int_to_bool_string(head->is_in_quote));
+		printf("\tis_in_escape: %s\n", int_to_bool_string(head->is_in_escape));
 		head = head->next;
 		i++;
 	}
