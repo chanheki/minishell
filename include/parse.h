@@ -71,6 +71,13 @@ typedef struct s_ASTnode
 	struct s_ASTnode	*right;
 }	t_ASTnode;
 
+typedef struct	s_cursor
+{
+	void	*current;
+	void	*previous;
+	void	*next;
+};
+
 /*---------------------------------- PARSE ----------------------------------*/
 char				**preprocess_line(char *line);
 t_token				*parse_command_line(char *line);
