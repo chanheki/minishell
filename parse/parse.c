@@ -9,7 +9,7 @@ char	**parse_command_line(char *line)
 
 	trimmed_line = ft_strtrim(line, " ");
 	if (!trimmed_line)
-		return ;
+		return (NULL);
 	token = tokenize_line(trimmed_line);
 	free(trimmed_line);
 	if (has_empty_value_in_token(token))
