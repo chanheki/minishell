@@ -65,7 +65,7 @@ typedef struct s_token {
 typedef struct s_ASTnode
 {
 	int					type;
-	char				*value;
+	void				*value;
 	struct s_ASTnode	*parent;
 	struct s_ASTnode	*left;
 	struct s_ASTnode	*right;
@@ -74,6 +74,7 @@ typedef struct s_ASTnode
 /*---------------------------------- PARSE ----------------------------------*/
 char				**preprocess_line(char *line);
 t_token				*parse_command_line(char *line);
+bool				is_valid_syntax(t_token *token);
 
 /*--------------------------------- AST_TREE --------------------------------*/
 void				add_node_to_direction(t_ASTnode **node, t_ASTnode *new,
