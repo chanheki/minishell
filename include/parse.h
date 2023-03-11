@@ -86,8 +86,12 @@ typedef struct	s_cursor
 
 /*---------------------------------- PARSE ----------------------------------*/
 char				**preprocess_line(char *line);
-t_token				*parse_command_line(char *line);
+t_ASTnode			*parse_command_line(char *line);
 bool				is_valid_syntax(t_token *token);
+bool				is_valid_redirection(t_token *token);
+bool				is_pair_of_parenthesis(t_token *token);
+bool				is_valid_parenthesis(t_token *token);
+bool				is_valid_command(t_token *token);
 t_ASTnode			*make_ast_tree(t_token **token);
 
 /*--------------------------------- AST_TREE --------------------------------*/
