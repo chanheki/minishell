@@ -22,6 +22,7 @@ t_ASTnode	*make_ast_tree(t_token **token)
 			clear_nodes(&ast_tree);
 			return (NULL);
 		}
+		current = current->next;
 	}
 	return (ast_tree);
 }
