@@ -73,7 +73,7 @@ typedef struct s_ASTnode
 
 /*---------------------------------- PARSE ----------------------------------*/
 char				**preprocess_line(char *line);
-char				**parse_command_line(char *line);
+t_token				*parse_command_line(char *line);
 
 /*--------------------------------- AST_TREE --------------------------------*/
 void				add_node_to_direction(t_ASTnode **node, t_ASTnode *new,
