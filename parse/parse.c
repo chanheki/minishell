@@ -1,6 +1,6 @@
 #include "../include/parse.h"
 
-t_token	*parse_command_line(char *line)
+t_ASTnode	*parse_command_line(char *line)
 {
 	char		**trimmed_line;
 	t_token		*token;
@@ -11,9 +11,15 @@ t_token	*parse_command_line(char *line)
 		return (NULL);
 	token = tokenize_line(trimmed_line);
 	free(trimmed_line);
-	ast_tree = make_ast_tree(&token);
-	if (token && is_valid_syntax(ast_tree))
-		return (token);
-	else
+	if (!token)
 		return (NULL);
+	if (!is_valid_syntax(token))
+	{
+		free_token_list(&token);
+		return (NULL);
+	}
+	ast_tree = make_ast_tree(&token);
+	if (!ast_tree)
+		return (NULL);
+	return (ast_tree);
 }
