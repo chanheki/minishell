@@ -1,6 +1,6 @@
-#include "libft.h"
+#include "../../include/parse.h"
 
-t_ASTnode	*create_new_node(void *value, int type)
+t_ASTnode	*create_new_node(t_token *token, int type)
 {
 	t_ASTnode	*new_node;
 
@@ -8,7 +8,7 @@ t_ASTnode	*create_new_node(void *value, int type)
 	if (!new_node)
 		return (0);
 	new_node->type = type;
-	new_node->value = value;
+	new_node->token = token;
 	new_node->parent = NULL;
 	new_node->left = NULL;
 	new_node->right = NULL;

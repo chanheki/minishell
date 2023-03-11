@@ -7,20 +7,20 @@
 
 enum	e_token_type {
 	NORMAL,
-	PIPE = '|',
-	DPIPE,
-	QUOTE = '\'',
-	DQUOTE = '\"',
-	REDIRECT_IN = '<',
 	DREDIRECT_IN,
-	REDIRECT_OUT = '>',
+	REDIRECT_IN = '<',
 	DREDIRECT_OUT,
-	SEMICOLON = ';',
-	AMPERSAND = '&',
-	DAMPERSAND,
-	WILDCARD = '*',
+	REDIRECT_OUT = '>',
 	PARENTHESIS_OPEN = '(',
 	PARENTHESIS_CLOSE = ')',
+	PIPE = '|',
+	SEMICOLON = ';',
+	DAMPERSAND,
+	DPIPE,
+	AMPERSAND = '&',
+	QUOTE = '\'',
+	DQUOTE = '\"',
+	WILDCARD = '*',
 	EXPANSION = '$',
 	SPACE = ' ',
 	ESCAPE = '\\',
@@ -52,6 +52,12 @@ enum	e_token_status {
 	IN_EXPANSION,
 };
 
+enum	e_parse_status_code {
+	MEMORY_ERROR,
+	ERROR,
+	OK,
+};
+
 typedef struct s_token {
 	char				*value;
 	enum e_token_type	type;
@@ -65,7 +71,7 @@ typedef struct s_token {
 typedef struct s_ASTnode
 {
 	int					type;
-	void				*value;
+	t_token				*token;
 	struct s_ASTnode	*parent;
 	struct s_ASTnode	*left;
 	struct s_ASTnode	*right;
@@ -82,13 +88,21 @@ typedef struct	s_cursor
 char				**preprocess_line(char *line);
 t_token				*parse_command_line(char *line);
 bool				is_valid_syntax(t_token *token);
+t_ASTnode			*make_ast_tree(t_token **token);
 
 /*--------------------------------- AST_TREE --------------------------------*/
-void				add_node_to_direction(t_ASTnode **node, t_ASTnode *new,
+void				add_node_to_direction(t_ASTnode **node, t_ASTnode *new_node,
 						int direction);
 void				clear_nodes(t_ASTnode **root);
-t_ASTnode			*create_new_node(void *value, int type);
+t_ASTnode			*create_new_node(t_token *token, int type);
 t_ASTnode			*set_ast_node(char *trimmed_line);
+t_ASTnode			*get_parent_node(t_ASTnode *node, t_token *current);
+t_ASTnode			*get_root_node(t_ASTnode *ast_tree);
+int					make_parenthesis_node(t_ASTnode **ast_tree, t_token **current);
+int					make_operator_node(t_ASTnode **ast_tree, t_token **current);
+int					make_command_node(t_ASTnode **ast_tree, t_token **current);
+int 				make_redirection_node(t_ASTnode **ast_tree, t_token **current);
+int 				make_normal_node(t_ASTnode **ast_tree, t_token **current);
 
 /*---------------------------------- TOKEN ----------------------------------*/
 void				add_token_to_tail(t_token **token, t_token *new);
