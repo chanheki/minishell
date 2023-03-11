@@ -76,7 +76,7 @@ typedef struct	s_cursor
 	void	*current;
 	void	*previous;
 	void	*next;
-};
+}	t_cursor;
 
 /*---------------------------------- PARSE ----------------------------------*/
 char				**preprocess_line(char *line);
