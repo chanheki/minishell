@@ -6,17 +6,16 @@ int make_parenthesis_node(t_ASTnode **ast_tree, t_token **current)
 	t_token		*last_token;
 	t_token 	*parent_token;
 
-	last_token = get_tail_token(current);
+	last_token = get_last_token_in_parenthesis(current);
 	if (!last_token)
-		return (MEMORY_ERROR);
+		return (OK);
 	parent_token = last_token->next;
 	last_token->next = NULL;
 	new_tree = make_ast_tree(&(*current)->next);
 	last_token->next = parent_token;
 	if (!new_tree)
 		return (ERROR);
-	if (*ast_tree
-		&& ((*current)->type == AMPERSAND || (*current)->type == PIPE))
+	if (*ast_tree && is_operator(*current))
 		add_node_to_direction(ast_tree, new_tree, RIGHT);
 	else
 		*ast_tree = new_tree;
@@ -24,32 +23,28 @@ int make_parenthesis_node(t_ASTnode **ast_tree, t_token **current)
 	return (OK);
 }
 
-int make_operator_node(t_ASTnode **ast_tree, t_token **current)
+int make_operator_node(t_ASTnode **ast_tree, t_token *current)
 {
 	t_ASTnode	*new_node;
 	t_ASTnode	*parent_node;
 
-	new_node = create_new_node(*current, (*current)->type);
+	new_node = create_new_node(current, current->type);
 	if (!new_node)
 		return (MEMORY_ERROR);
-	parent_node = get_parent_node(*ast_tree, *current);
+	parent_node = get_parent_node(*ast_tree, current);
 	if (parent_node)
 	{
 		add_node_to_direction(&new_node, parent_node->right, LEFT);
 		add_node_to_direction(&parent_node, new_node, RIGHT);
 	}
 	else
-	{
-		parent_node = get_root_node(*ast_tree);
-		add_node_to_direction(&new_node, parent_node, LEFT);
-	}
+		add_node_to_direction(&new_node, get_root_node(*ast_tree), LEFT);
 	*ast_tree = new_node;
 	return (OK);
 }
 
 int make_redirection_node(t_ASTnode **ast_tree, t_token **current)
 {
-	t_ASTnode	*right_node;
 	t_ASTnode	*new_node;
 	t_ASTnode	*file_node;
 
@@ -62,10 +57,9 @@ int make_redirection_node(t_ASTnode **ast_tree, t_token **current)
 	file_node = create_new_node(*current, (*current)->type);
 	if (!file_node)
 		return (MEMORY_ERROR);
-	right_node = *ast_tree;
-	while (right_node->right)
-		right_node = right_node->right;
-	add_node_to_direction(&right_node, new_node, RIGHT);
+	while ((*ast_tree)->right)
+		(*ast_tree) = (*ast_tree)->right;
+	add_node_to_direction(ast_tree, new_node, RIGHT);
 	add_node_to_direction(&new_node, file_node, LEFT);
 	return (OK);
 }
@@ -73,24 +67,19 @@ int make_redirection_node(t_ASTnode **ast_tree, t_token **current)
 int make_normal_node(t_ASTnode **ast_tree, t_token **current)
 {
 	t_ASTnode	*new_node;
-	t_ASTnode	*left_node;
 
 	if (!(*ast_tree)->token)
 	{
 		(*ast_tree)->token = *current;
 		(*ast_tree)->type = (*current)->type;
-		(*ast_tree)->left = NULL;
-		(*ast_tree)->right = NULL;
-		(*ast_tree)->parent = NULL;
 		return (OK);
 	}
 	new_node = create_new_node(*current, (*current)->type);
 	if (!new_node)
 		return (MEMORY_ERROR);
-	left_node = *ast_tree;
-	while (left_node->left)
-		left_node = left_node->left;
-	add_node_to_direction(&left_node, new_node, LEFT);
+	while ((*ast_tree)->left)
+		(*ast_tree) = (*ast_tree)->left;
+	add_node_to_direction(ast_tree, new_node, LEFT);
 	return (OK);
 }
 
@@ -98,10 +87,9 @@ int	make_command_node(t_ASTnode **ast_tree, t_token **current)
 {
 	t_ASTnode	*new_node;
 
-	if (!(*ast_tree)
-		|| ((*current)->type == AMPERSAND || (*current)->type == PIPE))
+	if (!(*ast_tree) || is_operator((*ast_tree)->token))
 	{
-		new_node = create_new_node(*current, (*current)->type);
+		new_node = create_new_node(NULL, 0);
 		if (!new_node)
 			return (MEMORY_ERROR);
 		add_node_to_direction(ast_tree, new_node, RIGHT);

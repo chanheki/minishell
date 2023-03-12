@@ -4,12 +4,12 @@ t_ASTnode	*get_parent_node(t_ASTnode *node, t_token *current)
 {
 	t_ASTnode	*parent_node;
 
-	parent_node = NULL;
-	while (node)
+	parent_node = node;
+	while (parent_node)
 	{
-		if (node->token->type > current->type)
-			return (node);
-		node = node->parent;
+		if (parent_node->token->type > current->type)
+			return (parent_node);
+		parent_node = parent_node->parent;
 	}
 	return (parent_node);
 }

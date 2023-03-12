@@ -13,8 +13,8 @@ t_ASTnode	*make_ast_tree(t_token **token)
 		if (current->type == PARENTHESIS_OPEN
 			|| current->type == PARENTHESIS_CLOSE)
 			status = make_parenthesis_node(&ast_tree, &current);
-		else if (current->type == AMPERSAND || current->type == PIPE)
-			status = make_operator_node(&ast_tree, &current);
+		else if (is_operator(current))
+			status = make_operator_node(&ast_tree, current);
 		else
 			status = make_command_node(&ast_tree, &current);
 		if (status == ERROR || status == MEMORY_ERROR)
@@ -24,5 +24,5 @@ t_ASTnode	*make_ast_tree(t_token **token)
 		}
 		current = current->next;
 	}
-	return (ast_tree);
+	return (get_root_node(ast_tree));
 }

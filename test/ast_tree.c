@@ -10,20 +10,26 @@ void	print_ast_tree(t_ASTnode *ast_tree)
 
 	if (!ast_tree)
 		return ;
-	ft_putstr_fd("root: ", STDOUT_FILENO);
-	ft_putstr_fd(ast_tree->token->value, STDOUT_FILENO);
-	ft_putstr_fd("\n", STDOUT_FILENO);
 	leftmost = ast_tree;
 	while (leftmost->left)
 		leftmost = leftmost->left;
-	ft_putstr_fd("leftmost: ", STDOUT_FILENO);
-	ft_putstr_fd(leftmost->token->value, STDOUT_FILENO);
+	ft_putstr_fd("leftmost : ", STDOUT_FILENO);
+	if (leftmost == ast_tree)
+		ft_putstr_fd("(null)", STDOUT_FILENO);
+	else
+		ft_putstr_fd(leftmost->token->value, STDOUT_FILENO);
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	ft_putstr_fd("root     : ", STDOUT_FILENO);
+	ft_putstr_fd(ast_tree->token->value, STDOUT_FILENO);
 	ft_putstr_fd("\n", STDOUT_FILENO);
 	rightmost = ast_tree;
 	while (rightmost->right)
 		rightmost = rightmost->right;
 	ft_putstr_fd("rightmost: ", STDOUT_FILENO);
-	ft_putstr_fd(rightmost->token->value, STDOUT_FILENO);
+	if (rightmost == ast_tree)
+		ft_putstr_fd("(null)", STDOUT_FILENO);
+	else
+		ft_putstr_fd(rightmost->token->value, STDOUT_FILENO);
 	ft_putstr_fd("\n", STDOUT_FILENO);
 }
 
