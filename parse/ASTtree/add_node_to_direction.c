@@ -1,6 +1,7 @@
 #include "../../include/parse.h"
 
-void	add_node_to_direction(t_ASTnode **node, t_ASTnode *new_node, int direction)
+void	add_node_to_direction(t_ASTnode **node, t_ASTnode *new_node,
+							int direction)
 {
 	if (*node && direction == LEFT)
 		(*node)->left = new_node;

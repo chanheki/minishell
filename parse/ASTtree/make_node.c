@@ -1,10 +1,10 @@
 #include "../../include/parse.h"
 
-int make_parenthesis_node(t_ASTnode **ast_tree, t_token **current)
+int	make_parenthesis_node(t_ASTnode **ast_tree, t_token **current)
 {
 	t_ASTnode	*new_tree;
 	t_token		*last_token;
-	t_token 	*parent_token;
+	t_token		*parent_token;
 
 	last_token = get_last_token_in_parenthesis(current);
 	if (!last_token)
@@ -23,7 +23,7 @@ int make_parenthesis_node(t_ASTnode **ast_tree, t_token **current)
 	return (OK);
 }
 
-int make_operator_node(t_ASTnode **ast_tree, t_token *current)
+int	make_operator_node(t_ASTnode **ast_tree, t_token *current)
 {
 	t_ASTnode	*new_node;
 	t_ASTnode	*parent_node;
@@ -43,7 +43,7 @@ int make_operator_node(t_ASTnode **ast_tree, t_token *current)
 	return (OK);
 }
 
-int make_redirection_node(t_ASTnode **ast_tree, t_token **current)
+int	make_redirection_node(t_ASTnode **ast_tree, t_token **current)
 {
 	t_ASTnode	*new_node;
 	t_ASTnode	*file_node;
@@ -64,7 +64,7 @@ int make_redirection_node(t_ASTnode **ast_tree, t_token **current)
 	return (OK);
 }
 
-int make_normal_node(t_ASTnode **ast_tree, t_token **current)
+int	make_normal_node(t_ASTnode **ast_tree, t_token **current)
 {
 	t_ASTnode	*new_node;
 
@@ -96,7 +96,8 @@ int	make_command_node(t_ASTnode **ast_tree, t_token **current)
 		*ast_tree = new_node;
 	}
 	if ((*current)->type == REDIRECT_IN || (*current)->type == REDIRECT_OUT
-		|| (*current)->type == DREDIRECT_IN || (*current)->type == DREDIRECT_OUT)
+		|| (*current)->type == DREDIRECT_IN
+		|| (*current)->type == DREDIRECT_OUT)
 		return (make_redirection_node(ast_tree, current));
 	else if ((*current)->type == NORMAL)
 		return (make_normal_node(ast_tree, current));
