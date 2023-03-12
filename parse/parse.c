@@ -2,7 +2,7 @@
 
 t_ASTnode	*parse_command_line(char *line)
 {
-	char		**trimmed_line;
+	char		*trimmed_line;
 	t_token		*token;
 	t_ASTnode	*ast_tree;
 
