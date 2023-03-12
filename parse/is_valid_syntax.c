@@ -55,7 +55,7 @@ t_token	*get_last_token_in_parenthesis(t_token *token)
 		else if (temp->type == PARENTHESIS_CLOSE)
 			parenthesis_count--;
 		if (parenthesis_count == 0)
-			return (temp);
+			break ;
 		temp = temp->next;
 	}
 	if (!temp->next)
@@ -75,7 +75,6 @@ bool	is_valid_parenthesis(t_token *token)
 	t_token *temp;
 
 	prev = NULL;
-	next = NULL;
 	temp = token;
 	while (temp)
 	{
