@@ -1,5 +1,7 @@
 #include "../include/parse.h"
 
+// cc tokenize.c ../include/parse.h ../libft/*.c ../parse/token/*.c -g
+
 char	*int_to_bool_string(int i)
 {
 	if (!i)
