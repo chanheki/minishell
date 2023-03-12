@@ -1,5 +1,7 @@
 #include "../include/parse.h"
 
+// cc -g syntax_check.c ../include/parse.h ../libft/*.c ../parse/**/*.c
+
 int	main(void)
 {
 	char		*input;
