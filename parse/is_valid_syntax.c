@@ -1,6 +1,6 @@
 #include "../include/parse.h"
 
-bool	is_mismatch_parenthesis(t_token *token)
+bool	is_pair_of_parenthesis(t_token *token)
 {
 	t_token	*temp;
 	int 	parenthesis_count;
