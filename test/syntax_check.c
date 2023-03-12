@@ -18,11 +18,11 @@ int	main(void)
 		trimmed = ft_strtrim(input, " \n");
 		token = tokenize_line(trimmed);
 		free(trimmed);
-		free_token_list(&token);
 		if (is_valid_syntax(token))
 			ft_putstr_fd("OK\n", STDOUT_FILENO);
 		else
 			ft_putstr_fd("KO\n", STDERR_FILENO);
+		free_token_list(&token);
 		ft_memset(input, 0, read_bytes);
 	}
 	free(input);
