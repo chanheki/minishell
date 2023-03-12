@@ -2,6 +2,31 @@
 
 // cc -g ast_tree.c ../include/parse.h ../libft/*.c ../parse/**/*.c
 
+void	print_ast_tree(t_ASTnode *ast_tree)
+{
+	t_ASTnode	*leftmost;
+	t_ASTnode	*rightmost;
+	t_ASTnode	*temp;
+
+	if (!ast_tree)
+		return ;
+	ft_putstr_fd("root: ", STDOUT_FILENO);
+	ft_putstr_fd(ast_tree->token->value, STDOUT_FILENO);
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	leftmost = ast_tree;
+	while (leftmost->left)
+		leftmost = leftmost->left;
+	ft_putstr_fd("leftmost: ", STDOUT_FILENO);
+	ft_putstr_fd(leftmost->token->value, STDOUT_FILENO);
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	rightmost = ast_tree;
+	while (rightmost->right)
+		rightmost = rightmost->right;
+	ft_putstr_fd("rightmost: ", STDOUT_FILENO);
+	ft_putstr_fd(rightmost->token->value, STDOUT_FILENO);
+	ft_putstr_fd("\n", STDOUT_FILENO);
+}
+
 int	main(void)
 {
 	char		*input;
@@ -24,6 +49,7 @@ int	main(void)
 		if (is_valid_syntax(token))
 		{
 			ast_tree = make_ast_tree(&token);
+			print_ast_tree(ast_tree);
 			ft_putstr_fd("OK\n", STDOUT_FILENO);
 		}
 		free_token_list(&token);
