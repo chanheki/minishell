@@ -11,13 +11,13 @@ int make_parenthesis_node(t_ASTnode **ast_tree, t_token **current)
 		return (MEMORY_ERROR);
 	parent_token = last_token->next;
 	last_token->next = NULL;
-	new_tree = make_ast_tree((*current)->next);
+	new_tree = make_ast_tree(&(*current)->next);
 	last_token->next = parent_token;
 	if (!new_tree)
 		return (ERROR);
 	if (*ast_tree
 		&& ((*current)->type == AMPERSAND || (*current)->type == PIPE))
-		add_node_to_direction(*ast_tree, new_tree, RIGHT);
+		add_node_to_direction(ast_tree, new_tree, RIGHT);
 	else
 		*ast_tree = new_tree;
 	*current = parent_token;
@@ -41,7 +41,7 @@ int make_operator_node(t_ASTnode **ast_tree, t_token **current)
 	else
 	{
 		parent_node = get_root_node(*ast_tree);
-		add_node_to_direction(new_node, parent_node, LEFT);
+		add_node_to_direction(&new_node, parent_node, LEFT);
 	}
 	*ast_tree = new_node;
 	return (OK);
