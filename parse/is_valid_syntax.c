@@ -1,6 +1,6 @@
 #include "../include/parse.h"
 
-bool	is_pair_of_parenthesis(t_token *token)
+bool	is_pair_of_parenthesis(t_token *token, char **token_value)
 {
 	t_token	*temp;
 	int 	parenthesis_count;
@@ -9,6 +9,7 @@ bool	is_pair_of_parenthesis(t_token *token)
 	temp = token;
 	while (temp)
 	{
+		*token_value = temp->value;
 		if (temp->type == PARENTHESIS_OPEN)
 			parenthesis_count++;
 		else if (temp->type == PARENTHESIS_CLOSE)
@@ -22,13 +23,14 @@ bool	is_pair_of_parenthesis(t_token *token)
 	return (false);
 }
 
-bool	is_valid_redirection(t_token *token)
+bool	is_valid_redirection(t_token *token, char **token_value)
 {
 	t_token	*temp;
 
 	temp = token;
 	while (temp)
 	{
+		*token_value = temp->value;
 		if (temp->type == REDIRECT_IN || temp->type == REDIRECT_OUT
 			|| temp->type == DREDIRECT_IN || temp->type == DREDIRECT_OUT)
 		{
@@ -68,7 +70,7 @@ t_token	*get_last_token_in_parenthesis(t_token *token)
 	return (temp);
 }
 
-bool	is_valid_parenthesis(t_token *token)
+bool	is_valid_parenthesis(t_token *token, char **token_value)
 {
 	t_token	*prev;
 	t_token *next;
@@ -78,6 +80,7 @@ bool	is_valid_parenthesis(t_token *token)
 	temp = token;
 	while (temp)
 	{
+		*token_value = temp->value;
 		if (temp->type == PARENTHESIS_OPEN)
 		{
 			next = get_last_token_in_parenthesis(temp);
@@ -94,7 +97,7 @@ bool	is_valid_parenthesis(t_token *token)
 	return (true);
 }
 
-bool	is_valid_command(t_token *token)
+bool	is_valid_command(t_token *token, char **token_value)
 {
 	t_token	*temp;
 	bool 	is_in_normal;
@@ -103,6 +106,7 @@ bool	is_valid_command(t_token *token)
 	is_in_normal = false;
 	while (temp)
 	{
+		*token_value = temp->value;
 		if (temp->type == AMPERSAND || temp->type == PIPE)
 		{
 			if (!is_in_normal)
@@ -121,19 +125,21 @@ bool	is_valid_command(t_token *token)
 
 bool	is_valid_syntax(t_token *token)
 {
-	if (!is_pair_of_parenthesis(token)
-		|| !is_valid_parenthesis(token)
-		|| !is_valid_redirection(token))
+	char	*token_value;
+
+	if (!is_pair_of_parenthesis(token, &token_value)
+		|| !is_valid_parenthesis(token, &token_value)
+		|| !is_valid_redirection(token, &token_value))
 	{
 		ft_putstr_fd("JIP-shell: syntax error near unexpected token `", 2);
-		ft_putstr_fd(token->value, 2);
+		ft_putstr_fd(token_value, 2);
 		ft_putendl_fd("'", 2);
 		return (false);
 	}
-	else if (!is_valid_command(token))
+	else if (!is_valid_command(token, &token_value))
 	{
 		ft_putstr_fd("JIP-shell: command not found: ", 2);
-		ft_putendl_fd(token->value, 2);
+		ft_putendl_fd(token_value, 2);
 		return (false);
 	}
 	return (true);
