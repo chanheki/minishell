@@ -105,6 +105,7 @@ int	make_command_node(t_ASTnode **ast_tree, t_token **current)
 		if (!new_node)
 			return (MEMORY_ERROR);
 		add_node_to_direction(ast_tree, new_node, RIGHT);
+		*ast_tree = new_node;
 	}
 	if ((*current)->type == REDIRECT_IN || (*current)->type == REDIRECT_OUT
 		|| (*current)->type == DREDIRECT_IN || (*current)->type == DREDIRECT_OUT)
