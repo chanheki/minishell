@@ -137,4 +137,5 @@ bool	is_valid_syntax(t_token *token)
 		ft_putendl_fd(token->value, 2);
 		return (false);
 	}
+	return (true);
 }
