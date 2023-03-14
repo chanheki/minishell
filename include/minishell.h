@@ -4,6 +4,7 @@
 # define PROMPT "\033[0;32;3mJIP-Shell$\033[0m "
 
 # include "../lib/libft.h"
+# include "parse.h"
 # include <signal.h>
 # include <stdio.h>
 # include <term.h>
@@ -16,30 +17,6 @@
 # include "utill.h"
 # include "prompt.h"
 # include "signal.h"
-
-enum	e_token_type {
-	NORMAL = -1,
-	PIPE = '|',
-	AMPERSAND = '&',
-	QUOTE = '\'',
-	DQUOTE = '\"',
-	SEMICOLON = ';',
-	ESCAPE_SEQUENCE = '\\',
-	// TAB = '\t',
-	NEW_LINE = '\n',
-	REDIRECT_IN = '>',
-	REDIRECT_OUT = '<'
-	// DREDIRECT_IN = '<<',
-	// DREDIRECT_OUT = '>>',
-};
-
-typedef struct s_ASTnode
-{
-	int					type;
-	char				*value;
-	struct s_ASTnode	*left;
-	struct s_ASTnode	*right;
-}	t_ASTnode;
 
 /*
  * <exit code>

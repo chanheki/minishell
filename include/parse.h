@@ -1,7 +1,7 @@
 #ifndef PARSE_H
 # define PARSE_H
 
-# include "../libft/libft.h"
+# include "../lib/libft.h"
 # include <stdbool.h>
 # include <stdio.h>
 
@@ -54,7 +54,7 @@ enum	e_token_status {
 
 enum	e_parse_status_code {
 	MEMORY_ERROR,
-	ERROR,
+	P_ERROR,
 	OK,
 };
 
