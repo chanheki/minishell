@@ -17,7 +17,6 @@ void	set_normal_token(t_token **token, char *trimmed_line, int *i)
 {
 	while (trimmed_line[*i] && trimmed_line[*i] != SPACE)
 	{
-		// TODO => 큰 따옴표거나 일반 문자열일 때는 환경 변수를 치환한다.
 		if (trimmed_line[*i] == QUOTE || trimmed_line[*i] == DQUOTE)
 		{
 			set_quote_token(token, trimmed_line, i);
@@ -33,8 +32,10 @@ void	set_normal_token(t_token **token, char *trimmed_line, int *i)
 			continue ;
 		}
 		else if (!(*token)->is_in_escape && trimmed_line[*i] == EXPANSION)
-			// TODO => implement interpret_expansion
+		{
 			interpret_expansion(token, trimmed_line, i);
+			continue ;
+		}
 		(*token)->is_in_escape = false;
 		join_token_value(token, trimmed_line, i);
 		(*i)++;

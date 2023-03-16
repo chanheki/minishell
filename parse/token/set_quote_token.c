@@ -39,7 +39,6 @@ void	set_double_quote_token(t_token **token, char *trimmed_line, int *i)
 		if (!((*token)->is_in_escape) && trimmed_line[*i] == ESCAPE)
 			(*token)->is_in_escape = true;
 		else if (!(*token)->is_in_escape && trimmed_line[*i] == EXPANSION)
-			// TODO => implement interpret_expansion
 			interpret_expansion(token, trimmed_line, i);
 		(*i)++;
 	}

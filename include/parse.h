@@ -130,6 +130,7 @@ void				set_token(t_token *token, char *trimmed_line, int *i);
 void				free_token_list(t_token **token);
 t_token				*tokenize_line(char *trimmed_line);
 bool				is_operator(t_token *token);
+void				interpret_expansion(t_token **token, char *trimmed_line, int *i);
 
 /*------------------------------ COMMAND_SPLIT -------------------------------*/
 size_t				get_split_command_count(char *arguments);
