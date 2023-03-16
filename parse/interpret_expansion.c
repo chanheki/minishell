@@ -20,10 +20,11 @@ void	interpret_expansion(t_token **token, char *trimmed_line, int *i)
 
 	length = 0;
 	(*i)++;
-	while (trimmed_line[*i] && trimmed_line[*i] != SPACE
-			&& !ft_strchr("<>()|;&", trimmed_line[*i]))
+	while (trimmed_line[*i + length] && trimmed_line[*i + length] != SPACE
+			&& !ft_strchr("<>()|;&", trimmed_line[*i + length]))
 		length++;
 	env_name = ft_substr(trimmed_line, *i, length);
 	interpreted = getenv(env_name);
+	*i += length;
 	join_token_value(token, interpreted, 0);
 }
