@@ -1,4 +1,9 @@
-#include "../include/parse.h"
+#include "../../include/parse.h"
+
+void	interpret_exit_status(t_token **token, char *trimmed_line, int *i)
+{
+
+}
 
 /*
  * Description: 환경변수를 해석하여 토큰의 값에 이어붙인다.
@@ -12,7 +17,7 @@
  * Param.   #3: 커맨드 라인 내 환경변수의 시작 인덱스
  * Return     : 없음
  */
-void	interpret_expansion(t_token **token, char *trimmed_line, int *i)
+void	interpret_env(t_token **token, char *trimmed_line, int *i)
 {
 	char	*env_name;
 	char	*interpreted;
@@ -20,9 +25,8 @@ void	interpret_expansion(t_token **token, char *trimmed_line, int *i)
 	int 	length;
 
 	length = 0;
-	(*i)++;
 	while (trimmed_line[*i + length] && trimmed_line[*i + length] != SPACE
-			&& !ft_strchr("<>()|;&\'\"", trimmed_line[*i + length]))
+		   && !ft_strchr("<>()|;&\'\"", trimmed_line[*i + length]))
 		length++;
 	env_name = ft_substr(trimmed_line, *i, length);
 	interpreted = getenv(env_name);
@@ -39,4 +43,12 @@ void	interpret_expansion(t_token **token, char *trimmed_line, int *i)
 		else
 			(*token)->value = ft_strdup(interpreted);
 	}
+}
+
+void	interpret_expansion(t_token **token, char *trimmed_line, int *i)
+{
+	if (trimmed_line[*i] == '?')
+		interpret_exit_status(token, trimmed_line, i);
+	else
+		interpret_env(token, trimmed_line, i);
 }
