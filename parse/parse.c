@@ -1,5 +1,10 @@
 #include "../include/parse.h"
 
+/*
+ * Description: 커맨드 라인을 파싱하여 토큰으로 분리 후, AST Tree를 생성한다.
+ * Param.   #1: 커맨드 라인
+ * Return     : AST Tree의 루트 노드
+ */
 t_ASTnode	*parse_command_line(char *line)
 {
 	char		*trimmed_line;

@@ -1,5 +1,10 @@
 #include "../../include/parse.h"
 
+/*
+ * Description: 토큰 리스트의 메모리를 해제한다.
+ * Param      : 해제할 토큰 리스트
+ * Return     : void
+ */
 void	free_token_list(t_token **token)
 {
 	t_token	*temp;
