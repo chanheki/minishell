@@ -16,15 +16,27 @@ void	interpret_expansion(t_token **token, char *trimmed_line, int *i)
 {
 	char	*env_name;
 	char	*interpreted;
+	char	*new_token_value;
 	int 	length;
 
 	length = 0;
 	(*i)++;
 	while (trimmed_line[*i + length] && trimmed_line[*i + length] != SPACE
-			&& !ft_strchr("<>()|;&", trimmed_line[*i + length]))
+			&& !ft_strchr("<>()|;&\'\"", trimmed_line[*i + length]))
 		length++;
 	env_name = ft_substr(trimmed_line, *i, length);
 	interpreted = getenv(env_name);
+	free(env_name);
 	*i += length;
-	join_token_value(token, interpreted, 0);
+	if (interpreted)
+	{
+		if ((*token)->value)
+		{
+			new_token_value = ft_strjoin((*token)->value, interpreted);
+			free((*token)->value);
+			(*token)->value = new_token_value;
+		}
+		else
+			(*token)->value = ft_strdup(interpreted);
+	}
 }
