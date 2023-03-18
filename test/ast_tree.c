@@ -56,7 +56,7 @@ int	main(void)
 		{
 			ast_tree = make_ast_tree(&token);
 			print_ast_tree(ast_tree);
-			ft_putstr_fd("OK\n", STDOUT_FILENO);
+			ft_putstr_fd("SUCCESS\n", STDOUT_FILENO);
 		}
 		free_token_list(&token);
 		ft_memset(input, 0, read_bytes);
