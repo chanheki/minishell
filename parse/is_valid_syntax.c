@@ -1,5 +1,12 @@
 #include "../include/parse.h"
 
+/*
+ * Description: 괄호의 짝이 맞는지 검사한다.
+ * Param.   #1: 토큰 리스트의 첫 번째 토큰 주소
+ * Param.   #2: 토큰의 값(value)을 담을 문자열 포인터
+ * Return     : true : 괄호의 짝이 맞음
+ *            : false: 괄호의 짝이 맞지 않음
+ */
 bool	is_pair_of_parenthesis(t_token *token, char **token_value)
 {
 	t_token	*temp;
@@ -23,6 +30,13 @@ bool	is_pair_of_parenthesis(t_token *token, char **token_value)
 	return (false);
 }
 
+/*
+ * Description: 리다이렉션 문법이 유효한지 검사한다.
+ * Param.   #1: 토큰 리스트의 첫 번째 토큰 주소
+ * Param.   #2: 토큰의 값(value)을 담을 문자열 포인터
+ * Return     : true : 리다이렉션 문법이 유효함
+ *            : false: 리다이렉션 문법이 유효하지 않음
+ */
 bool	is_valid_redirection(t_token *token, char **token_value)
 {
 	t_token	*temp;
@@ -43,6 +57,13 @@ bool	is_valid_redirection(t_token *token, char **token_value)
 	return (true);
 }
 
+/*
+ * Description: 괄호의 위치가 유효한지 검사한다.
+ * Param.   #1: 토큰 리스트의 첫 번째 토큰 주소
+ * Param.   #2: 토큰의 값(value)을 담을 문자열 포인터
+ * Return     : true : 괄호가 올바른 위치에 있음
+ *            : false: 괄호가 잘못된 위치에 있음
+ */
 bool	is_valid_parenthesis(t_token *token, char **token_value)
 {
 	t_token	*prev;
@@ -71,6 +92,13 @@ bool	is_valid_parenthesis(t_token *token, char **token_value)
 	return (true);
 }
 
+/*
+ * Description: 명령어의 위치가 유효한지 검사한다.
+ * Param.   #1: 토큰 리스트의 첫 번째 토큰 주소
+ * Param.   #2: 토큰의 값(value)을 담을 문자열 포인터
+ * Return     : true : 괄호가 올바른 위치에 있음
+ *            : false: 괄호가 잘못된 위치에 있음
+ */
 bool	is_valid_command(t_token *token, char **token_value)
 {
 	t_token	*temp;
@@ -97,6 +125,16 @@ bool	is_valid_command(t_token *token, char **token_value)
 	return (true);
 }
 
+/*
+ * Description: 토큰의 문법 유효성을 검사한다.
+ *              1. 괄호의 짝이 맞는지 검사한다.
+ *              2. 괄호의 위치가 올바른지 검사한다.
+ *              3. 리다이렉션의 위치가 올바른지 검사한다.
+ *              4. 명령어의 위치가 올바른지 검사한다.
+ * Param.   #1: 토큰 리스트의 첫 번째 토큰 주소
+ * Return     : true : 유효한 문법
+ *              false: 유효하지 않은 문법
+ */
 bool	is_valid_syntax(t_token *token)
 {
 	char	*token_value;

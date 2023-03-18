@@ -1,5 +1,10 @@
 #include "../../include/parse.h"
 
+/*
+ * Description: 괄호 내 마지막 토큰을 반환한다.
+ * Param.   #1: 열린 괄호 다음의 토큰
+ * Return     : 괄호 내 마지막 토큰
+ */
 t_token	*get_last_token_in_parenthesis(t_token **token)
 {
 	t_token	*temp;
