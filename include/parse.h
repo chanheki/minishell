@@ -2,6 +2,7 @@
 # define PARSE_H
 
 # include "../libft/libft.h"
+# include "minishell.h"
 # include <stdbool.h>
 # include <stdio.h>
 
@@ -50,12 +51,6 @@ enum	e_token_status {
 	IN_PARENTHESIS,
 	IN_ESCAPE,
 	IN_EXPANSION,
-};
-
-enum	e_parse_status_code {
-	MEMORY_ERROR,
-	ERROR,
-	OK,
 };
 
 typedef struct s_token {
@@ -133,7 +128,7 @@ bool				is_operator(t_token *token);
 void				interpret_expansion(t_token **token, char *trimmed_line, int *i);
 char				*get_env_value(char *trimmed_line, int start, int length);
 void				interpret_env(t_token **token, char *trimmed_line, int *i);
-void				interpret_exit_status(t_token **token, char *trimmed_line, int *i);
+void				interpret_exit_status(t_token **token, int *i);
 
 /*------------------------------ COMMAND_SPLIT -------------------------------*/
 size_t				get_split_command_count(char *arguments);

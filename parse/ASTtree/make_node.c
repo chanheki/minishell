@@ -13,9 +13,9 @@
  *               7.1. 만약 현재 토큰이 연산자라면, 새로운 트리를 루트의 오른쪽 자식으로 지정한다.
  * Param.   #1: 트리의 루트 노드
  * Param.   #2: 현재 토큰
- * Return     : OK          : 노드 생성에 문제가 없음
- *              MEMORY_ERROR: 노드 생성 시, 메모리 할당에서 실패
- *              ERROR       : 노드 생성에 문제가 있음
+ * Return     : SUCCESS          : 노드 생성에 문제가 없음
+ *              ERROR: 노드 생성 시, 메모리 할당에서 실패
+ *              FAIL       : 노드 생성에 문제가 있음
  */
 int	make_parenthesis_node(t_ASTnode **ast_tree, t_token **current)
 {
@@ -25,19 +25,19 @@ int	make_parenthesis_node(t_ASTnode **ast_tree, t_token **current)
 
 	last_token = get_last_token_in_parenthesis(current);
 	if (!last_token)
-		return (OK);
+		return (SUCCESS);
 	parent_token = last_token->next;
 	last_token->next = NULL;
 	new_tree = make_ast_tree(&(*current)->next);
 	last_token->next = parent_token;
 	if (!new_tree)
-		return (P_ERROR);
+		return (FAIL);
 	if (*ast_tree && is_operator(*current))
 		add_node_to_direction(ast_tree, new_tree, RIGHT);
 	else
 		*ast_tree = new_tree;
 	*current = parent_token;
-	return (OK);
+	return (SUCCESS);
 }
 
 /*
@@ -53,9 +53,9 @@ int	make_parenthesis_node(t_ASTnode **ast_tree, t_token **current)
  *              4. 이후 AST Tree의 루트 노드를 새로운 노드로 지정한다.
  * Param.   #1: 트리의 루트 노드
  * Param.   #2: 현재 토큰
- * Return     : OK          : 노드 생성에 문제가 없음
- *              MEMORY_ERROR: 노드 생성 시, 메모리 할당에서 실패
- *              ERROR       : 노드 생성에 문제가 있음
+ * Return     : SUCCESS          : 노드 생성에 문제가 없음
+ *              ERROR: 노드 생성 시, 메모리 할당에서 실패
+ *              FAIL       : 노드 생성에 문제가 있음
  */
 int	make_operator_node(t_ASTnode **ast_tree, t_token *current)
 {
@@ -64,7 +64,7 @@ int	make_operator_node(t_ASTnode **ast_tree, t_token *current)
 
 	new_node = create_new_node(current, current->type);
 	if (!new_node)
-		return (MEMORY_ERROR);
+		return (FAIL);
 	parent_node = get_parent_node(*ast_tree, current);
 	if (parent_node)
 	{
@@ -74,7 +74,7 @@ int	make_operator_node(t_ASTnode **ast_tree, t_token *current)
 	else
 		add_node_to_direction(&new_node, get_root_node(*ast_tree), LEFT);
 	*ast_tree = new_node;
-	return (OK);
+	return (SUCCESS);
 }
 
 /*
@@ -87,9 +87,9 @@ int	make_operator_node(t_ASTnode **ast_tree, t_token *current)
  *              6. 새로운 노드의 왼쪽 자식으로 파일 노드를 추가한다.
  * Param.   #1: 트리의 루트 노드
  * Param.   #2: 현재 토큰
- * Return     : OK          : 노드 생성에 문제가 없음
- *              MEMORY_ERROR: 노드 생성 시, 메모리 할당에서 실패
- *              ERROR       : 노드 생성에 문제가 있음
+ * Return     : SUCCESS          : 노드 생성에 문제가 없음
+ *              ERROR: 노드 생성 시, 메모리 할당에서 실패
+ *              FAIL       : 노드 생성에 문제가 있음
  */
 int	make_redirection_node(t_ASTnode **ast_tree, t_token **current)
 {
@@ -97,19 +97,19 @@ int	make_redirection_node(t_ASTnode **ast_tree, t_token **current)
 	t_ASTnode	*file_node;
 
 	if (!(*current)->next)
-		return (P_ERROR);
+		return (FAIL);
 	new_node = create_new_node(*current, (*current)->type);
 	if (!new_node)
-		return (MEMORY_ERROR);
+		return (ERROR);
 	(*current) = (*current)->next;
 	file_node = create_new_node(*current, (*current)->type);
 	if (!file_node)
-		return (MEMORY_ERROR);
+		return (ERROR);
 	while ((*ast_tree)->right)
 		(*ast_tree) = (*ast_tree)->right;
 	add_node_to_direction(ast_tree, new_node, RIGHT);
 	add_node_to_direction(&new_node, file_node, LEFT);
-	return (OK);
+	return (SUCCESS);
 }
 
 /*
@@ -120,9 +120,9 @@ int	make_redirection_node(t_ASTnode **ast_tree, t_token **current)
  *              3. AST Tree의 최좌측 노드의 왼쪽 자식으로 새로운 노드를 추가한다.
  * Param.   #1: 트리의 루트 노드
  * Param.   #2: 현재 토큰
- * Return     : OK          : 노드 생성에 문제가 없음
- *              MEMORY_ERROR: 노드 생성 시, 메모리 할당에서 실패
- *              ERROR       : 노드 생성에 문제가 있음
+ * Return     : SUCCESS          : 노드 생성에 문제가 없음
+ *              ERROR: 노드 생성 시, 메모리 할당에서 실패
+ *              FAIL       : 노드 생성에 문제가 있음
  */
 int	make_normal_node(t_ASTnode **ast_tree, t_token **current)
 {
@@ -132,15 +132,15 @@ int	make_normal_node(t_ASTnode **ast_tree, t_token **current)
 	{
 		(*ast_tree)->token = *current;
 		(*ast_tree)->type = (*current)->type;
-		return (OK);
+		return (SUCCESS);
 	}
 	new_node = create_new_node(*current, (*current)->type);
 	if (!new_node)
-		return (MEMORY_ERROR);
+		return (ERROR);
 	while ((*ast_tree)->left)
 		(*ast_tree) = (*ast_tree)->left;
 	add_node_to_direction(ast_tree, new_node, LEFT);
-	return (OK);
+	return (SUCCESS);
 }
 
 /*
@@ -151,9 +151,9 @@ int	make_normal_node(t_ASTnode **ast_tree, t_token **current)
  *              3. 만약 토큰이 일반 노드라면, 일반 노드를 생성하여 반환한다.
  * Param.   #1: 트리의 루트 노드
  * Param.   #2: 현재 토큰
- * Return     : OK          : 노드 생성에 문제가 없음
- *              MEMORY_ERROR: 노드 생성 시, 메모리 할당에서 실패
- *              ERROR       : 노드 생성에 문제가 있음
+ * Return     : SUCCESS          : 노드 생성에 문제가 없음
+ *              ERROR: 노드 생성 시, 메모리 할당에서 실패
+ *              FAIL       : 노드 생성에 문제가 있음
  */
 int	make_command_node(t_ASTnode **ast_tree, t_token **current)
 {
@@ -163,7 +163,7 @@ int	make_command_node(t_ASTnode **ast_tree, t_token **current)
 	{
 		new_node = create_new_node(NULL, 0);
 		if (!new_node)
-			return (MEMORY_ERROR);
+			return (ERROR);
 		add_node_to_direction(ast_tree, new_node, RIGHT);
 		*ast_tree = new_node;
 	}
@@ -173,5 +173,5 @@ int	make_command_node(t_ASTnode **ast_tree, t_token **current)
 		return (make_redirection_node(ast_tree, current));
 	else if ((*current)->type == NORMAL)
 		return (make_normal_node(ast_tree, current));
-	return (OK);
+	return (SUCCESS);
 }

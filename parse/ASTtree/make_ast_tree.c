@@ -26,7 +26,7 @@ t_ASTnode	*make_ast_tree(t_token **token)
 			status = make_operator_node(&ast_tree, current);
 		else
 			status = make_command_node(&ast_tree, &current);
-		if (status == P_ERROR || status == MEMORY_ERROR)
+		if (status == FAIL || status == ERROR)
 		{
 			clear_nodes(&ast_tree);
 			return (NULL);
