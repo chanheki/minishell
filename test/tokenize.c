@@ -1,6 +1,6 @@
 #include "../include/parse.h"
 
-// cc tokenize.c ../include/parse.h ../libft/*.c ../parse/token/*.c ../parse/interpret_expansion.c -g
+// cc tokenize.c ../include/parse.h ../libft/*.c ../parse/token/*.c ../parse/expansion/interpret_expansion.c -g
 
 char	*int_to_bool_string(int i)
 {
