@@ -82,7 +82,7 @@ void	delete_outer_quotes(t_token **token)
 		if (temp_token->type == NORMAL)
 		{
 			delete_flag = (char *)ft_calloc(ft_strlen(temp_token->value) + 1,
-											sizeof(char));
+					sizeof(char));
 			check_delete_quote(temp_token->value, delete_flag);
 			rebuild_quote_string(&temp_token, delete_flag);
 			free(delete_flag);

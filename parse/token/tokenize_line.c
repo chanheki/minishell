@@ -1,7 +1,8 @@
 #include "../../include/parse.h"
 
 /*
- * Description: 앞 뒤 공백이 잘린 문자열을 토큰화한다. set_token() 함수를 호출하여 반환된 토큰을 토큰 리스트의 뒤에 추가한다.
+ * Description: 앞 뒤 공백이 잘린 문자열을 토큰화한다.
+ *              set_token() 함수를 호출하여 반환된 토큰을 토큰 리스트의 뒤에 추가한다.
  * Param.   #1: 앞 뒤 공백이 잘린 문자열
  * Return     : 토큰화된 토큰 리스트
  */
