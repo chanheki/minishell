@@ -20,6 +20,12 @@
 /* gnl */
 # define BUFFER_SIZE 42
 
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}					t_list;
+
 typedef enum e_line
 {
 	NO_NEW_LINE	= -1
