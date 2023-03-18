@@ -54,6 +54,7 @@ int	main(void)
 		free(trimmed);
 		if (is_valid_syntax(token))
 		{
+			delete_outer_quotes(&token);
 			ast_tree = make_ast_tree(&token);
 			print_ast_tree(ast_tree);
 			ft_putstr_fd("SUCCESS\n", STDOUT_FILENO);
