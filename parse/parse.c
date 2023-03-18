@@ -23,6 +23,7 @@ t_ASTnode	*parse_command_line(char *line)
 		free_token_list(&token);
 		return (NULL);
 	}
+	delete_outer_quotes(&token);
 	ast_tree = make_ast_tree(&token);
 	if (!ast_tree)
 		return (NULL);
