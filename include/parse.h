@@ -131,6 +131,7 @@ void				free_token_list(t_token **token);
 t_token				*tokenize_line(char *trimmed_line);
 bool				is_operator(t_token *token);
 void				interpret_expansion(t_token **token, char *trimmed_line, int *i);
+char				*get_env_value(char *trimmed_line, int start, int length);
 void				interpret_env(t_token **token, char *trimmed_line, int *i);
 void				interpret_exit_status(t_token **token, char *trimmed_line, int *i);
 

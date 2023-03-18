@@ -35,11 +35,15 @@ void	set_double_quote_token(t_token **token, char *trimmed_line, int *i)
 {
 	while (trimmed_line[*i] && trimmed_line[*i] != DQUOTE)
 	{
-		join_token_value(token, trimmed_line, i);
+		if (trimmed_line[*i] != EXPANSION)
+			join_token_value(token, trimmed_line, i);
 		if (!((*token)->is_in_escape) && trimmed_line[*i] == ESCAPE)
 			(*token)->is_in_escape = true;
 		else if (!(*token)->is_in_escape && trimmed_line[*i] == EXPANSION)
+		{
 			interpret_expansion(token, trimmed_line, i);
+			continue ;
+		}
 		(*i)++;
 	}
 	join_token_value(token, trimmed_line, i);

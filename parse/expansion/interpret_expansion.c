@@ -6,6 +6,24 @@ void	interpret_exit_status(t_token **token, char *trimmed_line, int *i)
 }
 
 /*
+ * Description: 환경변수 키를 찾아서 그 값을 반환한다.
+ * Param.   #1: 환경변수 키를 찾을 문자열
+ * Param.   #2: 환경변수 키가 시작되는 인덱스
+ * Param.   #3: 환경변수 키의 길이
+ * Return     : 환경변수 키에 해당하는 값
+ */
+char	*get_env_value(char *trimmed_line, int start, int length)
+{
+	char	*env_name;
+	char	*interpreted;
+
+	env_name = ft_substr(trimmed_line, start, length);
+	interpreted = getenv(env_name);
+	free(env_name);
+	return (interpreted);
+}
+
+/*
  * Description: 환경변수를 해석하여 토큰의 값에 이어붙인다.
  *              1. *i를 1 증가시켜 $의 다음 인덱스로 만든다.
  *              2. 커맨드 라인의 *i번째 글자가 공백/끝이 아니고, 리다이렉션/연산자/괄호가 아닐 때까지의 길이를 구한다.
@@ -19,35 +37,49 @@ void	interpret_exit_status(t_token **token, char *trimmed_line, int *i)
  */
 void	interpret_env(t_token **token, char *trimmed_line, int *i)
 {
-	char	*env_name;
 	char	*interpreted;
 	char	*new_token_value;
-	int 	length;
+	int		length;
 
+	(*i)++;
 	length = 0;
 	while (trimmed_line[*i + length] && trimmed_line[*i + length] != SPACE
-		   && !ft_strchr("<>()|;&\'\"", trimmed_line[*i + length]))
+		&& !ft_strchr("<>()|;&\'\"", trimmed_line[*i + length]))
 		length++;
-	env_name = ft_substr(trimmed_line, *i, length);
-	interpreted = getenv(env_name);
-	free(env_name);
+	interpreted = get_env_value(trimmed_line, *i, length);
 	*i += length;
-	if (interpreted)
+	if (!interpreted)
+		return ;
+	if ((*token)->value)
 	{
-		if ((*token)->value)
-		{
-			new_token_value = ft_strjoin((*token)->value, interpreted);
-			free((*token)->value);
-			(*token)->value = new_token_value;
-		}
-		else
-			(*token)->value = ft_strdup(interpreted);
+		new_token_value = ft_strjoin((*token)->value, interpreted);
+		free((*token)->value);
+		(*token)->value = new_token_value;
 	}
+	else
+		(*token)->value = ft_strdup(interpreted);
 }
 
+/*
+ * Description: 환경변수를 해석한다.
+ *              1. *i번째 다음 글자가 없거나 큰 따옴표로 감싸진다면, $만 토큰의 값에 이어붙인다.
+ *              2. $ 다음 글자가 ?이면, exit status를 토큰의 값에 이어붙인다.
+ *              3. $ 다음에 환경변수 키가 온다면, 그에 해당하는 값을 토큰의 값에 이어붙인다.
+ * Param.   #1: 토큰의 주소
+ * Param.   #2: 해석할 환경변수가 포함된 커맨드 라인
+ * Param.   #3: 커맨드 라인 내 환경변수의 시작 인덱스
+ * Return     : 없음
+ */
 void	interpret_expansion(t_token **token, char *trimmed_line, int *i)
 {
-	if (trimmed_line[*i] == '?')
+	if (trimmed_line[*i + 1] == '\0'
+		|| ((*token)->is_in_dquote && trimmed_line[*i + 1] == DQUOTE))
+	{
+		join_token_value(token, trimmed_line, i);
+		(*i)++;
+		return ;
+	}
+	else if (trimmed_line[*i] == '?')
 		interpret_exit_status(token, trimmed_line, i);
 	else
 		interpret_env(token, trimmed_line, i);
