@@ -129,6 +129,9 @@ void				interpret_expansion(t_token **token, char *trimmed_line, int *i);
 char				*get_env_value(char *trimmed_line, int start, int length);
 void				interpret_env(t_token **token, char *trimmed_line, int *i);
 void				interpret_exit_status(t_token **token, int *i);
+void				delete_outer_quotes(t_token **token);
+void				check_delete_quote(char *value, char *delete_flag);
+void				rebuild_quote_string(t_token **temp_token, char *delete_flag);
 
 /*------------------------------ COMMAND_SPLIT -------------------------------*/
 size_t				get_split_command_count(char *arguments);
