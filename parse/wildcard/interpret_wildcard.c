@@ -10,7 +10,8 @@ bool	is_valid_wildcard(t_token *token, char *token_value, char *dir_name)
 	value_length = ft_strlen(token_value);
 	dir_length = ft_strlen(dir_name);
 	i = 0;
-	while (i < value_length && i < dir_length && (token_value[i] == dir_name[i]))
+	while (i < value_length && i < dir_length
+		&& (token_value[i] == dir_name[i]))
 		i++;
 	if (i == value_length)
 		return (i == dir_length);
@@ -19,7 +20,8 @@ bool	is_valid_wildcard(t_token *token, char *token_value, char *dir_name)
 		dir_idx = 0;
 		while (i + dir_idx <= dir_length)
 		{
-			if (is_valid_wildcard(token, token_value + i + 1, dir_name + i + dir_idx))
+			if (is_valid_wildcard(token, token_value + i + 1,
+					dir_name + i + dir_idx))
 				return (true);
 			dir_idx++;
 		}
@@ -52,8 +54,6 @@ int	rebuild_wildcard(t_ASTnode **node, int *dir_count, char *dir_name)
 	return (SUCCESS);
 }
 
-
-
 int	interpret_wildcard(t_ASTnode **node)
 {
 	DIR						*dir;
@@ -69,7 +69,8 @@ int	interpret_wildcard(t_ASTnode **node)
 		dirent = readdir(dir);
 		if (!dirent)
 			break ;
-		if (is_valid_wildcard((*node)->token, (*node)->token->value, dirent->d_name)
+		if (is_valid_wildcard((*node)->token, (*node)->token->value,
+				dirent->d_name)
 			&& rebuild_wildcard(node, &dir_count, dirent->d_name) == ERROR)
 		{
 			closedir(dir);
