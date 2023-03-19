@@ -134,6 +134,9 @@ void				interpret_exit_status(t_token **token, int *i);
 void				delete_outer_quotes(t_token **token);
 void				check_delete_quote(char *value, char *delete_flag);
 void				rebuild_quote_string(t_token **temp_token, char *delete_flag);
+bool				is_valid_wildcard(t_token *token, char *token_value, char *dir_name);
+int					rebuild_wildcard(t_ASTnode **node, int *dir_count, char *dir_name);
+int					interpret_wildcard(t_ASTnode **node);
 int					handle_wildcard(t_ASTnode *ast_tree);
 
 /*------------------------------ COMMAND_SPLIT -------------------------------*/
