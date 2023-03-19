@@ -25,6 +25,7 @@ t_ASTnode	*parse_command_line(char *line)
 	}
 	delete_outer_quotes(&token);
 	ast_tree = make_ast_tree(&token);
+	handle_wildcard(ast_tree);
 	if (!ast_tree)
 		return (NULL);
 	return (ast_tree);

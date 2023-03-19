@@ -56,6 +56,7 @@ int	main(void)
 		{
 			delete_outer_quotes(&token);
 			ast_tree = make_ast_tree(&token);
+			handle_wildcard(ast_tree);
 			print_ast_tree(ast_tree);
 			ft_putstr_fd("SUCCESS\n", STDOUT_FILENO);
 		}
