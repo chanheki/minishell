@@ -131,7 +131,6 @@ int	make_normal_node(t_ASTnode **ast_tree, t_token **current)
 	if (!(*ast_tree)->token)
 	{
 		(*ast_tree)->token = *current;
-		(*ast_tree)->type = (*current)->type;
 		return (SUCCESS);
 	}
 	new_node = create_new_node(*current);
