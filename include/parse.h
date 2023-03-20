@@ -29,17 +29,6 @@ enum	e_token_type {
 	ESCAPE = '\\',
 };
 
-enum	e_node_type {
-	PIPE_NODE,
-	DPIPE_NODE,
-	BACKGROUND_NODE,
-	SEQUENCE_NODE,
-	REDIRECT_IN_NODE,
-	REDIRECT_OUT_NODE,
-	CMD_PATH_NODE,
-	ARGUMENT_NODE,
-};
-
 enum	e_node_direction {
 	LEFT,
 	RIGHT,
@@ -67,7 +56,6 @@ typedef struct s_token {
 
 typedef struct s_ASTnode
 {
-	int					type;
 	t_token				*token;
 	struct s_ASTnode	*parent;
 	struct s_ASTnode	*left;
@@ -96,7 +84,7 @@ t_ASTnode			*make_ast_tree(t_token **token);
 void				add_node_to_direction(t_ASTnode **node, t_ASTnode *new_node,
 						int direction);
 void				clear_nodes(t_ASTnode **root);
-t_ASTnode			*create_new_node(t_token *token, int type);
+t_ASTnode			*create_new_node(t_token *token);
 t_ASTnode			*set_ast_node(char *trimmed_line);
 t_ASTnode			*get_parent_node(t_ASTnode *node, t_token *current);
 t_ASTnode			*get_root_node(t_ASTnode *ast_tree);
