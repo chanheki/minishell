@@ -74,7 +74,7 @@ int	rebuild_wildcard(t_ASTnode **node, int *dir_count, char *dir_name)
 	else
 	{
 		new_token = create_new_token(dir_name, WILDCARD);
-		new_node = create_new_node(new_token, WILDCARD);
+		new_node = create_new_node(new_token);
 		if (!new_node || !new_token)
 			return (ERROR);
 		add_node_to_direction(node, new_node, LEFT);

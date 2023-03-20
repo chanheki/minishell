@@ -62,7 +62,7 @@ int	make_operator_node(t_ASTnode **ast_tree, t_token *current)
 	t_ASTnode	*new_node;
 	t_ASTnode	*parent_node;
 
-	new_node = create_new_node(current, current->type);
+	new_node = create_new_node(current);
 	if (!new_node)
 		return (FAIL);
 	parent_node = get_parent_node(*ast_tree, current);
@@ -98,11 +98,11 @@ int	make_redirection_node(t_ASTnode **ast_tree, t_token **current)
 
 	if (!(*current)->next)
 		return (FAIL);
-	new_node = create_new_node(*current, (*current)->type);
+	new_node = create_new_node(*current);
 	if (!new_node)
 		return (ERROR);
 	(*current) = (*current)->next;
-	file_node = create_new_node(*current, (*current)->type);
+	file_node = create_new_node(*current);
 	if (!file_node)
 		return (ERROR);
 	while ((*ast_tree)->right)
@@ -131,10 +131,9 @@ int	make_normal_node(t_ASTnode **ast_tree, t_token **current)
 	if (!(*ast_tree)->token)
 	{
 		(*ast_tree)->token = *current;
-		(*ast_tree)->type = (*current)->type;
 		return (SUCCESS);
 	}
-	new_node = create_new_node(*current, (*current)->type);
+	new_node = create_new_node(*current);
 	if (!new_node)
 		return (ERROR);
 	while ((*ast_tree)->left)
@@ -161,7 +160,7 @@ int	make_command_node(t_ASTnode **ast_tree, t_token **current)
 
 	if (!(*ast_tree) || is_operator((*ast_tree)->token))
 	{
-		new_node = create_new_node(NULL, 0);
+		new_node = create_new_node(NULL);
 		if (!new_node)
 			return (ERROR);
 		add_node_to_direction(ast_tree, new_node, RIGHT);

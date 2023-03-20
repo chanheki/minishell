@@ -18,7 +18,7 @@ void	check_delete_quote(char *value, char *delete_flag)
 	quote_type = 0;
 	while (value[++i])
 	{
-		if (!quote_type && (value[i] == DQUOTE || value[i] == QUOTE))
+		if (!quote_type && is_quote(value[i]))
 		{
 			quote_type = value[i];
 			delete_flag[i] = 't';

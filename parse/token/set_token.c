@@ -11,7 +11,7 @@ void	set_token(t_token *token, char *trimmed_line, int *i)
 {
 	if (trimmed_line[*i] == ESCAPE)
 		set_normal_token(&token, trimmed_line, i);
-	else if (trimmed_line[*i] == QUOTE || trimmed_line[*i] == DQUOTE)
+	else if (is_quote(trimmed_line[*i]))
 		set_quote_token(&token, trimmed_line, i);
 	else if (ft_strchr("<>()|;&", trimmed_line[*i]))
 		set_operator_token(&token, trimmed_line, i);
