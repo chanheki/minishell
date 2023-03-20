@@ -1,7 +1,7 @@
 #ifndef PARSE_H
 # define PARSE_H
 
-# include "../libft/libft.h"
+# include "../lib/libft.h"
 # include "minishell.h"
 # include <stdbool.h>
 # include <stdio.h>
