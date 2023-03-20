@@ -53,7 +53,7 @@ typedef struct s_ASTnode
 	struct s_ASTnode	*right;
 }	t_ASTnode;
 
-typedef struct	s_cursor
+typedef struct s_cursor
 {
 	void	*current;
 	void	*previous;
@@ -79,11 +79,13 @@ t_ASTnode			*create_new_node(t_token *token);
 t_ASTnode			*set_ast_node(char *trimmed_line);
 t_ASTnode			*get_parent_node(t_ASTnode *node, t_token *current);
 t_ASTnode			*get_root_node(t_ASTnode *ast_tree);
-int					make_parenthesis_node(t_ASTnode **ast_tree, t_token **current);
+int					make_parenthesis_node(t_ASTnode **ast_tree,
+						t_token **current);
 int					make_operator_node(t_ASTnode **ast_tree, t_token *current);
 int					make_command_node(t_ASTnode **ast_tree, t_token **current);
-int 				make_redirection_node(t_ASTnode **ast_tree, t_token **current);
-int 				make_normal_node(t_ASTnode **ast_tree, t_token **current);
+int					make_redirection_node(t_ASTnode **ast_tree,
+						t_token **current);
+int					make_normal_node(t_ASTnode **ast_tree, t_token **current);
 
 /*---------------------------------- TOKEN ----------------------------------*/
 void				add_token_to_tail(t_token **token, t_token *new);
@@ -107,15 +109,19 @@ void				free_token_list(t_token **token);
 t_token				*tokenize_line(char *trimmed_line);
 bool				is_operator(t_token *token);
 bool				is_quote(char c);
-void				interpret_expansion(t_token **token, char *trimmed_line, int *i);
+void				interpret_expansion(t_token **token, char *trimmed_line,
+						int *i);
 char				*get_env_value(char *trimmed_line, int start, int length);
 void				interpret_env(t_token **token, char *trimmed_line, int *i);
 void				interpret_exit_status(t_token **token, int *i);
 void				delete_outer_quotes(t_token **token);
 void				check_delete_quote(char *value, char *delete_flag);
-void				rebuild_quote_string(t_token **temp_token, char *delete_flag);
-bool				is_valid_wildcard(t_token *token, char *token_value, char *dir_name);
-int					rebuild_wildcard(t_ASTnode **node, int *dir_count, char *dir_name);
+void				rebuild_quote_string(t_token **temp_token,
+						char *delete_flag);
+bool				is_valid_wildcard(t_token *token, char *token_value,
+						char *dir_name);
+int					rebuild_wildcard(t_ASTnode **node, int *dir_count,
+						char *dir_name);
 int					interpret_wildcard(t_ASTnode **node);
 int					handle_wildcard(t_ASTnode *ast_tree);
 
