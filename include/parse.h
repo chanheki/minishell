@@ -118,8 +118,4 @@ int					rebuild_wildcard(t_ASTnode **node, int *dir_count, char *dir_name);
 int					interpret_wildcard(t_ASTnode **node);
 int					handle_wildcard(t_ASTnode *ast_tree);
 
-/*------------------------------ COMMAND_SPLIT -------------------------------*/
-size_t				get_split_command_count(char *arguments);
-char				**split_command_line(char *argument_str);
-
 #endif
