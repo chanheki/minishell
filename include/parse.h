@@ -35,15 +35,6 @@ enum	e_node_direction {
 	PARENT,
 };
 
-enum	e_token_status {
-	IN_NORMAL,
-	IN_QUOTE,
-	IN_DQUOTE,
-	IN_PARENTHESIS,
-	IN_ESCAPE,
-	IN_EXPANSION,
-};
-
 typedef struct s_token {
 	char				*value;
 	enum e_token_type	type;
