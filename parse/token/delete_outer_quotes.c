@@ -3,6 +3,8 @@
 /*
  * Description: 토큰의 값에서 바깥 따옴표의 위치에는 delete_flag에 't'를, 그 외에는 'f'를 넣는다.
  *              추후 delete_flag의 't'인 위치의 따옴표를 삭제한다.
+ *              만약 따옴표가 짝이 맞지 않는다면, 마지막으로 닫히지 않은 따옴표는 삭제하지 않는다.
+ *              예를 들어, "echo의 경우, "는 삭제하지 않는다.
  * Param.   #1: 토큰의 값
  * Param.   #2: 삭제할 따옴표 위치를 표시할 문자열
  * Return     : 없음
@@ -27,6 +29,11 @@ void	check_delete_quote(char *value, char *delete_flag)
 			delete_flag[i] = 't';
 		}
 		else
+			delete_flag[i] = 'f';
+	}
+	while (quote_type && --i >= 0)
+	{
+		if (value[i] == quote_type)
 			delete_flag[i] = 'f';
 	}
 }
