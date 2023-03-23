@@ -4,7 +4,6 @@ void	print_ast_tree(t_ASTnode *ast_tree)
 {
 	t_ASTnode	*leftmost;
 	t_ASTnode	*rightmost;
-	t_ASTnode	*temp;
 
 	if (!ast_tree)
 		return ;
