@@ -17,8 +17,10 @@ void	set_single_quote_token(t_token **token, char *trimmed_line, int *i)
 	}
 	join_token_value(token, trimmed_line, i);
 	if ((*token)->is_in_quote && trimmed_line[*i] == QUOTE)
+	{
 		(*token)->is_in_quote = false;
-	(*i)++;
+		(*i)++;
+	}
 	set_token(*token, trimmed_line, i);
 }
 
