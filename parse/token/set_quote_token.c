@@ -50,8 +50,10 @@ void	set_double_quote_token(t_token **token, char *trimmed_line, int *i)
 	}
 	join_token_value(token, trimmed_line, i);
 	if ((*token)->is_in_dquote && trimmed_line[*i] == DQUOTE)
+	{
 		(*token)->is_in_dquote = false;
-	(*i)++;
+		(*i)++;
+	}
 	set_token(*token, trimmed_line, i);
 	return ;
 }
