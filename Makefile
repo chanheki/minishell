@@ -25,6 +25,7 @@ PARSE		=	pars/
 HISTORY		=	history/
 EXECUTE		=	execute/
 SIGNAL		=	signal/
+PARSE		=	parse/
 
 # ---- escape ---- #
 
@@ -73,6 +74,18 @@ define react
 $(if $(filter bonus, $(MAKECMDGOALS)), bonus, all)
 endef
 
+# ----- Test ---- #
+TEST_NAME = test
+parse_sources = $(wildcard $(PARSE)/**/*.c)
+parse_sources += $(wildcard $(PARSE)/*.c)
+parse_objects = $(parse_sources:.c=.o)
+tokenize = $(addprefix $(TEST_NAME)/, tokenize.c)
+tokenize_objects = $(addprefix $(TEST_NAME)/, tokenize.o)
+syntax = $(addprefix $(TEST_NAME)/, syntax_check.c)
+syntax_objects = $(addprefix $(TEST_NAME)/, syntax_check.o)
+ast = $(addprefix $(TEST_NAME)/, ast_tree.c)
+ast_objects = $(addprefix $(TEST_NAME)/, ast_tree.o)
+
 # ---- Command ---- #
 
 .PHONY : all bonus clean fclean re
@@ -84,6 +97,19 @@ $(NAME) : $(objects_goal) $(LIB)
 	@echo "$(DELINE) $(MAGENTA)$@ $(RESET) is compiled $(GREEN)$(BOLD) OK ✅ $(RESET)"
 
 bonus : $(NAME)
+
+test-tokenize: $(tokenize_objects) $(parse_objects) $(LIB)
+	@$(CC) $(CFLAGS) -g -o $@ $(tokenize_objects) $(parse_objects) $(LIB) $(INCS)
+
+test-syntax: $(syntax_objects) $(parse_objects) $(LIB)
+	@$(CC) $(CFLAGS) -g -o $@ $(syntax_objects) $(parse_objects) $(LIB) $(INCS)
+
+test-ast: $(ast_objects) $(parse_objects) $(LIB)
+	@$(CC) $(CFLAGS) -g -o $@ $(ast_objects) $(parse_objects) $(LIB) $(INCS)
+
+test-clean:
+	@$(RM) $(tokenize_objects) $(syntax_objects) $(ast_objects) $(parse_objects) test-tokenize test-syntax test-ast
+	@make -C ./lib fclean
 
 $(object_dir)/%.o : %.c
 	@#mkdir -p $(object_dir)
