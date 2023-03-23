@@ -85,7 +85,7 @@ void	delete_outer_quotes(t_token **token)
 	temp_token = *token;
 	while (temp_token)
 	{
-		if (temp_token->type == NORMAL)
+		if (temp_token->type == NORMAL && temp_token->value)
 		{
 			delete_flag = (char *)ft_calloc(ft_strlen(temp_token->value) + 1,
 					sizeof(char));
