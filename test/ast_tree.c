@@ -1,7 +1,5 @@
 #include "../include/parse.h"
 
-// cc -g ast_tree.c ../include/parse.h ../libft/*.c ../parse/**/*.c
-
 void	print_ast_tree(t_ASTnode *ast_tree)
 {
 	t_ASTnode	*leftmost;

@@ -79,7 +79,6 @@ void	delete_outer_quotes(t_token **token)
 {
 	t_token	*temp_token;
 	char	*delete_flag;
-	int		i;
 
 	if (!token)
 		return ;
