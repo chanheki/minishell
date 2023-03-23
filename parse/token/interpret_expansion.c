@@ -95,7 +95,8 @@ void	interpret_expansion(t_token **token, char *trimmed_line, int *i)
 	if (trimmed_line[*i + 1] == '?')
 		interpret_exit_status(token, i);
 	else if (trimmed_line[*i + 1] == '\0'
-		|| ((*token)->is_in_dquote && trimmed_line[*i + 1] == DQUOTE))
+		|| ((*token)->is_in_dquote && trimmed_line[*i + 1] == DQUOTE)
+		|| ((*token)->prev && (*token)->prev->type == DREDIRECT_IN))
 	{
 		join_token_value(token, trimmed_line, i);
 		(*i)++;

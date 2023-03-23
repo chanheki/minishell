@@ -17,5 +17,6 @@ t_token	*create_new_token(void *value, enum e_token_type type)
 	new_token->is_in_dquote = false;
 	new_token->is_in_escape = false;
 	new_token->next = NULL;
+	new_token->prev = NULL;
 	return (new_token);
 }

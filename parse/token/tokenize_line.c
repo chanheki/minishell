@@ -10,7 +10,6 @@ t_token	*tokenize_line(char *trimmed_line)
 {
 	t_token	*token;
 	t_token	*new_token;
-	t_token	*prev_token;
 	int		i;
 
 	if (!*trimmed_line)
@@ -25,12 +24,10 @@ t_token	*tokenize_line(char *trimmed_line)
 			free_token_list(&token);
 			return (NULL);
 		}
-		new_token->prev = prev_token;
+		add_token_to_tail(&token, new_token);
 		set_token(new_token, trimmed_line, &i);
 		while (trimmed_line[i] && trimmed_line[i] == SPACE)
 			i++;
-		add_token_to_tail(&token, new_token);
-		prev_token = new_token;
 	}
 	return (token);
 }
