@@ -16,6 +16,7 @@
 # include "utill.h"
 # include "prompt.h"
 # include "signal.h"
+# include "parse.h"
 
 /*
  * <exit code>

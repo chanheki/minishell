@@ -25,7 +25,7 @@ enum	e_token_type {
 	DQUOTE = '\"',
 	WILDCARD = '*',
 	EXPANSION = '$',
-	SPACE = ' ',
+	BLANK = ' ',
 	ESCAPE = '\\',
 };
 
