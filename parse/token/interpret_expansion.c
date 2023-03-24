@@ -63,7 +63,7 @@ void	interpret_env(t_token **token, char *trimmed_line, int *i)
 
 	(*i)++;
 	length = 0;
-	while (trimmed_line[*i + length] && trimmed_line[*i + length] != SPACE
+	while (trimmed_line[*i + length] && trimmed_line[*i + length] != BLANK
 		&& !ft_strchr("<>()|;&\'\"", trimmed_line[*i + length]))
 		length++;
 	interpreted = get_env_value(trimmed_line, *i, length);

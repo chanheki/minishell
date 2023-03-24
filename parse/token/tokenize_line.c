@@ -26,7 +26,7 @@ t_token	*tokenize_line(char *trimmed_line)
 		}
 		add_token_to_tail(&token, new_token);
 		set_token(new_token, trimmed_line, &i);
-		while (trimmed_line[i] && trimmed_line[i] == SPACE)
+		while (trimmed_line[i] && trimmed_line[i] == BLANK)
 			i++;
 	}
 	return (token);

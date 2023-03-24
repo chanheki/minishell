@@ -18,7 +18,7 @@ void	set_fd_redirection_token(t_token **token, char *trimmed_line, int *i)
 		join_token_value(token, trimmed_line, i);
 		(*i)++;
 	}
-	if (trimmed_line[*i] && trimmed_line[*i] != SPACE)
+	if (trimmed_line[*i] && trimmed_line[*i] != BLANK)
 	{
 		if (ft_strchr("<>", trimmed_line[*i]))
 			set_operator_token(token, trimmed_line, i);

@@ -5,7 +5,7 @@ extern t_global	g_var;
 
 void	initialize_setting()
 {
-	ft_putstr_fd(MINISHELLHEADER, 2);
+	ft_putstr_fd(JIPHEADER, 2);
 	set_signal();
 }
 
