@@ -24,10 +24,10 @@ t_token	*tokenize_line(char *trimmed_line)
 			free_token_list(&token);
 			return (NULL);
 		}
+		add_token_to_tail(&token, new_token);
 		set_token(new_token, trimmed_line, &i);
 		while (trimmed_line[i] && trimmed_line[i] == SPACE)
 			i++;
-		add_token_to_tail(&token, new_token);
 	}
 	return (token);
 }

@@ -42,6 +42,7 @@ typedef struct s_token {
 	bool				is_in_dquote;
 	bool				is_in_escape;
 	struct s_token		*next;
+	struct s_token		*prev;
 
 }	t_token;
 

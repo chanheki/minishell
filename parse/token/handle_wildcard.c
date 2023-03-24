@@ -139,7 +139,7 @@ int	handle_wildcard(t_ASTnode *ast_tree)
 {
 	if (!ast_tree)
 		return (SUCCESS);
-	if (ast_tree->token->type == NORMAL)
+	if (ast_tree->token->type == NORMAL && ast_tree->token->value)
 	{
 		if (handle_wildcard(ast_tree->left) == ERROR
 			|| handle_wildcard(ast_tree->right) == ERROR)
