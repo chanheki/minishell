@@ -10,17 +10,18 @@ t_global	g_var;
 static void	hosting_loop(void)
 {
 	char		*str;
-	// t_ASTnode	*base;
+	t_ASTnode	*base;
 
-	// base = NULL;
 	while (1)
 	{
 		str = readline(PROMPT);
 		check_EOF(str);
 		add_history(str);
+		base = parse_command_line(str);
 
 		// TODO: parsing line
 		// if (!parsing) - exception
+		if (base == NULL) {}
 
 		// TODO: exe line
 		execute(str);
