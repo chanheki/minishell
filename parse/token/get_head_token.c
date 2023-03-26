@@ -5,7 +5,7 @@
  * Param.  #1 : 토큰 리스트
  * Return     : 토큰 리스트의 맨 앞 토큰
  */
-t_token *get_head_token(t_token **token)
+t_token	*get_head_token(t_token **token)
 {
 	if (!token || !*token)
 		return (NULL);
