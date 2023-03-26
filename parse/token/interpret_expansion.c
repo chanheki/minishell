@@ -63,7 +63,7 @@ void	interpret_env(t_token **token, char *trimmed_line, int *i)
 
 	(*i)++;
 	length = 0;
-	while (trimmed_line[*i + length] && trimmed_line[*i + length] != SPACE
+	while (trimmed_line[*i + length] && trimmed_line[*i + length] != BLANK
 		&& !ft_strchr("<>()|;&\'\"", trimmed_line[*i + length]))
 		length++;
 	interpreted = get_env_value(trimmed_line, *i, length);
@@ -78,6 +78,41 @@ void	interpret_env(t_token **token, char *trimmed_line, int *i)
 	}
 	else
 		(*token)->value = ft_strdup(interpreted);
+}
+
+/*
+ * Description: expansion 해석 후, 다음의 동작을 수행 하여 토큰의 값을 수정 한다.
+ *              1. 토큰의 값의 앞 뒤 공백을 제거 한다.
+ *              2. 토큰의 값이 공백으로 나누어진 문자열이라면, set_token()을 호출하여 토큰을 분리한다.
+ * Param.   #1: 토큰의 주소
+ * Return     : 없음
+ */
+void	postprocess_expansion(t_token **token)
+{
+	char	*trimmed_value;
+	t_token	*sub_token;
+	t_token	*sub_token_tail;
+
+	if (!(*token)->value)
+		return ;
+	trimmed_value = ft_strtrim((*token)->value, " ");
+	free((*token)->value);
+	(*token)->value = trimmed_value;
+	delete_outer_quotes(token);
+	if (ft_strchr((*token)->value, BLANK))
+	{
+		sub_token = tokenize_line((*token)->value);
+		if (sub_token)
+		{
+			sub_token->prev = (*token)->prev;
+			(*token)->prev->next = sub_token;
+			sub_token_tail = get_tail_token(&sub_token);
+			sub_token_tail->next = (*token)->next;
+			free((*token)->value);
+			free(*token);
+			*token = sub_token;
+		}
+	}
 }
 
 /*
@@ -103,5 +138,8 @@ void	interpret_expansion(t_token **token, char *trimmed_line, int *i)
 		return ;
 	}
 	else
+	{
 		interpret_env(token, trimmed_line, i);
+		postprocess_expansion(token);
+	}
 }
