@@ -1,29 +1,4 @@
-#include "../../include/parse.h"
-
-/*
- * Description: 이전 foreground에서 실행된 명령어의 exit status를 토큰의 value에 저장한다.
- * Param.   #1: 토큰의 주소
- * Param.   #2: 해석할 환경변수가 포함된 커맨드 라인
- * Param.   #3: 커맨드 라인 내 환경변수의 시작 인덱스. '?'의 위치를 가리키고 있음
- * Return     : 없음
- */
-void	interpret_exit_status(t_token **token, int *i)
-{
-	char	*exit_status;
-	char	*temp;
-
-	exit_status = ft_itoa(0);
-	if (!(*token)->value)
-		(*token)->value = exit_status;
-	else
-	{
-		temp = (*token)->value;
-		(*token)->value = ft_strjoin((*token)->value, exit_status);
-		free(temp);
-		free(exit_status);
-	}
-	*i += 2;
-}
+#include "../../../include/parse.h"
 
 /*
  * Description: 환경변수 키를 찾아서 그 값을 반환한다.
@@ -81,17 +56,41 @@ void	interpret_env(t_token **token, char *trimmed_line, int *i)
 }
 
 /*
+ * Description: 토큰의 문자열을 토큰화 한다.
+ * Param.   #1: 토큰화 할 문자열이 포함된 토큰
+ * Return     : 없음
+ */
+void	sub_tokenize(t_token **token)
+{
+	t_token	*sub_token;
+	t_token	*sub_token_tail;
+
+	sub_token = tokenize_line((*token)->value);
+	if (sub_token)
+	{
+		sub_token->prev = (*token)->prev;
+		if ((*token)->prev)
+			(*token)->prev->next = sub_token;
+		sub_token_tail = get_tail_token(&sub_token);
+		sub_token_tail->next = (*token)->next;
+		if ((*token)->next)
+			(*token)->next->prev = sub_token_tail;
+		free((*token)->value);
+		free(*token);
+		*token = sub_token;
+	}
+}
+
+/*
  * Description: expansion 해석 후, 다음의 동작을 수행 하여 토큰의 값을 수정 한다.
  *              1. 토큰의 값의 앞 뒤 공백을 제거 한다.
- *              2. 토큰의 값이 공백으로 나누어진 문자열이라면, set_token()을 호출하여 토큰을 분리한다.
+ *              2. 토큰의 값이 공백으로 나누어진 문자열 이라면, 토큰화 한다.
  * Param.   #1: 토큰의 주소
  * Return     : 없음
  */
 void	postprocess_expansion(t_token **token)
 {
 	char	*trimmed_value;
-	t_token	*sub_token;
-	t_token	*sub_token_tail;
 
 	if (!(*token)->value)
 		return ;
@@ -100,19 +99,7 @@ void	postprocess_expansion(t_token **token)
 	(*token)->value = trimmed_value;
 	delete_outer_quotes(token);
 	if (ft_strchr((*token)->value, BLANK))
-	{
-		sub_token = tokenize_line((*token)->value);
-		if (sub_token)
-		{
-			sub_token->prev = (*token)->prev;
-			(*token)->prev->next = sub_token;
-			sub_token_tail = get_tail_token(&sub_token);
-			sub_token_tail->next = (*token)->next;
-			free((*token)->value);
-			free(*token);
-			*token = sub_token;
-		}
-	}
+		sub_tokenize(token);
 }
 
 /*
