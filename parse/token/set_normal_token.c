@@ -15,7 +15,7 @@
  */
 void	set_normal_token(t_token **token, char *trimmed_line, int *i)
 {
-	while (trimmed_line[*i] && trimmed_line[*i] != SPACE)
+	while (trimmed_line[*i] && trimmed_line[*i] != BLANK)
 	{
 		if (is_quote(trimmed_line[*i]))
 		{
