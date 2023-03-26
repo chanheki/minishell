@@ -105,8 +105,9 @@ endef
 
 # ----- Test ---- #
 TEST_NAME = test
-parse_sources = $(wildcard $(PARSE)/**/*.c)
-parse_sources += $(wildcard $(PARSE)/*.c)
+parse_sources = $(wildcard $(PARSE)/*.c)
+parse_sources += $(wildcard $(PARSE)/**/*.c)
+parse_sources += $(wildcard $(PARSE)/**/**/*.c)
 parse_objects = $(parse_sources:.c=.o)
 tokenize = $(addprefix $(TEST_NAME)/, tokenize.c)
 tokenize_objects = $(addprefix $(TEST_NAME)/, tokenize.o)
