@@ -1,4 +1,4 @@
-#include "../../include/parse.h"
+#include "../../include/minishell.h"
 
 /*
  * Description: 앞 뒤 공백이 잘린 문자열을 토큰화한다.

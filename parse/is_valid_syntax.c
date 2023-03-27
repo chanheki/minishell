@@ -1,4 +1,4 @@
-#include "../include/parse.h"
+#include "../include/minishell.h"
 
 /*
  * Description: 괄호의 짝이 맞는지 검사한다.

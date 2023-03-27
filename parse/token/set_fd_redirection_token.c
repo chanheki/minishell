@@ -1,4 +1,4 @@
-#include "../../include/parse.h"
+#include "../../include/minishell.h"
 
 /*
  * Description: 파일 디스크립터가 주어진 리다이렉션 토큰을 생성한다.

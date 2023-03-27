@@ -1,4 +1,4 @@
-#include "../../../include/parse.h"
+#include "../../../include/minishell.h"
 
 /*
  * Description: 환경변수 키를 찾아서 그 값을 반환한다.

@@ -1,4 +1,4 @@
-#include "../../include/parse.h"
+#include "../../include/minishell.h"
 
 /*
  * Description: 작은 따옴표 토큰을 생성한다.

@@ -1,4 +1,4 @@
-#include "../../include/parse.h"
+#include "../../include/minishell.h"
 
 /*
  * Description: AST Tree의 루트 노드를 반환한다.

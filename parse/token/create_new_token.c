@@ -1,4 +1,4 @@
-#include "../../include/parse.h"
+#include "../../include/minishell.h"
 
 /*
  * Description: 새로운 토큰을 만든다.

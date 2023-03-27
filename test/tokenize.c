@@ -1,4 +1,4 @@
-#include "../include/parse.h"
+#include "../include/minishell.h"
 
 char	*int_to_bool_string(int i)
 {

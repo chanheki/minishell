@@ -1,4 +1,4 @@
-#include "../../include/parse.h"
+#include "../../include/minishell.h"
 
 /*
  * Description: 트리에 새로운 노드를 방향에 따라 추가한다.

@@ -1,4 +1,4 @@
-#include "../include/parse.h"
+#include "../include/minishell.h"
 
 /*
  * Description: 커맨드 라인을 파싱하여 토큰으로 분리 후, AST Tree를 생성한다.

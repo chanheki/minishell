@@ -12,11 +12,11 @@
 # include "readline/readline.h"
 
 /* custom includes */
-# include "execute.h"
+# include "parse.h"
 # include "utill.h"
 # include "prompt.h"
 # include "signal.h"
-# include "parse.h"
+# include "execute.h"
 
 /*
  * <exit code>

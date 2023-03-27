@@ -1,4 +1,4 @@
-#include "../../../include/parse.h"
+#include "../../../include/minishell.h"
 
 /*
  * Description: 이전 foreground에서 실행된 명령어의 exit status를 토큰의 value에 저장한다.
