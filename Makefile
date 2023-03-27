@@ -28,6 +28,8 @@ SIGNAL		=	signal
 PARSE		=	parse
 TOKEN		=	token
 TREE 		=	ASTtree
+EXPANSION	=	expansion
+BUILTIN		=	builtin
 
 # ---- escape ---- #
 
@@ -55,7 +57,6 @@ sources1 += $(SIGNAL)/signal.c
 
 sources1 += $(PARSE)/is_valid_syntax.c
 sources1 += $(PARSE)/parse.c
-
 sources1 += $(PARSE)/$(TREE)/add_node_to_direction.c
 sources1 += $(PARSE)/$(TREE)/clear_nodes.c
 sources1 += $(PARSE)/$(TREE)/create_new_node.c
@@ -63,15 +64,14 @@ sources1 += $(PARSE)/$(TREE)/get_parent_node.c
 sources1 += $(PARSE)/$(TREE)/get_root_node.c
 sources1 += $(PARSE)/$(TREE)/make_ast_tree.c
 sources1 += $(PARSE)/$(TREE)/make_node.c
-
 sources1 += $(PARSE)/$(TOKEN)/add_token_to_tail.c
 sources1 += $(PARSE)/$(TOKEN)/create_new_token.c
 sources1 += $(PARSE)/$(TOKEN)/delete_outer_quotes.c
 sources1 += $(PARSE)/$(TOKEN)/free_token_list.c
+sources1 += $(PARSE)/$(TOKEN)/get_head_token.c
 sources1 += $(PARSE)/$(TOKEN)/get_last_token_in_parenthesis.c
 sources1 += $(PARSE)/$(TOKEN)/get_tail_token.c
 sources1 += $(PARSE)/$(TOKEN)/handle_wildcard.c
-sources1 += $(PARSE)/$(TOKEN)/interpret_expansion.c
 sources1 += $(PARSE)/$(TOKEN)/join_token_value.c
 sources1 += $(PARSE)/$(TOKEN)/set_fd_redirection_token.c
 sources1 += $(PARSE)/$(TOKEN)/set_normal_token.c
@@ -80,6 +80,17 @@ sources1 += $(PARSE)/$(TOKEN)/set_quote_token.c
 sources1 += $(PARSE)/$(TOKEN)/set_token.c
 sources1 += $(PARSE)/$(TOKEN)/tokenize_line.c
 sources1 += $(PARSE)/$(TOKEN)/type_checker.c
+sources1 += $(PARSE)/$(TOKEN)/$(EXPANSION)/interpret_exit_status.c
+sources1 += $(PARSE)/$(TOKEN)/$(EXPANSION)/interpret_expansion.c
+
+sources1 += $(BUILTIN)/builtin.c
+sources1 += $(BUILTIN)/ft_cd.c
+sources1 += $(BUILTIN)/ft_echo.c
+sources1 += $(BUILTIN)/ft_env.c
+sources1 += $(BUILTIN)/ft_exit.c
+sources1 += $(BUILTIN)/ft_export.c
+sources1 += $(BUILTIN)/ft_pwd.c
+sources1 += $(BUILTIN)/ft_unset.c
 
 # ---- Bonus ---- #
 
