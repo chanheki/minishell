@@ -17,6 +17,7 @@
 # include "prompt.h"
 # include "signal.h"
 # include "execute.h"
+# include "builtin.h"
 
 /*
  * <exit code>
@@ -29,6 +30,7 @@
  * 128 + N => exit by signal N
  * 255     => Out of Range
  */
+
 typedef enum e_exitcode
 {
 	EXIT_BUILT_IN_FAIL = 2,
