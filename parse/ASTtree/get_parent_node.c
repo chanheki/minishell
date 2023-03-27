@@ -1,4 +1,4 @@
-#include "../../include/parse.h"
+#include "../../include/minishell.h"
 
 t_ASTnode	*get_parent_node(t_ASTnode *node, t_token *current)
 {

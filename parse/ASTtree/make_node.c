@@ -1,4 +1,4 @@
-#include "../../include/parse.h"
+#include "../../include/minishell.h"
 
 /*
  * Description: 괄호에 해당하는 노드를 만들어서 반환한다.

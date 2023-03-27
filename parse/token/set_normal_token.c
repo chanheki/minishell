@@ -1,4 +1,4 @@
-#include "../../include/parse.h"
+#include "../../include/minishell.h"
 
 /*
  * Description: 일반 토큰을 생성한다. 여기서 일반 토큰이란, 이스케이프 문자를 포함하고 기타 연산자들을 제외한 토큰을 의미한다.

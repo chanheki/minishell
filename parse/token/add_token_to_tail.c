@@ -1,4 +1,4 @@
-#include "../../include/parse.h"
+#include "../../include/minishell.h"
 
 /*
  * Description: 토큰을 토큰 리스트의 맨 끝에 추가한다.

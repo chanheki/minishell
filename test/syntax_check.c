@@ -1,4 +1,4 @@
-#include "../include/parse.h"
+#include "../include/minishell.h"
 
 int	main(void)
 {

@@ -1,4 +1,4 @@
-#include "../../include/parse.h"
+#include "../../include/minishell.h"
 
 /*
  * Description: 토큰을 순회하며, 토큰의 타입에 따라 AST Tree를 만든다.

@@ -1,4 +1,4 @@
-#include "../../include/parse.h"
+#include "../../include/minishell.h"
 
 /*
  * Description: 토큰의 값에서 바깥 따옴표의 위치에는 delete_flag에 't'를, 그 외에는 'f'를 넣는다.
