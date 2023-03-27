@@ -7,5 +7,8 @@
 
 void	ft_cd(char *option)
 {
+	if (!(*option) || !option)
+		return ; // error;
+	
 	
 }
