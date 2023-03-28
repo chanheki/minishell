@@ -160,7 +160,7 @@ int	make_command_node(t_ASTnode **ast_tree, t_token **current)
 
 	if (!(*ast_tree) || is_operator((*ast_tree)->token))
 	{
-		new_node = create_new_node(NULL);
+		new_node = create_new_node(*current);
 		if (!new_node)
 			return (ERROR);
 		add_node_to_direction(ast_tree, new_node, RIGHT);
