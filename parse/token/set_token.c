@@ -18,5 +18,10 @@ void	set_token(t_token **token, char *trimmed_line, int *i)
 	else if (ft_isdigit(trimmed_line[*i]))
 		set_fd_redirection_token(token, trimmed_line, i);
 	else
+	{
 		set_normal_token(token, trimmed_line, i);
+		if (!ft_strncmp((*token)->value, "*", ft_strlen((*token)->value))
+			&& (*token)->prev->type != DREDIRECT_IN)
+			(*token)->type = WILDCARD;
+	}
 }
