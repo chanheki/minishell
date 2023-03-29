@@ -170,7 +170,7 @@ int	make_command_node(t_ASTnode **ast_tree, t_token **current)
 		|| (*current)->type == DREDIRECT_IN
 		|| (*current)->type == DREDIRECT_OUT)
 		return (make_redirection_node(ast_tree, current));
-	else if ((*current)->type == NORMAL)
+	else if ((*current)->type == NORMAL || (*current)->type == WILDCARD)
 		return (make_normal_node(ast_tree, current));
 	return (SUCCESS);
 }
