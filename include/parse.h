@@ -8,8 +8,8 @@
 # include <dirent.h>
 # include <errno.h>
 
-enum	e_token_type {
-	NORMAL,
+typedef enum	e_token_type {
+	NORMAL = 1,
 	REDIRECT_IN = '<',
 	DREDIRECT_IN,
 	REDIRECT_OUT = '>',
@@ -27,7 +27,7 @@ enum	e_token_type {
 	EXPANSION = '$',
 	BLANK = ' ',
 	ESCAPE = '\\',
-};
+}	t_token_type;
 
 enum	e_node_direction {
 	LEFT,
@@ -43,7 +43,6 @@ typedef struct s_token {
 	bool				is_in_escape;
 	struct s_token		*next;
 	struct s_token		*prev;
-
 }	t_token;
 
 typedef struct s_ASTnode {
