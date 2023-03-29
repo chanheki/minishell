@@ -9,7 +9,7 @@
 # include <errno.h>
 
 enum	e_token_type {
-	NORMAL,
+	NORMAL = 1,
 	REDIRECT_IN = '<',
 	DREDIRECT_IN,
 	REDIRECT_OUT = '>',
@@ -46,16 +46,14 @@ typedef struct s_token {
 
 }	t_token;
 
-typedef struct s_ASTnode
-{
+typedef struct s_ASTnode {
 	t_token				*token;
 	struct s_ASTnode	*parent;
 	struct s_ASTnode	*left;
 	struct s_ASTnode	*right;
 }	t_ASTnode;
 
-typedef struct s_cursor
-{
+typedef struct s_cursor {
 	void	*current;
 	void	*previous;
 	void	*next;

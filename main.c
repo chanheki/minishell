@@ -10,22 +10,16 @@ t_global	g_var;
 static void	hosting_loop(void)
 {
 	char		*str;
-	t_ASTnode	*base;
+	t_ASTnode	*cmdTree;
 
 	while (1)
 	{
 		str = readline(PROMPT);
 		check_EOF(str);
 		add_history(str);
-		base = parse_command_line(str);
-
-		// TODO: parsing line
-		// if (!parsing) - exception
-		if (base == NULL) {}
-
-		// TODO: exe line
-		execute(str);
-
+		cmdTree = parse_command_line(str);
+		if (cmdTree != NULL)
+			execute(cmdTree);
 		// TODO: buffer clear
 		// clear(base)
 		free(str);
