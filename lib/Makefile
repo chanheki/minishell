@@ -6,7 +6,7 @@
 #    By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 12:06:46 by chanheki          #+#    #+#              #
-#    Updated: 2023/02/07 19:52:10 by chanheki         ###   ########.fr        #
+#    Updated: 2023/03/30 02:23:54 by chanheki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ sources1 	=	ft_isalpha.c \
 				ft_substr.c \
 				ft_strjoin.c \
 				ft_strtrim.c \
+				ft_split_free.c\
 				ft_split.c \
 				ft_itoa.c \
 				ft_strmapi.c \
