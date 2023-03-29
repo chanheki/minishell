@@ -7,7 +7,7 @@ LIB			=	./lib/libft.a
 LIBCC		=	-L./lib -lft
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror $(DBGS)
+CFLAGS = -Wall -Wextra -Werror
 DBGS = -fsanitize=address -g3
 
 AR = ar
@@ -30,6 +30,7 @@ TOKEN		=	token
 TREE 		=	ASTtree
 EXPANSION	=	expansion
 BUILTIN		=	builtin
+UTIL		=	util
 
 # ---- escape ---- #
 
@@ -53,6 +54,7 @@ sources1 += main.c
 
 sources1 += $(PROMPT)/prompt.c
 sources1 += $(EXECUTE)/execute.c
+sources1 += $(EXECUTE)/argv.c
 sources1 += $(SIGNAL)/signal.c
 
 sources1 += $(PARSE)/is_valid_syntax.c
@@ -91,6 +93,10 @@ sources1 += $(BUILTIN)/ft_exit.c
 sources1 += $(BUILTIN)/ft_export.c
 sources1 += $(BUILTIN)/ft_pwd.c
 sources1 += $(BUILTIN)/ft_unset.c
+
+sources1 += $(UTIL)/utils.c
+
+
 
 # ---- Bonus ---- #
 
