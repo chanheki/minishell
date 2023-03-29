@@ -48,8 +48,7 @@ bool	is_valid_redirection(t_token *token, char **token_value)
 		if (temp->type == REDIRECT_IN || temp->type == REDIRECT_OUT
 			|| temp->type == DREDIRECT_IN || temp->type == DREDIRECT_OUT)
 		{
-			temp = temp->next;
-			if (!temp || temp->type != NORMAL)
+			if (!temp->next || temp->next->type != NORMAL)
 				return (false);
 		}
 		temp = temp->next;

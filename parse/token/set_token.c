@@ -21,7 +21,7 @@ void	set_token(t_token **token, char *trimmed_line, int *i)
 	{
 		set_normal_token(token, trimmed_line, i);
 		if (!ft_strncmp((*token)->value, "*", ft_strlen((*token)->value))
-			&& (*token)->prev->type != DREDIRECT_IN)
+			&& ((*token)->prev && (*token)->prev->type != DREDIRECT_IN))
 			(*token)->type = WILDCARD;
 	}
 }
