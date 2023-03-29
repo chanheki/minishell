@@ -22,4 +22,9 @@
      `--' `-------`------' `--'  `------'`--' '--' `--' `--'`--' '--'  `--'    `-`--' '--'`--' '--`-'\n\
 \033[37m\n\n"
 
+
+/*---------------------------------- UTILS ----------------------------------*/
+int	token_typecheck(t_token *token, t_token_type type);
+int	check_token_type_operator(t_token *token);
+
 #endif
