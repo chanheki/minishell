@@ -14,4 +14,7 @@ typedef struct s_cmd_list
 // excute.c
 void	execute(t_ASTnode *cmdTree);
 
+// argv.c
+
+char	**make_argv(t_ASTnode *node);
 #endif
