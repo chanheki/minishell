@@ -9,7 +9,7 @@
 # include <errno.h>
 
 enum	e_token_type {
-	NORMAL = 1,
+	NORMAL,
 	REDIRECT_IN = '<',
 	DREDIRECT_IN,
 	REDIRECT_OUT = '>',
