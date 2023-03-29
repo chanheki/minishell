@@ -5,10 +5,9 @@
 
 #include "../include/minishell.h"
 
-void	ft_cd(char *option)
+int	ft_cd(char **option)
 {
 	if (!(*option) || !option)
-		return ; // error;
-	
-	
+		return (1); // error;
+	return (0);
 }

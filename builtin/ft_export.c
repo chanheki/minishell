@@ -5,7 +5,7 @@
 
 #include "../include/minishell.h"
 
-void	ft_export()
+int	ft_export()
 {
-	
+	return (0);
 }

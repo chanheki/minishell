@@ -5,7 +5,7 @@
 
 #include "../include/minishell.h"
 
-void	ft_unset()
+int	ft_unset()
 {
-	
+	return (0);
 }

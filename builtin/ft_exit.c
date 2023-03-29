@@ -5,7 +5,7 @@
 
 #include "../include/minishell.h"
 
-void	ft_exit()
+int	ft_exit()
 {
-	
+	return (0);
 }

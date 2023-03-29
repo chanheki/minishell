@@ -5,7 +5,7 @@
 
 #include "../include/minishell.h"
 
-void	ft_env()
+int	ft_env()
 {
-	
+	return (0);
 }

@@ -5,7 +5,7 @@
 
 #include "../include/minishell.h"
 
-void	ft_pwd()
+int	ft_pwd()
 {
-	
+	return (0);
 }
