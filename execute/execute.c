@@ -83,53 +83,39 @@ void exec_cmd_list(t_cmd_list *exec_cmd_list)
 	(void)(exec_cmd_list);
 }
 
-void	execute(t_ASTnode *cmdTree)
+static void	execute_tree(t_ASTnode *cmd_tree)
 {
-	// 재귀로 구현하는게 편할지 다시 생각해 볼 것.
-	t_ASTnode	*cmd;
-	t_cmd_list	*cmd_list;
-	int			excute_count;
+	t_error	errno;
 
-	cmd_list = NULL;
-	cmd = cmdTree;
+	if (check_builtin(cmd_tree->token->value))
+		errno = execute_builtin(cmd_tree);
+	// else
+	// 	errno = execute_child(cmd_tree);
+	// tcsetattr(STDIN_FILENO, TCSANOW, &(g_var.new_term));
+	// signal(SIGINT, sigint_handler_prompt);
+	if (errno)
+		g_var.exit_status = 1;
+}
 
-	if (cmdTree == NULL || cmd->token == NULL)
+void	execute(t_ASTnode *cmd_tree)
+{
+	t_token		*token;
+
+	token = cmd_tree->token;
+	if (!check_token_type_operator(token))
+	{
+		execute_tree(cmd_tree);
 		return ;
-
-	while (cmd->token->type != NORMAL)
-		cmd = cmd->left;
-	// 여기서 left 타고  내려가는 cmd list 
-	// 해당하는 리스트가 만들어졌으면 실행 
-	
-	if (cmd->token->type == DAMPERSAND && g_var.exit_status == 0)
-	{
-		// right 타고 내려가는 cmd list 실행.
-		while (cmd->token->type != NORMAL)
-			cmd = cmd->right;
 	}
-	else if (cmd->token->type == DPIPE && g_var.exit_status != 0)
+	execute(cmd_tree->left);
+	if (ft_strcmp(token->value, "&&") == 0 && g_var.exit_status == 0)
 	{
-		// right 타고 내려가는 cmd list 실행.
-		while (cmd->token->type != NORMAL)
-			cmd = cmd->right;
+		printf("%s\n", token->value);
+		execute(cmd_tree->right);
 	}
-
-	excute_count = 0;
-	while (true)	
+	else if (ft_strcmp(token->value, "||") == 0 && g_var.exit_status != 0)
 	{
-		if (check_builtin(cmd_list->cmd))
-			exec_builtin(cmd_list);
-		else if (!find_path(cmd_list->cmd))
-			execute_validator_handler(cmd->token->value, EXIT_COMMAND_NOT_FOUND);
-		else
-			exec_cmd_list(cmd_list);
-		if (!cmd_list->next_list->cmd)
-		{
-			execute_(cmd_list->cmd);
-			break;
-		}
-		cmd_list = cmd_list->next_list;
-		excute_count ++;
+		printf("%s\n", token->value);
+		execute(cmd_tree->right);
 	}
-	// 여기서 전부 실행 끝났는지 기다릴 것. (excute count 만큼 기다리고 마지막 값은 exit code로 넘겨주면 됨.)
 }
