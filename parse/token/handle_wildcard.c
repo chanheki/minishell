@@ -137,18 +137,13 @@ int	interpret_wildcard(t_ASTnode **node)
  */
 int	handle_wildcard(t_ASTnode *ast_tree)
 {
-	if (!ast_tree)
+	if (!ast_tree || !ast_tree->token)
 		return (SUCCESS);
-	if (ast_tree->token->type == NORMAL && ast_tree->token->value)
-	{
-		if (handle_wildcard(ast_tree->left) == ERROR
-			|| handle_wildcard(ast_tree->right) == ERROR)
-			return (ERROR);
-		if (!ft_strchr(ast_tree->token->value, WILDCARD))
-			return (SUCCESS);
-		ast_tree->token->type = WILDCARD;
-		if (interpret_wildcard(&ast_tree) == ERROR)
-			return (ERROR);
-	}
+	if (ast_tree->token->type == WILDCARD && interpret_wildcard(&ast_tree) == ERROR)
+		return (ERROR);
+	if (handle_wildcard(ast_tree->left) == ERROR)
+		return (ERROR);
+	if (handle_wildcard(ast_tree->right) == ERROR)
+		return (ERROR);
 	return (SUCCESS);
 }
