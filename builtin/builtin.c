@@ -12,23 +12,21 @@ int	check_builtin(char *cmd)
 	return (false);
 }
 
-int	exec_builtin(t_cmd_list cmd_list)
+int	exec_builtin(t_cmd_list *cmd_list)
 {
-	if (cmd_list.cmd == "cd")
-		ft_cd(cmd_list.option);
-	else if (cmd_list.cmd == "echo")
-		ft_echo(cmd_list.option);
-	else if (cmd_list.cmd == "env")
+	if (!ft_strcmp(cmd_list->cmd, "cd"))
+		ft_cd(cmd_list->option);
+	else if (!ft_strcmp(cmd_list->cmd, "echo"))
+		ft_echo(cmd_list->option);
+	else if (!ft_strcmp(cmd_list->cmd, "env"))
 		ft_env();
-	else if (cmd_list.cmd == "exit")
+	else if (!ft_strcmp(cmd_list->cmd, "exit"))
 		ft_exit();
-	else if (cmd_list.cmd == "export")
+	else if (!ft_strcmp(cmd_list->cmd, "export"))
 		ft_export();
-	else if (cmd_list.cmd == "pwd")
+	else if (!ft_strcmp(cmd_list->cmd, "pwd"))
 		ft_pwd();
-	else if (cmd_list.cmd == "unset")
+	else if (!ft_strcmp(cmd_list->cmd, "unset"))
 		ft_unset();
-	else
-		return(0);
 	return (1);
 }

@@ -7,5 +7,7 @@
 
 void	ft_echo(char *option)
 {
+	if (!(*option) || !option)
+		return ; // error;
 	
 }

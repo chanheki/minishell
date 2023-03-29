@@ -6,7 +6,7 @@
 
 // builtin.c
 int	check_builtin(char *cmd);
-int	exec_builtin(t_cmd_list cmd_list);
+int	exec_builtin(t_cmd_list *cmd_list);
 
 // builtin dir
 void	ft_cd(char *option);
