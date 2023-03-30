@@ -98,7 +98,10 @@ int	make_redirection_node(t_ASTnode **ast_tree, t_token **current)
 
 	if (!(*current)->next)
 		return (FAIL);
-	new_node = create_new_node(*current);
+	if ((*ast_tree)->token != *current)
+		new_node = create_new_node(*current);
+	else
+		new_node = *ast_tree;
 	if (!new_node)
 		return (ERROR);
 	(*current) = (*current)->next;

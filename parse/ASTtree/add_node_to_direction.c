@@ -14,6 +14,8 @@
 void	add_node_to_direction(t_ASTnode **node, t_ASTnode *new_node,
 							int direction)
 {
+	if (*node == new_node)
+		return ;
 	if (*node && direction == LEFT)
 		(*node)->left = new_node;
 	else if (*node && direction == RIGHT)
