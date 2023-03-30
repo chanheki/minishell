@@ -10,18 +10,18 @@ t_global	g_var;
 static void	hosting_loop(void)
 {
 	char		*str;
-	t_ASTnode	*cmdTree;
+	t_ASTnode	*cmd_tree;
 
 	while (1)
 	{
 		str = readline(PROMPT);
 		check_EOF(str);
 		add_history(str);
-		cmdTree = parse_command_line(str);
-		if (cmdTree != NULL)
-			execute(cmdTree);
-		// TODO: buffer clear
-		// clear(base)
+		cmd_tree = parse_command_line(str);
+		if (!cmd_tree)
+			continue;
+		execute(cmd_tree);
+		clear_nodes(&cmd_tree);
 		free(str);
 	}
 }

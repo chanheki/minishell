@@ -12,6 +12,7 @@
 # include "readline/readline.h"
 
 /* custom includes */
+# include "error.h"
 # include "parse.h"
 # include "utill.h"
 # include "prompt.h"
@@ -40,13 +41,6 @@ typedef enum e_exitcode
 	EXIT_BY_SIGNAL = 128,
 	EXIT_OUT_OF_RANGE = 255
 }	t_exitcode;
-
-typedef enum e_error
-{
-	ERROR	=	-2,
-	FAIL	=	-1,
-	SUCCESS	=	0
-}	t_error;
 
 typedef struct s_global
 {
