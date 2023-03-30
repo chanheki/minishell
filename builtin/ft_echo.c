@@ -5,9 +5,49 @@
 
 #include "../include/minishell.h"
 
-void	ft_echo(char *option)
+static bool	is_valid_option(char *str)
 {
-	if (!(*option) || !option)
-		return ; // error;
-	
+	int	i;
+
+	if (!str || *str != '-' || str[1] != 'n')
+		return (false);
+	i = 1;
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+static void	print_argument(char **option, int start_idx)
+{
+	int	i;
+
+	i = start_idx;
+	while (option[i])
+	{
+		if (i != start_idx)
+			ft_putchar_fd(' ', STDOUT_FILENO);
+		ft_putstr_fd(option[i], STDOUT_FILENO);
+		i++;
+	}
+}
+
+int	ft_echo(char **option)
+{
+	if (!option || !(*option))
+	{
+		printf("ft_echo option error!\n");
+		return (1);
+	}
+	if (is_valid_option(option[1]) == true)
+		print_argument(option, 2);
+	else
+	{
+		print_argument(option, 1);
+		ft_putchar_fd('\n', STDOUT_FILENO);
+	}
+	return (0);
 }
