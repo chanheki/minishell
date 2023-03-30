@@ -18,7 +18,7 @@ t_token	*tokenize_line(char *trimmed_line)
 	token = NULL;
 	while (trimmed_line[i])
 	{
-		new_token = create_new_token(NULL, 0);
+		new_token = create_new_token(NULL, NORMAL);
 		if (!new_token)
 		{
 			free_token_list(&token);
