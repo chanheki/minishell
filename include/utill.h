@@ -1,6 +1,8 @@
 #ifndef UTIL_H
 # define UTIL_H
 
+# include "minishell.h"
+
 # define MINISHELLHEADER "\n\033[35m\
   ██╗██╗██████╗   ███╗   ███╗██╗███╗  ██╗██╗ ██████╗██╗  ██╗███████╗██╗     ██╗     \n\
  ██╔╝██║╚════██╗  ████╗ ████║██║████╗ ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     \n\
@@ -24,7 +26,9 @@
 
 
 /*---------------------------------- UTILS ----------------------------------*/
-int	token_typecheck(t_token *token, t_token_type type);
-int	check_token_type_operator(t_token *token);
 
+int	check_token_type(t_token *token, t_token_type type);
+int	check_token_type_operator(t_token *token);
+t_error	ft_dup2(int fd1, int fd2);
+bool	is_directory(char *path);
 #endif
