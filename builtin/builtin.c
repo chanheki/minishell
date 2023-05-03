@@ -34,9 +34,10 @@ int	exec_builtin(char *path, char **argv)
 
 static t_error	set_redirection(int fd[2], t_ASTnode **cmd_list, char **cmd_argv)
 {
-	// if (fd[0] < 0 || fd[1] < 0 || execute_all_heredoc(cmd_list) != SUCCESS
-	// 	|| apply_redirections(cmd_list[0]) == ERROR)
-	if (fd[0] < 0 || fd[1] < 0)
+	if (fd[0] < 0 || fd[1] < 0 
+	// || execute_all_heredoc(cmd_list) != SUCCESS
+		|| apply_redirections(cmd_list[0]) == ERROR)
+	// if (fd[0] < 0 || fd[1] < 0)
 	{
 		close(fd[0]);
 		close(fd[1]);
@@ -47,64 +48,7 @@ static t_error	set_redirection(int fd[2], t_ASTnode **cmd_list, char **cmd_argv)
 	return (SUCCESS);
 }
 
-static bool	is_cmd(t_ASTnode *node)
-{
-	t_token	*token;
-
-	token = node->token;
-	if (token->type == NORMAL)
-		return (true);
-	return (false);
-}
-
-static int	count_cmd_node(t_ASTnode *node)
-{
-	int	cnt;
-
-	cnt = 0;
-	if (is_cmd(node))
-		return (1);
-	cnt += count_cmd_node(node->left);
-	cnt += count_cmd_node(node->right);
-	return (cnt);
-}
-
-static void	cmd_preorder(t_ASTnode *node, t_ASTnode **cmd_list, int idx)
-{
-	if (is_cmd(node))
-	{
-		cmd_list[idx] = node;
-		return ;
-	}
-	cmd_preorder(node->left, cmd_list, idx - 1);
-	cmd_preorder(node->right, cmd_list, idx);
-}
-
-t_ASTnode	**make_cmd_list(t_ASTnode *root)
-{
-	t_ASTnode	**cmd_list;
-	int		cmd_count;
-
-	cmd_count = count_cmd_node(root);
-	cmd_list = (t_ASTnode **)ft_calloc(cmd_count + 1, sizeof(t_ASTnode *));
-	if (!cmd_list)
-		return (NULL);
-	cmd_preorder(root, cmd_list, cmd_count - 1);
-	return (cmd_list);
-}
-
-t_error	ft_dup2(int fd1, int fd2)
-{
-	if (close(fd2) == -1)
-		return (ERROR);
-	if (dup2(fd1, fd2) == -1)
-		return (ERROR);
-	if (close(fd1) == -1)
-		return (ERROR);
-	return (SUCCESS);
-}
-
-t_error	execute_builtin(t_ASTnode *node)
+t_error	execute_parent(t_ASTnode *node)
 {
 	t_ASTnode	**cmd_list;
 	char		**cmd_argv;

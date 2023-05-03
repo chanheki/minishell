@@ -78,9 +78,103 @@ void	execute_validator_handler(char *cmd, t_exitcode errcode)
 	g_var.exit_status = EXIT_COMMAND_NOT_FOUND;
 
 }
-void exec_cmd_list(t_cmd_list *exec_cmd_list)
+
+static bool	is_cmd(t_ASTnode *node)
 {
-	(void)(exec_cmd_list);
+	t_token	*token;
+
+	token = (t_token *)node->token;
+	if (token->type == NORMAL)
+		return (true);
+	return (false);
+}
+
+static int	count_cmd_node(t_ASTnode *node)
+{
+	int	cnt;
+
+	cnt = 0;
+	if (is_cmd(node))
+		return (1);
+	cnt += count_cmd_node(node->left);
+	cnt += count_cmd_node(node->right);
+	return (cnt);
+}
+
+static void	cmd_preorder(t_ASTnode *node, t_ASTnode **cmd_list, int idx)
+{
+	if (is_cmd(node))
+	{
+		cmd_list[idx] = node;
+		return ;
+	}
+	cmd_preorder(node->left, cmd_list, idx - 1);
+	cmd_preorder(node->right, cmd_list, idx);
+}
+
+t_ASTnode	**make_cmd_list(t_ASTnode *root)
+{
+	t_ASTnode	**cmd_list;
+	int			cmd_count;
+
+	cmd_count = count_cmd_node(root);
+	cmd_list = (t_ASTnode **)ft_calloc(cmd_count + 1, sizeof(t_ASTnode *));
+	if (!cmd_list)
+		return (NULL);
+	cmd_preorder(root, cmd_list, cmd_count - 1);
+	return (cmd_list);
+}
+
+static pid_t	*empty_pid_list(t_ASTnode **cmd_list)
+{
+	pid_t	*pid_list;
+	int		i;
+
+	i = 0;
+	while (cmd_list[i])
+		i++;
+	pid_list = (pid_t *)ft_calloc(i + 1, sizeof(pid_t));
+	return (pid_list);
+}
+
+static int	wait_proc(pid_t *pid_list)
+{
+	int	i;
+	int	status;
+
+	i = 0;
+	status = 0;
+	while (pid_list[i])
+	{
+		waitpid(pid_list[i], &status, 0);
+		if (0 < status && status < 256)
+			status = (128 + status) * 256;
+		i++;
+	}
+	return (status / 256);
+}
+
+static t_error	execute_child(t_ASTnode *root)
+{
+	t_ASTnode	**cmd_list;
+	pid_t		*pid_list;
+
+	cmd_list = make_cmd_list(root);
+	if (!cmd_list)
+		return (ERROR);
+	pid_list = empty_pid_list(cmd_list);
+	if (!pid_list
+		// || execute_all_heredoc(cmd_list) != SUCCESS
+		|| create_childs(cmd_list, pid_list) == ERROR)
+	{
+		free(pid_list);
+		free(cmd_list);
+		return (ERROR);
+	}
+	g_var.exit_status = wait_proc(pid_list);
+	free(pid_list);
+	free(cmd_list);
+	return (SUCCESS);
 }
 
 static void	execute_tree(t_ASTnode *cmd_tree)
@@ -88,34 +182,36 @@ static void	execute_tree(t_ASTnode *cmd_tree)
 	t_error	errno;
 
 	if (check_builtin(cmd_tree->token->value))
-		errno = execute_builtin(cmd_tree);
-	// else
-	// 	errno = execute_child(cmd_tree);
-	// tcsetattr(STDIN_FILENO, TCSANOW, &(g_var.new_term));
-	// signal(SIGINT, sigint_handler_prompt);
+		errno = execute_parent(cmd_tree);
+	else
+		errno = execute_child(cmd_tree);
+	tcsetattr(STDIN_FILENO, TCSANOW, &(g_var.new_term));
+	signal(SIGINT, sigint_prompt_handler);
 	if (errno)
 		g_var.exit_status = 1;
 }
 
-void	execute(t_ASTnode *cmd_tree)
+void	execute(t_ASTnode *node)
 {
 	t_token		*token;
 
-	token = cmd_tree->token;
+	if (!node)
+		return ;
+	token = node->token;
 	if (!check_token_type_operator(token))
 	{
-		execute_tree(cmd_tree);
+		execute_tree(node);
 		return ;
 	}
-	execute(cmd_tree->left);
+	execute(node->left);
 	if (ft_strcmp(token->value, "&&") == 0 && g_var.exit_status == 0)
 	{
 		printf("%s\n", token->value);
-		execute(cmd_tree->right);
+		execute(node->right);
 	}
 	else if (ft_strcmp(token->value, "||") == 0 && g_var.exit_status != 0)
 	{
 		printf("%s\n", token->value);
-		execute(cmd_tree->right);
+		execute(node->right);
 	}
 }
