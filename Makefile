@@ -7,7 +7,7 @@ LIB			=	./lib/libft.a
 LIBCC		=	-L./lib -lft
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror $(DBGS)
 DBGS = -fsanitize=address -g3
 
 AR = ar
@@ -53,8 +53,13 @@ sources1 :=
 sources1 += main.c
 
 sources1 += $(PROMPT)/prompt.c
-sources1 += $(EXECUTE)/execute.c
+
 sources1 += $(EXECUTE)/argv.c
+sources1 += $(EXECUTE)/child.c
+sources1 += $(EXECUTE)/execute.c
+sources1 += $(EXECUTE)/path.c
+sources1 += $(EXECUTE)/redirect.c
+
 sources1 += $(SIGNAL)/signal.c
 
 sources1 += $(PARSE)/is_valid_syntax.c

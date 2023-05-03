@@ -6,6 +6,6 @@
 void	initialize_setting();
 void	initialize_global_variable(int argc, char **argv, char **env);
 void	validator();
-void	check_EOF(char *str);
+void	check_eof(char *str);
 
 #endif

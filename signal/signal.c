@@ -4,7 +4,7 @@
 
 extern t_global	g_var;
 
-static void	sigint_prompt_handler(int signumber)
+void	sigint_prompt_handler(int signumber)
 {
 	if (signumber == SIGINT)
 	{
@@ -22,5 +22,5 @@ void	set_signal(void)
 	rl_catch_signals = 0;
 	if (signal(SIGINT, sigint_prompt_handler) == SIG_ERR ||
 			signal(SIGQUIT, SIG_IGN) == SIG_ERR)
-		exit(EXIT_FAILURE);
+		g_var.exit_status = (int)SIG_ERR;
 }

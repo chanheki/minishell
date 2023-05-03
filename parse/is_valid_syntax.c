@@ -118,7 +118,7 @@ bool	is_valid_command(t_token *token, char **token_value)
 	while (temp)
 	{
 		*token_value = temp->value;
-		if (temp->type == AMPERSAND || temp->type == PIPE)
+		if (is_operator(temp) || temp->type == AMPERSAND)
 		{
 			if (!is_in_normal)
 				return (false);
