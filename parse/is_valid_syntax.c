@@ -131,6 +131,8 @@ bool	is_valid_command(t_token *token, char **token_value)
 			temp = temp->next;
 		temp = temp->next;
 	}
+	if (!is_in_normal)
+		return(false);
 	return (true);
 }
 
