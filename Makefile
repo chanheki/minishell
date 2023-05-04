@@ -27,6 +27,7 @@ EXECUTE		=	execute
 SIGNAL		=	signal
 PARSE		=	parse
 TOKEN		=	token
+VALID		=	validation
 TREE 		=	ASTtree
 EXPANSION	=	expansion
 BUILTIN		=	builtin
@@ -62,8 +63,9 @@ sources1 += $(EXECUTE)/redirect.c
 
 sources1 += $(SIGNAL)/signal.c
 
-sources1 += $(PARSE)/is_valid_syntax.c
 sources1 += $(PARSE)/parse.c
+sources1 += $(PARSE)/$(VALID)/is_valid_syntax.c
+sources1 += $(PARSE)/$(VALID)/validation_util.c
 sources1 += $(PARSE)/$(TREE)/add_node_to_direction.c
 sources1 += $(PARSE)/$(TREE)/clear_nodes.c
 sources1 += $(PARSE)/$(TREE)/create_new_node.c
