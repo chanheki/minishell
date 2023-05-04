@@ -155,7 +155,7 @@ bool	is_valid_command(t_token *token)
 			|| is_redirection(temp))
 		{
 			if ((prev && (is_operator(prev) || prev->type == AMPERSAND
-					|| is_redirection(prev))) || !temp->next)
+						|| is_redirection(prev))) || !temp->next)
 			{
 				print_command_not_found(temp);
 				return (false);

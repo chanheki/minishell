@@ -33,10 +33,10 @@ bool	is_quote(char c)
  * Return     : true : 따옴표가 맞음
  *              false: 따옴표가 아님
  */
- bool	is_redirection(t_token *token)
- {
+bool	is_redirection(t_token *token)
+{
 	if (token->type == REDIRECT_IN || token->type == REDIRECT_OUT
 		|| token->type == DREDIRECT_IN || token->type == DREDIRECT_OUT)
 		return (true);
 	return (false);
- }
+}

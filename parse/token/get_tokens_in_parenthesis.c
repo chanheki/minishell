@@ -6,26 +6,27 @@
  * Param.   #2: 닫힌 괄호 토큰의 주소
  * Return     : 복제한 토큰 리스트의 첫 번째 요소의 주소
  */
- t_token    *get_tokens_in_parenthesis(t_token *open, t_token *close)
- {
-    t_token *tokens_in_parent;
-    t_token *new_token;
-    t_token *temp;
+t_token	*get_tokens_in_parenthesis(t_token *open, t_token *close)
+{
+	t_token	*tokens_in_parent;
+	t_token	*new_token;
+	t_token	*temp;
 
-    temp = open->next;
-    tokens_in_parent = NULL;
-    while (temp->next && temp != close)
-    {
-        if (!tokens_in_parent)
-            tokens_in_parent = create_new_token(ft_strdup(temp->value), temp->type);
-        else
-        {
-            new_token = create_new_token(ft_strdup(temp->value), temp->type);
-            add_token_to_tail(&tokens_in_parent, new_token);
-        }
-        temp = temp->next;
-    }
-    if (temp != close)
-        free_token_list(&tokens_in_parent);
-    return (tokens_in_parent);
- }
+	temp = open->next;
+	tokens_in_parent = NULL;
+	while (temp->next && temp != close)
+	{
+		if (!tokens_in_parent)
+			tokens_in_parent = create_new_token(ft_strdup(temp->value),
+					temp->type);
+		else
+		{
+			new_token = create_new_token(ft_strdup(temp->value), temp->type);
+			add_token_to_tail(&tokens_in_parent, new_token);
+		}
+		temp = temp->next;
+	}
+	if (temp != close)
+		free_token_list(&tokens_in_parent);
+	return (tokens_in_parent);
+}
