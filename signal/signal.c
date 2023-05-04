@@ -2,9 +2,17 @@
 #include <signal.h>
 #include "../include/minishell.h"
 
-extern t_global	g_var;
+void	sigint_heredoc(int signo)
+{
+	(void)signo;
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	g_var.is_signal = 1;
+	g_var.exit_status = 1;
+}
 
-void	sigint_prompt_handler(int signumber)
+void	sigint_prompt(int signumber)
 {
 	if (signumber == SIGINT)
 	{
@@ -20,7 +28,7 @@ void	sigint_prompt_handler(int signumber)
 void	set_signal(void)
 {
 	rl_catch_signals = 0;
-	if (signal(SIGINT, sigint_prompt_handler) == SIG_ERR ||
+	if (signal(SIGINT, sigint_prompt) == SIG_ERR ||
 			signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		g_var.exit_status = (int)SIG_ERR;
 }
