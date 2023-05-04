@@ -12,22 +12,14 @@
  */
 bool	is_valid_syntax(t_token *token)
 {
-	char	*token_value;
-
-	if (!is_pair_of_parenthesis(token, &token_value)
-		|| !is_valid_parenthesis(token, &token_value)
-		|| !is_valid_redirection(token, &token_value))
-	{
-		ft_putstr_fd("JIP-shell: syntax error near unexpected token `", 2);
-		ft_putstr_fd(token_value, 2);
-		ft_putendl_fd("'", 2);
+	if (!is_pair_of_parenthesis(token))
 		return (false);
-	}
-	else if (!is_valid_command(token, &token_value))
-	{
-		ft_putstr_fd("JIP-shell: command not found: ", 2);
-		ft_putendl_fd(token_value, 2);
+	else if (!is_valid_parenthesis(token))
 		return (false);
-	}
-	return (true);
+	else if (!is_valid_redirection(token))
+		return (false);
+	else if (!is_valid_command(token))
+		return (false);
+	else
+		return (true);
 }
