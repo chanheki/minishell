@@ -32,7 +32,7 @@ int	make_parenthesis_node(t_ASTnode **ast_tree, t_token **current)
 	last_token->next = parent_token;
 	if (!new_tree)
 		return (FAIL);
-	if (*ast_tree && is_operator(*current))
+	if (*ast_tree && is_operator((*current)->prev))
 		add_node_to_direction(ast_tree, new_tree, RIGHT);
 	else
 		*ast_tree = new_tree;
