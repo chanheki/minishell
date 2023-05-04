@@ -21,6 +21,7 @@ INCS		=	-I ./include -I$(RDLINE_DIR)/include
 object_dir	=	./objects
 
 PROMPT		=	prompt
+ERROR		=	error
 PARSE		=	pars
 HISTORY		=	history
 EXECUTE		=	execute
@@ -54,6 +55,8 @@ sources1 :=
 sources1 += main.c
 
 sources1 += $(PROMPT)/prompt.c
+
+sources1 += $(ERROR)/syntax_error.c
 
 sources1 += $(EXECUTE)/argv.c
 sources1 += $(EXECUTE)/child.c
@@ -129,7 +132,8 @@ endef
 
 # ----- Test ---- #
 TEST_NAME = test
-parse_sources = $(wildcard $(PARSE)/*.c)
+parse_sources = $(wildcard $(ERROR)/*.c)
+parse_sources += $(wildcard $(PARSE)/*.c)
 parse_sources += $(wildcard $(PARSE)/**/*.c)
 parse_sources += $(wildcard $(PARSE)/**/**/*.c)
 parse_objects = $(parse_sources:.c=.o)
