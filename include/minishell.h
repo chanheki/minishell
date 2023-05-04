@@ -50,11 +50,8 @@ typedef struct s_global
 	int				exit_status;
 	struct termios	old_term;
 	struct termios	new_term;
+	int				is_signal;
 }	t_global;
 
 extern t_global	g_var;
-
-void	set_signal(void);
-void	sigint_prompt_handler(int signumber);
-
 #endif
