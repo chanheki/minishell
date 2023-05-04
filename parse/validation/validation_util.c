@@ -157,7 +157,7 @@ bool	is_valid_command(t_token *token)
 			is_in_normal = true;
 		else if (temp->type == REDIRECT_IN || temp->type == REDIRECT_OUT
 			|| temp->type == DREDIRECT_IN || temp->type == DREDIRECT_OUT)
-			temp = temp->next;
+			is_in_normal = false;
 		temp = temp->next;
 	}
 	if (!is_in_normal)
