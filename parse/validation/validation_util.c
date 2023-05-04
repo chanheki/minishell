@@ -80,9 +80,14 @@ bool	is_correct_in_parenthesis(t_token *open, t_token *close)
 {
 	t_token	*tokens_in_parent;
 
+	if (!open && !close)
+		return (true);
 	tokens_in_parent = get_tokens_in_parenthesis(open, close);
 	if (!tokens_in_parent)
+	{
+		print_command_not_found(close);
 		return (false);
+	}
 	if (!is_valid_syntax(tokens_in_parent))
 	{
 		free_token_list(&tokens_in_parent);
@@ -108,26 +113,25 @@ bool	is_valid_parenthesis(t_token *token)
 	t_token	*close;
 
 	temp = token;
-	while (temp->next)
+	while (temp && temp->type != PARENTHESIS_OPEN)
+		temp = temp->next;
+	open = temp;
+	if (open && open->prev
+		&& (open->prev->type == NORMAL || is_redirection(open->prev)))
 	{
-		while (temp->next && temp->type != PARENTHESIS_OPEN)
-			temp = temp->next;
-		if (!temp->next)
-			break ;
-		open = temp;
-		if (open->prev
-			&& (open->prev->type == NORMAL || is_redirection(open->prev)))
-		{
-			print_syntax_error(temp);
-			return (false);
-		}
-		while (temp->next && temp->type != PARENTHESIS_CLOSE)
-			temp = temp->next;
-		close = temp;
-		if (!is_correct_in_parenthesis(open, close))
-			return (false);
-		temp = close;
+		print_syntax_error(open->next);
+		return (false);
 	}
+	while (temp && temp->type != PARENTHESIS_CLOSE)
+		temp = temp->next;
+	close = temp;
+	if (close && close->next && close->next->type == NORMAL)
+	{
+		print_syntax_error(close->next);
+		return (false);
+	}
+	if (!is_correct_in_parenthesis(open, close))
+		return (false);
 	return (true);
 }
 
@@ -141,29 +145,23 @@ bool	is_valid_parenthesis(t_token *token)
 bool	is_valid_command(t_token *token)
 {
 	t_token	*temp;
-	bool	is_in_normal;
+	t_token	*prev;
 
 	temp = token;
-	is_in_normal = false;
 	while (temp)
 	{
-		if (is_operator(temp) || temp->type == AMPERSAND)
+		prev = temp->prev;
+		if (is_operator(temp) || temp->type == AMPERSAND
+			|| is_redirection(temp))
 		{
-			if (!is_in_normal)
-				break ;
-			is_in_normal = false;
+			if ((prev && (is_operator(prev) || prev->type == AMPERSAND
+					|| is_redirection(prev))) || !temp->next)
+			{
+				print_command_not_found(temp);
+				return (false);
+			}
 		}
-		else if (temp->type == NORMAL)
-			is_in_normal = true;
-		else if (temp->type == REDIRECT_IN || temp->type == REDIRECT_OUT
-			|| temp->type == DREDIRECT_IN || temp->type == DREDIRECT_OUT)
-			is_in_normal = false;
 		temp = temp->next;
-	}
-	if (!is_in_normal)
-	{
-		print_command_not_found(temp);
-		return (false);
 	}
 	return (true);
 }
