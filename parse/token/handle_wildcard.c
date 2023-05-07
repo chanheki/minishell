@@ -1,16 +1,5 @@
 #include "../../include/minishell.h"
 
-void	skip_matched_path(char *wildcard_value, char *dir_name, size_t *idx_w, size_t *idx_d)
-{
-	while (wildcard_value[*idx_w] && dir_name[*idx_w]
-		   && (wildcard_value[*idx_w] == dir_name[*idx_w])
-		   && wildcard_value[*idx_w] != WILDCARD)
-	{
-		*idx_w += 1;
-		*idx_d += 1;
-	}
-}
-
 /*
  * Description: 유효한 와일드카드인지 확인한다.
  *              1. token_value와 dir_name이 같은지 확인한다.
@@ -29,28 +18,31 @@ void	skip_matched_path(char *wildcard_value, char *dir_name, size_t *idx_w, size
  * Return     : true : 유효한 와일드카드
  *            : false: 유효하지 않은 와일드카드
  */
-bool	is_valid_wildcard(char *wildcard_value, char *dir_name)
+bool	is_valid_wildcard(char *wildcard_value, char *dir_name, size_t idx_w, size_t idx_d)
 {
-	size_t	idx_w;
-	size_t	idx_d;
-
-	idx_w = 0;
-	idx_d = 0;
 	// 1. *.c
-	// 2. main*
-	// 3. ma*n
-	// 4. *
+	// -> .
+	while (wildcard_value[idx_w] && wildcard_value[idx_w] != WILDCARD)
+	{
+		if (wildcard_value[idx_w] != dir_name[idx_d])
+			return (false);
+		idx_w++;
+		idx_d++;
+	}
+	if (!wildcard_value[idx_w])
+		return (dir_name[idx_d] == '\0');
+	while (wildcard_value[idx_w] == WILDCARD)
+		idx_w++;
+	if (!wildcard_value[idx_w])
+		return (true);
 	while (dir_name[idx_d])
 	{
-		skip_matched_path(wildcard_value, dir_name, &idx_w, &idx_d);
-		if (!wildcard_value[idx_w] && !dir_name[idx_d])
+		if (dir_name[idx_d] == wildcard_value[idx_w]
+			&& is_valid_wildcard(wildcard_value, dir_name, idx_w, idx_d))
 			return (true);
-		else if (!wildcard_value[idx_w + 1])
-			return (true);
-		while (wildcard_value[idx_w + 1] != dir_name[idx_d])
-			idx_d++;
+		idx_d++;
 	}
-	return (true);
+	return (false);
 }
 
 /*
@@ -102,12 +94,11 @@ int	rebuild_wildcard(t_ASTnode **node, int *dir_count, char *dir_name)
  * Return     : SUCCESS: 와일드카드 해석 성공
  *            : ERROR  : 와일드카드 해석 실패
  */
-int	interpret_wildcard(t_ASTnode **node)
+int	interpret_wildcard(char *wildcard_value, t_ASTnode **node)
 {
 	DIR						*dir;
 	static struct dirent	*dirent;
 	int						dir_count;
-	char					*wildcard_value;
 
 	dir = opendir(".");
 	dir_count = 0;
@@ -118,7 +109,7 @@ int	interpret_wildcard(t_ASTnode **node)
 		dirent = readdir(dir);
 		if (!dirent)
 			break ;
-		if (is_valid_wildcard((*node)->token->value, dirent->d_name)
+		if (is_valid_wildcard(wildcard_value, dirent->d_name, 0, 0)
 			&& rebuild_wildcard(node, &dir_count, dirent->d_name) == ERROR)
 		{
 			closedir(dir);
@@ -149,7 +140,7 @@ int	handle_wildcard(t_ASTnode *ast_tree)
 	if (ast_tree->token->type == WILDCARD)
 	{
 		wildcard_value = ft_strdup(ast_tree->token->value);
-		if (interpret_wildcard(&ast_tree) == ERROR)
+		if (interpret_wildcard(wildcard_value, &ast_tree) == ERROR)
 		{
 			free(wildcard_value);
 			return (ERROR);

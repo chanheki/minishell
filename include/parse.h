@@ -125,11 +125,10 @@ void				delete_outer_quotes(t_token **token);
 void				check_delete_quote(char *value, char *delete_flag);
 void				rebuild_quote_string(t_token **temp_token,
 						char *delete_flag);
-void				skip_matched_path(char *wildcard_value, char *dir_name, size_t *idx_w, size_t *idx_d);
-bool				is_valid_wildcard(char *wildcard_value, char *dir_name);
+bool				is_valid_wildcard(char *wildcard_value, char *dir_name, size_t idx_w, size_t idx_d);
 int					rebuild_wildcard(t_ASTnode **node, int *dir_count,
 						char *dir_name);
-int					interpret_wildcard(t_ASTnode **node);
+int					interpret_wildcard(char *wildcard_value, t_ASTnode **node);
 int					handle_wildcard(t_ASTnode *ast_tree);
 
 #endif
