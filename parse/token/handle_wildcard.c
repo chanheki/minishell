@@ -1,5 +1,16 @@
 #include "../../include/minishell.h"
 
+void	skip_matched_path(char *wildcard_value, char *dir_name, size_t *idx_w, size_t *idx_d)
+{
+	while (wildcard_value[*idx_w] && dir_name[*idx_w]
+		   && (wildcard_value[*idx_w] == dir_name[*idx_w])
+		   && wildcard_value[*idx_w] != WILDCARD)
+	{
+		*idx_w += 1;
+		*idx_d += 1;
+	}
+}
+
 /*
  * Description: 유효한 와일드카드인지 확인한다.
  *              1. token_value와 dir_name이 같은지 확인한다.
@@ -20,29 +31,26 @@
  */
 bool	is_valid_wildcard(char *wildcard_value, char *dir_name)
 {
-	size_t	value_length;
-	size_t	dir_length;
-	size_t	i;
-	size_t	dir_idx;
+	size_t	idx_w;
+	size_t	idx_d;
 
-	value_length = ft_strlen(wildcard_value);
-	dir_length = ft_strlen(dir_name);
-	i = 0;
-	while (i < value_length && i < dir_length
-		&& (wildcard_value[i] == dir_name[i]))
-		i++;
-	if (i == value_length && i == dir_length)
-		return (true);
-	else if (i == value_length && i != dir_length)
-		return (false);
-	dir_idx = 0;
-	while (i + dir_idx <= dir_length)
+	idx_w = 0;
+	idx_d = 0;
+	// 1. *.c
+	// 2. main*
+	// 3. ma*n
+	// 4. *
+	while (dir_name[idx_d])
 	{
-		if (is_valid_wildcard(wildcard_value + i + 1, dir_name + i + dir_idx))
+		skip_matched_path(wildcard_value, dir_name, &idx_w, &idx_d);
+		if (!wildcard_value[idx_w] && !dir_name[idx_d])
 			return (true);
-		dir_idx++;
+		else if (!wildcard_value[idx_w + 1])
+			return (true);
+		while (wildcard_value[idx_w + 1] != dir_name[idx_d])
+			idx_d++;
 	}
-	return (false);
+	return (true);
 }
 
 /*
@@ -99,6 +107,7 @@ int	interpret_wildcard(t_ASTnode **node)
 	DIR						*dir;
 	static struct dirent	*dirent;
 	int						dir_count;
+	char					*wildcard_value;
 
 	dir = opendir(".");
 	dir_count = 0;
@@ -134,11 +143,19 @@ int	interpret_wildcard(t_ASTnode **node)
  */
 int	handle_wildcard(t_ASTnode *ast_tree)
 {
+	char	*wildcard_value;
 	if (!ast_tree || !ast_tree->token)
 		return (SUCCESS);
-	if (ast_tree->token->type == WILDCARD
-		&& interpret_wildcard(&ast_tree) == ERROR)
-		return (ERROR);
+	if (ast_tree->token->type == WILDCARD)
+	{
+		wildcard_value = ft_strdup(ast_tree->token->value);
+		if (interpret_wildcard(&ast_tree) == ERROR)
+		{
+			free(wildcard_value);
+			return (ERROR);
+		}
+		free(wildcard_value);
+	}
 	if (handle_wildcard(ast_tree->left) == ERROR)
 		return (ERROR);
 	if (handle_wildcard(ast_tree->right) == ERROR)
