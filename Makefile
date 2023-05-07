@@ -83,6 +83,7 @@ sources1 += $(PARSE)/$(TOKEN)/free_token_list.c
 sources1 += $(PARSE)/$(TOKEN)/get_head_token.c
 sources1 += $(PARSE)/$(TOKEN)/get_last_token_in_parenthesis.c
 sources1 += $(PARSE)/$(TOKEN)/get_tail_token.c
+sources1 += $(PARSE)/$(TOKEN)/get_tokens_in_parenthesis.c
 sources1 += $(PARSE)/$(TOKEN)/handle_wildcard.c
 sources1 += $(PARSE)/$(TOKEN)/join_token_value.c
 sources1 += $(PARSE)/$(TOKEN)/set_fd_redirection_token.c
