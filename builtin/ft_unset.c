@@ -1,8 +1,3 @@
-
-// unset with no options
-
-// 　옵션이 없는 unset
-
 #include "../include/minishell.h"
 
 /*
@@ -14,7 +9,7 @@
 void	check_unset_argv(char *argv)
 {
 	if (!((*argv >= 'A' && *argv <= 'Z')
-		|| (*argv >= 'a' && *argv <= 'z')))
+			|| (*argv >= 'a' && *argv <= 'z')))
 	{
 		ft_putstr_fd("minishell: unset: ", STDERR_FILENO);
 		ft_putstr_fd(argv, STDERR_FILENO);
