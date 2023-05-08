@@ -154,7 +154,7 @@ t_error	execute_child(t_ASTnode *root)
 		return (ERROR);
 	pid_list = make_empty_pid_list(cmd_list);
 	if (!pid_list
-		// || execute_all_heredoc(cmd_list) != SUCCESS
+		|| heredoc(cmd_list) != SUCCESS
 		|| create_childs_processes(cmd_list, pid_list) == ERROR)
 	{
 		free(pid_list);

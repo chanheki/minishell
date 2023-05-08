@@ -2,14 +2,16 @@
 #include <signal.h>
 #include "../include/minishell.h"
 
-void	sigint_heredoc(int signo)
+void	sigint_heredoc(int signumber)
 {
-	(void)signo;
-	ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	g_var.is_signal = 1;
-	g_var.exit_status = 1;
+	if (signumber == SIGINT)
+	{
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		g_var.is_signal = 1;
+		g_var.exit_status = 1;
+	}
 }
 
 void	sigint_prompt(int signumber)
