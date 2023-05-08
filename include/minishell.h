@@ -8,6 +8,7 @@
 # include <stdio.h>
 # include <term.h>
 # include <sys/ioctl.h>
+# include <fcntl.h>
 # include <readline/history.h>
 # include "readline/readline.h"
 
@@ -19,8 +20,6 @@
 # include "signal.h"
 # include "execute.h"
 # include "builtin.h"
-
-extern t_global	g_var;
 
 /*
  * <exit code>
@@ -52,6 +51,9 @@ typedef struct s_global
 	struct termios	old_term;
 	struct termios	new_term;
 	int				is_signal;
+	char			*tmp_path;
 }	t_global;
+
+extern t_global	g_var;
 
 #endif
