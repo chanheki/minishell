@@ -6,7 +6,7 @@ static void	child_execve(t_ASTnode *node, char *path, char **argv)
 	char	*builtin;
 
 	builtin = node->token->value;
-	if (check_builtin(builtin) == false && !path)
+	if (is_builtin_cmd(node) == false && !path)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(argv[0], STDERR_FILENO);
@@ -22,7 +22,7 @@ static void	child_execve(t_ASTnode *node, char *path, char **argv)
 		|| signal(SIGINT, SIG_DFL) == SIG_ERR)
 		exit(1);
 	tcsetattr(STDIN_FILENO, TCSANOW, &(g_var.old_term));
-	if (check_builtin(builtin) == true)
+	if (is_builtin_cmd(node) == true)
 		exit(exec_builtin(path, argv));
 	execve(path, argv, g_var.envp);
 	exit(0);
@@ -33,7 +33,7 @@ static t_error	child_execute(t_ASTnode *cmd_node)
 	char	**cmd_argv;
 	char	*path;
 
-	cmd_argv = make_argv(cmd_node);
+	cmd_argv = generate_argv(cmd_node);
 	if (!cmd_argv)
 		return (ERROR);
 	if (redirect(cmd_node) == ERROR
@@ -149,7 +149,7 @@ t_error	execute_child(t_ASTnode *root)
 	t_ASTnode	**cmd_list;
 	pid_t		*pid_list;
 
-	cmd_list = make_cmd_list(root);
+	cmd_list = generate_cmd_list(root);
 	if (!cmd_list)
 		return (ERROR);
 	pid_list = make_empty_pid_list(cmd_list);

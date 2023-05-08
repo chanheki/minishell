@@ -1,5 +1,15 @@
 #include "../include/minishell.h"
 
+/*
+ * Description: set ready to excute (fd, cmdlist, cmdargv)
+ *            : 실행하기 위한 준비를 한다.
+ *            : 1. fd를 dup하여 저장한다.
+ *            : 2. cmd list의 heredoc을 전부 처리한다.
+ *            : 3. redirect를 전부 처리한다.
+ * Param.   #1: node (cmd)
+ * Return     : SUCCESS : 성공
+ *            : ERROR: 실패
+ */
 static t_error	set_ready_to_excute(
 	int fd[2], t_ASTnode **cmd_list, char **cmd_argv)
 {
@@ -18,15 +28,34 @@ static t_error	set_ready_to_excute(
 	return (SUCCESS);
 }
 
+/*
+ * Description: excute will termiante
+ *            : excute가 끝나기 전에 실행된다.
+ *            : 1. fd를 원상복구 시킨다.
+ *            : 2. cmd list를 할당 해제한다.
+ *            : 3. cmd argv를 할당 해제한다.
+ * Param.   #1: node (cmd)
+ * Return     : SUCCESS : 성공
+ *            : ERROR: 실패
+ */
 static void	execute_will_terminate(
 	int fd[2], t_ASTnode **cmd_list, char **cmd_argv)
 {
 	ft_dup2(fd[FD_READ], STDIN_FILENO);
 	ft_dup2(fd[FD_WRITE], STDOUT_FILENO);
-	ft_split_free(cmd_argv);
 	free(cmd_list);
+	ft_split_free(cmd_argv);
 }
 
+/*
+ * Description: execute_parent(cmd)
+ *            : 부모 process에서 실행.
+ *            : 해당 노드의 argv와 cmdlist를 만들어서 실행 준비를 하고
+ *            : builtin 함수를 실행 시킨다.
+ * Param.   #1: node (cmd)
+ * Return     : SUCCESS : 성공
+ *            : ERROR: 실패
+ */
 t_error	execute_parent(t_ASTnode *node)
 {
 	t_ASTnode	**cmd_list;
@@ -35,10 +64,10 @@ t_error	execute_parent(t_ASTnode *node)
 	int			fd[2];
 
 	path = node->token->value;
-	cmd_argv = make_argv(node);
+	cmd_argv = generate_argv(node);
 	if (!cmd_argv)
 		return (ERROR);
-	cmd_list = make_cmd_list(node);
+	cmd_list = generate_cmd_list(node);
 	if (!cmd_list)
 	{
 		ft_split_free(cmd_argv);

@@ -1,6 +1,13 @@
 #include "../include/minishell.h"
-#include <fcntl.h>
 
+/*
+ * Description: infile
+ *            : path를 읽어 입력으로 사용한다.
+ *            : heredoc의 경우 입력을 보내고 임시 파일을 삭제한다.
+ * Param.   #1: path (redirect의 좌측 자식 노드)
+ *            : heredoc 여부
+ * Return     : ft_dup2의 성공여부 값.
+ */
 static t_error	set_infile(char *path, bool heredoc)
 {
 	int	in_fd;
@@ -17,6 +24,15 @@ static t_error	set_infile(char *path, bool heredoc)
 	return (ft_dup2(in_fd, STDIN_FILENO));
 }
 
+/*
+ * Description: outfile
+ *            : path를 읽어 출력으로 사용한다.
+ *            : trunc의 경우 출력을 덮어씌운다.
+ *            : append의 경우 출력을 추가한다.
+ * Param.   #1: path (redirect의 좌측 자식 노드)
+ *            : type trunc, append
+ * Return     : ft_dup2의 성공여부 값.
+ */
 static t_error	set_outfile(char *path, bool type)
 {
 	int			out_fd;
@@ -33,6 +49,17 @@ static t_error	set_outfile(char *path, bool type)
 	return (ft_dup2(out_fd, STDOUT_FILENO));
 }
 
+/*
+ * Description: redirections의 경우.
+ *            : 1. <  = infile
+ *            : 2. << = heredoc
+ *            : 3. >  = outfile
+ *            : 4. >> = append outfile
+ *            : 
+ * Param.   #1: node (cmd)
+ * Return     : SUCCES: ft_dup2의 성공값.
+ *            : ERROR: 실패
+ */
 t_error	redirection(t_ASTnode *node)
 {
 	t_token	*token;
@@ -51,6 +78,13 @@ t_error	redirection(t_ASTnode *node)
 	return (ERROR);
 }
 
+/*
+ * Description: redirect를 처리한다.
+ *            : 우측 노드가 redirection의 경우.
+ * Param.   #1: node (cmd)
+ * Return     : SUCCESS : 성공
+ *            : ERROR: 실패
+ */
 t_error	redirect(t_ASTnode *node)
 {
 	if (!node)
