@@ -28,7 +28,7 @@ void	sigint_prompt(int signumber)
 void	set_signal(void)
 {
 	rl_catch_signals = 0;
-	if (signal(SIGINT, sigint_prompt) == SIG_ERR ||
-			signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+	if (signal(SIGINT, sigint_prompt) == SIG_ERR
+		|| signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		g_var.exit_status = (int)SIG_ERR;
 }
