@@ -8,7 +8,7 @@ static t_error	set_infile(char *path, bool heredoc)
 	in_fd = open(path, O_RDONLY, 0644);
 	if (in_fd == -1)
 	{
-		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("JIP-Shell: ", 2);
 		perror(path);
 		return (ERROR);
 	}
@@ -17,21 +17,17 @@ static t_error	set_infile(char *path, bool heredoc)
 	return (ft_dup2(in_fd, STDIN_FILENO));
 }
 
-static t_error	set_outfile_trunc(char *path)
+static t_error	set_outfile(char *path, bool type)
 {
-	int	out_fd;
+	int			out_fd;
+	const bool	trunc = false;
+	const bool	append = true;
 
-	out_fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (out_fd == -1)
-		return (ERROR);
-	return (ft_dup2(out_fd, STDOUT_FILENO));
-}
-
-static t_error	set_outfile_append(char *path)
-{
-	int	out_fd;
-
-	out_fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	out_fd = -1;
+	if (type == trunc)
+		out_fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (type == append)
+		out_fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (out_fd == -1)
 		return (ERROR);
 	return (ft_dup2(out_fd, STDOUT_FILENO));
@@ -40,22 +36,22 @@ static t_error	set_outfile_append(char *path)
 t_error	redirection(t_ASTnode *node)
 {
 	t_token	*token;
-	char	*path;
+	char	*file;
 
-	path = node->left->token->value;
+	file = node->left->token->value;
 	token = node->token;
-	if (check_token_type(token, REDIRECT_IN) == 0)
-		return (set_infile(path, false));
-	else if (check_token_type(token, DREDIRECT_IN) == 0)
-		return (set_infile(path, true));
-	else if (check_token_type(token, REDIRECT_OUT) == 0)
-		return (set_outfile_trunc(path));
-	else if (check_token_type(token, DREDIRECT_OUT) == 0)
-		return (set_outfile_append(path));
+	if (check_token_type(token, REDIRECT_IN))
+		return (set_infile(file, false));
+	else if (check_token_type(token, DREDIRECT_IN))
+		return (set_infile(file, true));
+	else if (check_token_type(token, REDIRECT_OUT))
+		return (set_outfile(file, false));
+	else if (check_token_type(token, DREDIRECT_OUT))
+		return (set_outfile(file, true));
 	return (ERROR);
 }
 
-t_error	apply_redirections(t_ASTnode *node)
+t_error	redirect(t_ASTnode *node)
 {
 	if (!node)
 		return (ERROR);

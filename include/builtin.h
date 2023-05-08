@@ -7,7 +7,6 @@
 // builtin.c
 int		check_builtin(char *cmd);
 int		exec_builtin(char *path, char **argv);
-t_error	execute_parent(t_ASTnode *node);
 
 // builtin dir
 int	ft_cd(char **option);
