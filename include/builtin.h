@@ -14,7 +14,10 @@ int	ft_echo(char **option);
 int	ft_env();
 int	ft_exit();
 int	ft_export();
-int	ft_pwd();
-int	ft_unset();
+int	ft_pwd(void);
+
+/*---------------------------------- UNSET ----------------------------------*/
+int	check_unset_argv(char *argv);
+int	ft_unset(char **argv);
 
 #endif

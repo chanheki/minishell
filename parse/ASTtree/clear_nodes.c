@@ -11,6 +11,13 @@ void	clear_nodes(t_ASTnode **root)
 		return ;
 	clear_nodes(&(*root)->left);
 	clear_nodes(&(*root)->right);
+	free((*root)->token->value);
+	(*root)->token->value = NULL;
 	free((*root)->token);
+	(*root)->token = NULL;
+	(*root)->left = NULL;
+	(*root)->right = NULL;
+	(*root)->parent = NULL;
 	free(*root);
+	*root = NULL;
 }

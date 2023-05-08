@@ -20,7 +20,6 @@ typedef enum	e_token_type {
 	DAMPERSAND,
 	PIPE = '|',
 	DPIPE,
-	SEMICOLON = ';',
 	QUOTE = '\'',
 	DQUOTE = '\"',
 	WILDCARD = '*',
@@ -58,15 +57,21 @@ typedef struct s_cursor {
 	void	*next;
 }	t_cursor;
 
+/*---------------------------------- ERROR ----------------------------------*/
+void    print_syntax_error(t_token *token);
+void	print_command_not_found(t_token *token);
+
 /*---------------------------------- PARSE ----------------------------------*/
 char				**preprocess_line(char *line);
 t_ASTnode			*parse_command_line(char *line);
 bool				is_valid_syntax(t_token *token);
-bool				is_valid_redirection(t_token *token, char **token_value);
-bool				is_pair_of_parenthesis(t_token *token, char **token_value);
+bool				is_valid_redirection(t_token *token);
+bool				is_pair_of_parenthesis(t_token *token);
 t_token				*get_last_token_in_parenthesis(t_token **token);
-bool				is_valid_parenthesis(t_token *token, char **token_value);
-bool				is_valid_command(t_token *token, char **token_value);
+t_token				*get_tokens_in_parenthesis(t_token *open, t_token *close);
+bool				is_correct_in_parenthesis(t_token *open, t_token *close);
+bool				is_valid_parenthesis(t_token *token);
+bool				is_valid_command(t_token *token);
 t_ASTnode			*make_ast_tree(t_token **token);
 
 /*--------------------------------- AST_TREE --------------------------------*/
@@ -107,6 +112,7 @@ void				set_token(t_token **token, char *trimmed_line, int *i);
 void				free_token_list(t_token **token);
 t_token				*tokenize_line(char *trimmed_line);
 bool				is_operator(t_token *token);
+bool				is_redirection(t_token *token);
 bool				is_quote(char c);
 void				interpret_expansion(t_token **token, char *trimmed_line,
 						int *i);
@@ -118,11 +124,10 @@ void				delete_outer_quotes(t_token **token);
 void				check_delete_quote(char *value, char *delete_flag);
 void				rebuild_quote_string(t_token **temp_token,
 						char *delete_flag);
-bool				is_valid_wildcard(t_token *token, char *token_value,
-						char *dir_name);
+bool				is_valid_wildcard(char *wildcard_value, char *dir_name, size_t idx_w, size_t idx_d);
 int					rebuild_wildcard(t_ASTnode **node, int *dir_count,
 						char *dir_name);
-int					interpret_wildcard(t_ASTnode **node);
+int					interpret_wildcard(char *wildcard_value, t_ASTnode **node);
 int					handle_wildcard(t_ASTnode *ast_tree);
 
 #endif

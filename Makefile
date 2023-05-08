@@ -23,12 +23,14 @@ INCS		=	-I ./include -I$(RDLINE_DIR)/include
 object_dir	=	./objects
 
 PROMPT		=	prompt
+ERROR		=	error
 PARSE		=	pars
 HISTORY		=	history
 EXECUTE		=	execute
 SIGNAL		=	signal
 PARSE		=	parse
 TOKEN		=	token
+VALID		=	validation
 TREE 		=	ASTtree
 EXPANSION	=	expansion
 BUILTIN		=	builtin
@@ -56,6 +58,8 @@ sources1 += main.c
 
 sources1 += $(PROMPT)/prompt.c
 
+sources1 += $(ERROR)/syntax_error.c
+
 sources1 += $(EXECUTE)/argv.c
 sources1 += $(EXECUTE)/cmd.c
 sources1 += $(EXECUTE)/execute_child.c
@@ -68,8 +72,9 @@ sources1 += $(EXECUTE)/terminal.c
 
 sources1 += $(SIGNAL)/signal.c
 
-sources1 += $(PARSE)/is_valid_syntax.c
 sources1 += $(PARSE)/parse.c
+sources1 += $(PARSE)/$(VALID)/is_valid_syntax.c
+sources1 += $(PARSE)/$(VALID)/validation_util.c
 sources1 += $(PARSE)/$(TREE)/add_node_to_direction.c
 sources1 += $(PARSE)/$(TREE)/clear_nodes.c
 sources1 += $(PARSE)/$(TREE)/create_new_node.c
@@ -84,6 +89,7 @@ sources1 += $(PARSE)/$(TOKEN)/free_token_list.c
 sources1 += $(PARSE)/$(TOKEN)/get_head_token.c
 sources1 += $(PARSE)/$(TOKEN)/get_last_token_in_parenthesis.c
 sources1 += $(PARSE)/$(TOKEN)/get_tail_token.c
+sources1 += $(PARSE)/$(TOKEN)/get_tokens_in_parenthesis.c
 sources1 += $(PARSE)/$(TOKEN)/handle_wildcard.c
 sources1 += $(PARSE)/$(TOKEN)/join_token_value.c
 sources1 += $(PARSE)/$(TOKEN)/set_fd_redirection_token.c
@@ -133,7 +139,8 @@ endef
 
 # ----- Test ---- #
 TEST_NAME = test
-parse_sources = $(wildcard $(PARSE)/*.c)
+parse_sources = $(wildcard $(ERROR)/*.c)
+parse_sources += $(wildcard $(PARSE)/*.c)
 parse_sources += $(wildcard $(PARSE)/**/*.c)
 parse_sources += $(wildcard $(PARSE)/**/**/*.c)
 parse_objects = $(parse_sources:.c=.o)
