@@ -18,7 +18,7 @@ int	ft_export();
 int	ft_pwd();
 
 /*---------------------------------- UNSET ----------------------------------*/
-void	check_unset_argv(char *argv);
-int     ft_unset(char **argv);
+int	check_unset_argv(char *argv);
+int	ft_unset(char **argv);
 
 #endif
