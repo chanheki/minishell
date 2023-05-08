@@ -3,14 +3,14 @@
 static t_error	set_ready_to_excute(
 	int fd[2], t_ASTnode **cmd_list, char **cmd_argv)
 {
-	fd[0] = dup(STDIN_FILENO);
-	fd[1] = dup(STDOUT_FILENO);
-	if (fd[0] < 0 || fd[1] < 0
+	fd[FD_READ] = dup(STDIN_FILENO);
+	fd[FD_WRITE] = dup(STDOUT_FILENO);
+	if (fd[FD_READ] < 0 || fd[FD_WRITE] < 0
 		// || execute_all_heredoc(cmd_list) != SUCCESS
 		|| redirect(cmd_list[0]) == ERROR)
 	{
-		close(fd[0]);
-		close(fd[1]);
+		close(fd[FD_READ]);
+		close(fd[FD_WRITE]);
 		ft_split_free(cmd_argv);
 		free(cmd_list);
 		return (ERROR);
@@ -21,8 +21,8 @@ static t_error	set_ready_to_excute(
 static void	execute_will_terminate(
 	int fd[2], t_ASTnode **cmd_list, char **cmd_argv)
 {
-	ft_dup2(fd[0], STDIN_FILENO);
-	ft_dup2(fd[1], STDOUT_FILENO);
+	ft_dup2(fd[FD_READ], STDIN_FILENO);
+	ft_dup2(fd[FD_WRITE], STDOUT_FILENO);
 	ft_split_free(cmd_argv);
 	free(cmd_list);
 }
