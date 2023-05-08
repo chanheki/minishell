@@ -20,7 +20,6 @@ typedef enum	e_token_type {
 	DAMPERSAND,
 	PIPE = '|',
 	DPIPE,
-	SEMICOLON = ';',
 	QUOTE = '\'',
 	DQUOTE = '\"',
 	WILDCARD = '*',
