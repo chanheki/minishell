@@ -1,8 +1,6 @@
 
 #include "../include/minishell.h"
 
-extern t_global	g_var;
-
 static void	child_execve(t_ASTnode *node, char *path, char **argv)
 {
 	char	*builtin;
@@ -51,26 +49,26 @@ static t_error	child_execute(t_ASTnode *cmd_node)
 static pid_t	fork_child(t_ASTnode *cmd_node, int *before_fd)
 {
 	int		fd[2];
+	int		temp;
 	pid_t	child_pid;
-	int		tmp;
 
 	if (pipe(fd) == -1)
 		return (0);
-	tmp = *before_fd;
-	*before_fd = fd[0];
+	temp = *before_fd;
+	*before_fd = fd[FD_READ];
 	child_pid = fork();
 	if (child_pid == -1)
 		return (0);
 	if (child_pid == 0)
 	{
-		if (close(fd[0]) == -1
-			|| (tmp != STDIN_FILENO && ft_dup2(tmp, STDIN_FILENO) == ERROR)
-			|| ft_dup2(fd[1], STDOUT_FILENO) == ERROR
+		if (close(fd[FD_READ]) < 0
+			|| (temp != STDIN_FILENO && ft_dup2(temp, STDIN_FILENO) == ERROR)
+			|| ft_dup2(fd[FD_WRITE], STDOUT_FILENO) == ERROR
 			|| child_execute(cmd_node) == ERROR)
 			exit(1);
 	}
-	if ((tmp != STDIN_FILENO && close(tmp) == -1)
-		|| close(fd[1]) == -1)
+	if ((temp != STDIN_FILENO && close(temp) == -1)
+		|| close(fd[FD_WRITE]) == -1)
 		return (0);
 	return (child_pid);
 }
@@ -95,15 +93,15 @@ static pid_t	last_fork_child(t_ASTnode *cmd_node, int before_fd)
 	return (child_pid);
 }
 
-t_error	create_childs(t_ASTnode **cmd_list, pid_t *pid_list)
+t_error	create_childs_processes(t_ASTnode **cmd_list, pid_t *pid_list)
 {
-	int	before_fd;
 	int	i;
+	int	before_fd;
 
 	before_fd = STDIN_FILENO;
-	i = 0;
 	if (signal(SIGINT, SIG_IGN) == SIG_ERR)
 		return (ERROR);
+	i = 0;
 	while (cmd_list[i + 1])
 	{
 		pid_list[i] = fork_child(cmd_list[i], &before_fd);
@@ -117,7 +115,7 @@ t_error	create_childs(t_ASTnode **cmd_list, pid_t *pid_list)
 	return (SUCCESS);
 }
 
-static pid_t	*empty_pid_list(t_ASTnode **cmd_list)
+static pid_t	*make_empty_pid_list(t_ASTnode **cmd_list)
 {
 	pid_t	*pid_list;
 	int		i;
@@ -154,10 +152,10 @@ t_error	execute_child(t_ASTnode *root)
 	cmd_list = make_cmd_list(root);
 	if (!cmd_list)
 		return (ERROR);
-	pid_list = empty_pid_list(cmd_list);
+	pid_list = make_empty_pid_list(cmd_list);
 	if (!pid_list
 		// || execute_all_heredoc(cmd_list) != SUCCESS
-		|| create_childs(cmd_list, pid_list) == ERROR)
+		|| create_childs_processes(cmd_list, pid_list) == ERROR)
 	{
 		free(pid_list);
 		free(cmd_list);
