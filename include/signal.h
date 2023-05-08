@@ -7,6 +7,6 @@
 
 void	set_signal(void);
 void	sigint_prompt(int signumber);
-void	sigint_heredoc(int signo);
+void	sigint_heredoc(int signumber);
 
 #endif
