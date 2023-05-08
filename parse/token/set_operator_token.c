@@ -11,8 +11,6 @@ enum e_token_type	get_operator_token_type(char c)
 		return (PARENTHESIS_OPEN);
 	else if (c == ')')
 		return (PARENTHESIS_CLOSE);
-	else if (c == ';')
-		return (SEMICOLON);
 	else if (c == '&')
 		return (AMPERSAND);
 	else if (c == '<')
@@ -63,7 +61,7 @@ void	set_operator_token(t_token **token, char *trimmed_line, int *i)
 	if ((*token)->value)
 		return ;
 	operator = &trimmed_line[*i];
-	if (ft_strchr("();", *operator))
+	if (ft_strchr("()", *operator))
 	{
 		join_token_value(token, trimmed_line, i);
 		(*token)->type = get_operator_token_type(*operator);
