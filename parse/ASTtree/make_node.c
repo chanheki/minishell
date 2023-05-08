@@ -168,6 +168,7 @@ int	make_command_node(t_ASTnode **ast_tree, t_token **current)
 			return (ERROR);
 		add_node_to_direction(ast_tree, new_node, RIGHT);
 		*ast_tree = new_node;
+		return (SUCCESS);
 	}
 	if ((*current)->type == REDIRECT_IN || (*current)->type == REDIRECT_OUT
 		|| (*current)->type == DREDIRECT_IN
