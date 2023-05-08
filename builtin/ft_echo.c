@@ -37,17 +37,26 @@ static void	print_argument(char **option, int start_idx)
 
 int	ft_echo(char **option)
 {
+	int	i;
+
+	i = 1;
 	if (!option || !(*option))
 	{
-		printf("ft_echo option error!\n");
+		printf("ft_echo argument error!\n");
 		return (1);
 	}
-	if (is_valid_option(option[1]) == true)
-		print_argument(option, 2);
-	else
+	while (is_valid_option(option[i]) == true)
+	{
+		i++;
+	}
+	if (is_valid_option(option[1]) == false)
 	{
 		print_argument(option, 1);
 		ft_putchar_fd('\n', STDOUT_FILENO);
+	}
+	else
+	{
+		print_argument(option, i);
 	}
 	return (0);
 }

@@ -1,18 +1,7 @@
 
 #include "../include/minishell.h"
 
-extern t_global	g_var;
-
-static void	get_terminal_setting(void)
-{
-	tcgetattr(STDIN_FILENO, &(g_var.old_term));
-	tcgetattr(STDIN_FILENO, &(g_var.new_term));
-	g_var.new_term.c_lflag &= ~ECHOCTL;
-	g_var.new_term.c_cc[VQUIT] = 0;
-	tcsetattr(STDIN_FILENO, TCSANOW, &(g_var.new_term));
-}
-
-void	initialize_setting()
+void	initialize_setting(void)
 {
 	ft_putstr_fd(JIPHEADER, 2);
 	set_signal();
@@ -27,7 +16,7 @@ void	initialize_global_variable(int argc, char **argv, char **env)
 	g_var.exit_status = 0;
 }
 
-void	validator()
+void	validator(void)
 {	
 	if (g_var.exit_status == -1)
 	{

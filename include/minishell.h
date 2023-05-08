@@ -20,6 +20,8 @@
 # include "execute.h"
 # include "builtin.h"
 
+extern t_global	g_var;
+
 /*
  * <exit code>
  * 0       => Success
@@ -31,13 +33,12 @@
  * 128 + N => exit by signal N
  * 255     => Out of Range
  */
-
 typedef enum e_exitcode
 {
 	EXIT_BUILT_IN_FAIL = 2,
 	EXIT_COMMAND_NOT_EXEC = 126,
 	EXIT_COMMAND_NOT_FOUND = 127,
-	EXIT_PASSING_INVALID = 128, 
+	EXIT_PASSING_INVALID = 128,
 	EXIT_BY_SIGNAL = 128,
 	EXIT_OUT_OF_RANGE = 255
 }	t_exitcode;
@@ -50,11 +51,7 @@ typedef struct s_global
 	int				exit_status;
 	struct termios	old_term;
 	struct termios	new_term;
+	int				is_signal;
 }	t_global;
-
-extern t_global	g_var;
-
-void	set_signal(void);
-void	sigint_prompt_handler(int signumber);
 
 #endif

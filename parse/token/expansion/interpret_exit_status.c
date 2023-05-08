@@ -12,7 +12,7 @@ void	interpret_exit_status(t_token **token, int *i)
 	char	*exit_status;
 	char	*temp;
 
-	exit_status = ft_itoa(0);
+	exit_status = ft_itoa(g_var.exit_status);
 	if (!(*token)->value)
 		(*token)->value = exit_status;
 	else
