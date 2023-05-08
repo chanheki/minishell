@@ -7,7 +7,7 @@ LIB			=	./lib/libft.a
 LIBCC		=	-L./lib -lft
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror # ${DBGS}
+CFLAGS = -Wall -Wextra -Werror ${DBGS}
 
 DBGS = -fsanitize=address -g3
 # while true; do leaks minishell & sleep 1; done;
@@ -65,7 +65,8 @@ sources1 += $(EXECUTE)/cmd.c
 sources1 += $(EXECUTE)/execute_child.c
 sources1 += $(EXECUTE)/execute_parent.c
 sources1 += $(EXECUTE)/execute.c
-# sources1 += $(EXECUTE)/heredoc.c
+sources1 += $(EXECUTE)/heredoc.c
+sources1 += $(EXECUTE)/heredoc_util.c
 sources1 += $(EXECUTE)/path.c
 sources1 += $(EXECUTE)/redirect.c
 sources1 += $(EXECUTE)/terminal.c
