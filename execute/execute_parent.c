@@ -6,7 +6,7 @@ static t_error	set_ready_to_excute(
 	fd[FD_READ] = dup(STDIN_FILENO);
 	fd[FD_WRITE] = dup(STDOUT_FILENO);
 	if (fd[FD_READ] < 0 || fd[FD_WRITE] < 0
-		// || execute_all_heredoc(cmd_list) != SUCCESS
+		|| heredoc(cmd_list) != SUCCESS
 		|| redirect(cmd_list[0]) == ERROR)
 	{
 		close(fd[FD_READ]);
