@@ -9,7 +9,7 @@
  * Description: 유효한 env 키 형식인지 확인한다.
  *              유효한 env 키 형식은 첫 글자가 알파벳인 경우에 해당한다.
  * Param.   #1: env 키를 담고 있는 문자열
- * Return     : 0
+ * Return     : 없음
  */
 void	check_unset_argv(char *argv)
 {
