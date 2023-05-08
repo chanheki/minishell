@@ -2,47 +2,40 @@
 
 /*
  * Description: 유효한 와일드카드인지 확인한다.
- *              1. token_value와 dir_name이 같은지 확인한다.
-*               2. token_value의 문자열이 끝났다면, dir_name의 문자열이 끝났는지 확인한다.
- *               2.1. token_value와 dir_name의 문자열이 길이는 같지만,
- *                    그 값이 다르다면(예: token_value = "*", dir_name = ".") true를 반환한다.
- *               2.2. token_value와 dir_name의 문자열이 길이가 다르다면 false를 반환한다.
- *              3. token_value의 문자열이 끝나지 않았다면, 토큰이 와일드카드일 때 아래의 동작을 수행한다.
- *               3.1. token_value[i]의 시작 인덱스와 dir_name[i]의 시작 인덱스를 하나씩 증가시킨다.
- *                    추가로 dir_name은 dir_idx만큼 더 증카시키고,
- *                    i + dir_idx가 dir_length이 될 때까지 2번~3번의 과정을 반복한다.
- *              4. 위의 과정을 거쳤음에도 불구하고, 유효한 와일드카드가 아니라면 false를 반환한다.
- * Param.   #1: 토큰의 포인터
- * Param.   #2: 토큰의 값
- * Param.   #3: 디렉토리 이름
+ * 				1. 패턴이 와일드카드가 아닐 때까지 디렉토리 이름과 비교한다.
+ * 				 1.1. 디렉토리 이름이 와일드카드와 일치하지 않으면 false를 반환한다.
+ * 				2. 패턴의 끝까지 확인하고 디렉토리의 이름도 끝까지 확인했다면 true, 아니라면 false를 반환한다.
+ * 				3. 패턴이 와일드카드 일 때 와일드카드가 아닌 글자가 나올 때까지 패턴의 인덱스를 증가시킨다.
+ * 				4. 디렉토리 이름이 패턴의 글자와 일치할 때, 해당 지점부터 1~3을 반복한다.
+ * Param.   #1: 와일드카드 패턴 (ex. *.c)
+ * Param.   #2: 디렉토리 이름
+ * Param.   #3: 와일드카드 패턴의 인덱스
+ * Param.   #4: 디렉토리 이름의 인덱스
  * Return     : true : 유효한 와일드카드
  *            : false: 유효하지 않은 와일드카드
  */
-bool	is_valid_wildcard(t_token *token, char *token_value, char *dir_name)
+bool	is_valid_wildcard(char *wildcard_value, char *dir_name,
+					size_t idx_w, size_t idx_d)
 {
-	size_t	value_length;
-	size_t	dir_length;
-	size_t	i;
-	size_t	dir_idx;
-
-	value_length = ft_strlen(token_value);
-	dir_length = ft_strlen(dir_name);
-	i = 0;
-	while (i < value_length && i < dir_length
-		&& (token_value[i] == dir_name[i]))
-		i++;
-	if (i == value_length)
-		return (i == dir_length);
-	if (token->type == WILDCARD)
+	while (wildcard_value[idx_w] && wildcard_value[idx_w] != WILDCARD)
 	{
-		dir_idx = 0;
-		while (i + dir_idx <= dir_length)
-		{
-			if (is_valid_wildcard(token, token_value + i + 1,
-					dir_name + i + dir_idx))
-				return (true);
-			dir_idx++;
-		}
+		if (wildcard_value[idx_w] != dir_name[idx_d])
+			return (false);
+		idx_w++;
+		idx_d++;
+	}
+	if (!wildcard_value[idx_w])
+		return (dir_name[idx_d] == '\0');
+	while (wildcard_value[idx_w] == WILDCARD)
+		idx_w++;
+	if (!wildcard_value[idx_w])
+		return (true);
+	while (dir_name[idx_d])
+	{
+		if (dir_name[idx_d] == wildcard_value[idx_w]
+			&& is_valid_wildcard(wildcard_value, dir_name, idx_w, idx_d))
+			return (true);
+		idx_d++;
 	}
 	return (false);
 }
@@ -96,7 +89,7 @@ int	rebuild_wildcard(t_ASTnode **node, int *dir_count, char *dir_name)
  * Return     : SUCCESS: 와일드카드 해석 성공
  *            : ERROR  : 와일드카드 해석 실패
  */
-int	interpret_wildcard(t_ASTnode **node)
+int	interpret_wildcard(char *wildcard_value, t_ASTnode **node)
 {
 	DIR						*dir;
 	static struct dirent	*dirent;
@@ -111,8 +104,7 @@ int	interpret_wildcard(t_ASTnode **node)
 		dirent = readdir(dir);
 		if (!dirent)
 			break ;
-		if (is_valid_wildcard((*node)->token, (*node)->token->value,
-				dirent->d_name)
+		if (is_valid_wildcard(wildcard_value, dirent->d_name, 0, 0)
 			&& rebuild_wildcard(node, &dir_count, dirent->d_name) == ERROR)
 		{
 			closedir(dir);
@@ -137,11 +129,20 @@ int	interpret_wildcard(t_ASTnode **node)
  */
 int	handle_wildcard(t_ASTnode *ast_tree)
 {
+	char	*wildcard_value;
+
 	if (!ast_tree || !ast_tree->token)
 		return (SUCCESS);
-	if (ast_tree->token->type == WILDCARD
-		&& interpret_wildcard(&ast_tree) == ERROR)
-		return (ERROR);
+	if (ast_tree->token->type == WILDCARD)
+	{
+		wildcard_value = ft_strdup(ast_tree->token->value);
+		if (interpret_wildcard(wildcard_value, &ast_tree) == ERROR)
+		{
+			free(wildcard_value);
+			return (ERROR);
+		}
+		free(wildcard_value);
+	}
 	if (handle_wildcard(ast_tree->left) == ERROR)
 		return (ERROR);
 	if (handle_wildcard(ast_tree->right) == ERROR)
