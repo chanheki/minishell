@@ -14,6 +14,10 @@ void	sigint_heredoc(int signumber)
 	}
 }
 
+/*
+ * Description: sigint prompt 대체 함수의 구현
+ *            : ctrl+c의 입력이 들어오면 해당 함수가 실행된다.
+ */
 void	sigint_prompt(int signumber)
 {
 	if (signumber == SIGINT)
@@ -27,6 +31,12 @@ void	sigint_prompt(int signumber)
 	}
 }
 
+/*
+ * Description: 시그널을 세팅한다.
+ *            : 시그널 핸들러(signal handler) ctrl+c 를 비활성화하고, 해당 시그널을 구현한다.
+ *            : ctrl+\를 ignore한다.
+ *            : 둘 중 하나라도 실패하면 전역변수 exit_status에 에러값을 전달한다.
+ */
 void	set_signal(void)
 {
 	rl_catch_signals = 0;
