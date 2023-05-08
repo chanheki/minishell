@@ -17,6 +17,8 @@ int	ft_pwd(void)
 	{
 		ft_putstr_fd(working_dir, STDOUT_FILENO);
 		ft_putstr_fd("\n", STDOUT_FILENO);
+		free(working_dir);
+		working_dir = NULL;
 		return (0);
 	}
 	else
