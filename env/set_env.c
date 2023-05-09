@@ -28,6 +28,26 @@ int	change_env_value(char *key, char *value)
 }
 
 /*
+ * Description: 환경변수의 키, '=', 값를 합쳐 문자열을 만든다.
+ * Param.   #1: 환경변수의 키
+ * Param.   #2: 환경변수의 값
+ * Return     : 환경변수의 문자열
+ */
+
+char	*create_env_string(char *key, char *value)
+{
+	char	*env;
+	char	*temp;
+
+	temp = ft_strjoin(key, "=");
+	if (!temp)
+		return (NULL);
+	env = ft_strjoin(temp, value);
+	free(temp);
+	return (env);
+}
+
+/*
  * Description: g_var.envp를 업데이트한다.
  * Param.     : 없음
  * Return     : 없음
@@ -52,7 +72,7 @@ void	update_envp(void)
 	temp = g_var.env_dict;
 	while (temp)
 	{
-		envp[++i] = ft_strjoin(temp->key, temp->value);
+		envp[++i] = create_env_string(temp->key, temp->value);
 		temp = temp->next;
 	}
 	envp[i] = NULL;
