@@ -60,7 +60,7 @@ int	execute_builtin(char *path, char **argv, t_process_type type)
 	else if (!ft_strcmp(path, "exit"))
 		return (ft_exit(argv, type));
 	else if (!ft_strcmp(path, "export"))
-		return (ft_export());
+		return (ft_export(argv));
 	else if (!ft_strcmp(path, "pwd"))
 		return (ft_pwd());
 	else if (!ft_strcmp(path, "unset"))
