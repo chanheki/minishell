@@ -15,6 +15,7 @@ typedef struct	s_env_dict
 int		initialize_env(char **env);
 void	initialize_env_dict(t_env_dict **dict, char *key, char *value);
 int		set_env(char *key, char *value);
+char	*create_env_string(char *key, char *value);
 int		change_env_value(char *key, char *value);
 void	update_envp(void);
 
