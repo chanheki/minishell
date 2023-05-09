@@ -121,6 +121,7 @@ sources1 += $(ENV)/initialize.c
 sources1 += $(ENV)/$(DICT)/add_to_env_dict.c
 sources1 += $(ENV)/$(DICT)/free.c
 sources1 += $(ENV)/$(DICT)/find_value.c
+sources1 += $(ENV)/$(DICT)/delete_env.c
 
 # ---- Bonus ---- #
 
