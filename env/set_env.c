@@ -7,7 +7,7 @@
  * Return     : SUCCESS: 성공
  *            : ERROR  : 실패
  */
-int	change_value(char *key, char *value)
+int	change_env_value(char *key, char *value)
 {
 	t_env_dict	*temp;
 
@@ -40,7 +40,7 @@ int	set_env(char *key, char *value)
 
 	if (find_value(key))
 	{
-		if (change_value(key, value) != SUCCESS)
+		if (change_env_value(key, value) != SUCCESS)
 			return (ERROR);
 	}
 	else
