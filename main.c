@@ -15,6 +15,7 @@ t_global	g_var;
 static void	jipshell_will_terminate(void)
 {
 	// free & clear setting
+	free_env_dict(g_var.env_dict);
 	tcsetattr(STDIN_FILENO, TCSANOW, &(g_var.old_term));
 }
 
