@@ -18,6 +18,15 @@ typedef struct	s_env
 }	t_env;
 
 /*----------------------------------- ENV -----------------------------------*/
-int	initialize_env(char **env);
+int		initialize_env(char **env);
+void	initialize_env_dict(t_env_dict **dict, char *key, char *value);
+
+/*----------------------------------- DICT ----------------------------------*/
+void	add_to_env_dict(t_env_dict *dict, t_env_dict *new_dict);
+
+/*----------------------------------- CAST ----------------------------------*/
+int		cast_env_to_dict(char **env);
+char	*get_key(char *env);
+char	*get_value(char *env);
 
 #endif
