@@ -17,8 +17,10 @@ void	initialize_env_dict(t_env_dict **dict, char *key, char *value);
 
 /*----------------------------------- DICT ----------------------------------*/
 void	add_to_env_dict(t_env_dict **dict, t_env_dict *new_dict);
+void	free_one_env_dict(t_env_dict *dict);
 void	free_env_dict(t_env_dict *dict);
 char	*find_value(char *key);
+void	delete_env(char *key);
 
 /*----------------------------------- CAST ----------------------------------*/
 int		cast_env_to_dict(char **env);
