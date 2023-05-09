@@ -6,18 +6,18 @@
  * Param.  #2 : 새로운 환경 변수
  * Return     : 없음
  */
-void	add_to_env_dict(t_env_dict *dict, t_env_dict *new_dict)
+void	add_to_env_dict(t_env_dict **dict, t_env_dict *new_dict)
 {
 	t_env_dict	*tmp;
 
 	if (!new_dict)
 		return ;
-	if (!dict)
+	if (!*dict)
 	{
-		dict = new_dict;
+		*dict = new_dict;
 		return ;
 	}
-	tmp = dict;
+	tmp = *dict;
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new_dict;
