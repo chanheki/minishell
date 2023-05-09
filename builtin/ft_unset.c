@@ -6,7 +6,7 @@
  * Param.   #1: env 키를 담고 있는 문자열
  * Return     : 유효하지 않을 경우 exit status가 1임을 나타내는 1을, 유효할 경우 0을 반환한다.
  */
-int	check_unset_argv(char *argv)
+int	check_env_argv(char *argv)
 {
 	if (!((*argv >= 'A' && *argv <= 'Z')
 			|| (*argv >= 'a' && *argv <= 'z')))
@@ -34,7 +34,7 @@ int	ft_unset(char **argv)
 	exit_status = 0;
 	while (argv[++i])
 	{
-		if (check_unset_argv(argv[i]))
+		if (check_env_argv(argv[i]))
 		{
 			exit_status = 1;
 			continue ;
