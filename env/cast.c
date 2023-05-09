@@ -1,6 +1,31 @@
 #include "../include/minishell.h"
 
 /*
+ * Description: 환경 변수의 문자열 배열을 복제하여 g_var.envp에 할당한다.
+ * Param.  #1 : 환경 변수의 문자열 배열
+ * Return     : SUCCESS: 성공
+ *            : ERROR  : 실패
+ */
+int	cast_env_to_strings(char **env)
+{
+	int		i;
+	char	**envp;
+
+	i = 0;
+	while (env[i])
+		i++;
+	envp = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!envp)
+		return (ERROR);
+	i = -1;
+	while (env[++i])
+		envp[i] = ft_strdup(env[i]);
+	envp[i] = NULL;
+	g_var.envp = envp;
+	return (SUCCESS);
+}
+
+/*
  * Description: 환경 변수의 문자열에서 key를 반환한다.
  * Param.  #1 : 환경 변수의 문자열
  * Return     : 환경 변수의 key

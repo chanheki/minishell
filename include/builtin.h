@@ -31,11 +31,11 @@ int		ft_cd(char **option);
 int		ft_echo(char **option);
 int		ft_env();
 int		ft_exit(char **argv, t_process_type type);
-int		ft_export();
+int		ft_export(char **argv);
 int		ft_pwd(void);
 
 /*---------------------------------- UNSET ----------------------------------*/
-int		check_unset_argv(char *argv);
+int		check_env_argv(char *argv);
 int		ft_unset(char **argv);
 
 #endif

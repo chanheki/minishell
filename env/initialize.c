@@ -8,6 +8,8 @@
  */
 int	initialize_env(char **env)
 {
+	if (cast_env_to_strings(env) == ERROR)
+		return (ERROR);
 	g_var.env_dict = NULL;
 	if (cast_env_to_dict(env) == ERROR)
 		return (ERROR);

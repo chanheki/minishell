@@ -14,6 +14,9 @@ typedef struct	s_env_dict
 /*----------------------------------- ENV -----------------------------------*/
 int		initialize_env(char **env);
 void	initialize_env_dict(t_env_dict **dict, char *key, char *value);
+int		set_env(char *key, char *value);
+int		change_env_value(char *key, char *value);
+void	update_envp(void);
 
 /*----------------------------------- DICT ----------------------------------*/
 void	add_to_env_dict(t_env_dict **dict, t_env_dict *new_dict);
@@ -23,6 +26,7 @@ char	*find_value(char *key);
 void	delete_env(char *key);
 
 /*----------------------------------- CAST ----------------------------------*/
+int		cast_env_to_strings(char **env);
 int		cast_env_to_dict(char **env);
 char	*get_env_key(char *env);
 char	*get_env_value(char *env);
