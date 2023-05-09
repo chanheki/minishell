@@ -20,6 +20,7 @@
 # include "signal.h"
 # include "execute.h"
 # include "builtin.h"
+# include "env.h"
 
 /*
  * <exit code>
@@ -47,6 +48,7 @@ typedef struct s_global
 	int				argc;
 	char			**argv;
 	char			**envp;
+	t_env_dict		*env_dict;
 	int				exit_status;
 	struct termios	old_term;
 	struct termios	new_term;
