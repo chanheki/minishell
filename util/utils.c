@@ -57,6 +57,14 @@ int	check_token_type_operator(t_token *token)
 	return (false);
 }
 
+/*
+ * Description: check token type operator
+ *            : 해당 토큰이 #2 Param type인지 체크한다.
+ * Param.   #1: token
+ * Param.   #2: type
+ * Return     : true : t_token_type type 타입이 맞음
+ *            : false: 해당 타입이 아님.
+ */
 int	check_token_type(t_token *token, t_token_type type)
 {
 	if (token == NULL || token->value == NULL)
