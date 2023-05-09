@@ -41,6 +41,8 @@
 // }
 
 int	ft_exit()
+int	ft_exit()
 {
 	return 0;
+	return (0);
 }

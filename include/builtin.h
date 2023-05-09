@@ -5,7 +5,7 @@
 # include "minishell.h"
 
 // builtin.c
-int		check_builtin(char *cmd);
+bool	is_builtin_command(t_ASTnode *node);
 int		exec_builtin(char *path, char **argv);
 
 // builtin dir
