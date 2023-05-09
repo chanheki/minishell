@@ -1,7 +1,18 @@
 #include "../include/minishell.h"
 
+/*
+ * Description: 환경 변수 문자열 배열을 g_var 내 env에 저장한다.
+ * Param.   #1: 환경 변수 문자열 배열
+ * Return     : SUCCESS: 성공
+ *            : ERROR  : 실패
+ */
 int	initialize_env(char **env)
 {
+	g_var.env.env_str = NULL;
+	g_var.env.dict = NULL;
+	if (cast_env_to_dict(env) == ERROR)
+		return (ERROR);
+	return (SUCCESS);
 }
 
 /*
