@@ -16,6 +16,7 @@ int		initialize_env(char **env);
 void	initialize_env_dict(t_env_dict **dict, char *key, char *value);
 int		set_env(char *key, char *value);
 int		change_env_value(char *key, char *value);
+void	update_envp(void);
 
 /*----------------------------------- DICT ----------------------------------*/
 void	add_to_env_dict(t_env_dict **dict, t_env_dict *new_dict);
