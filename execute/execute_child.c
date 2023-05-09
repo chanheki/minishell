@@ -6,7 +6,7 @@ static void	child_execve(t_ASTnode *node, char *path, char **argv)
 	char	*builtin;
 
 	builtin = node->token->value;
-	if (check_builtin(builtin) == false && !path)
+	if (is_builtin_command(node) == false && !path)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(argv[0], STDERR_FILENO);
@@ -22,8 +22,8 @@ static void	child_execve(t_ASTnode *node, char *path, char **argv)
 		|| signal(SIGINT, SIG_DFL) == SIG_ERR)
 		exit(1);
 	tcsetattr(STDIN_FILENO, TCSANOW, &(g_var.old_term));
-	if (check_builtin(builtin) == true)
-		exit(exec_builtin(path, argv));
+	if (is_builtin_command(node) == true)
+		exit(execute_builtin(path, argv, P_CHILD));
 	execve(path, argv, g_var.envp);
 	exit(0);
 }

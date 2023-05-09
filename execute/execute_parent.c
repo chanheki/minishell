@@ -46,7 +46,7 @@ t_error	execute_parent(t_ASTnode *node)
 	}
 	if (set_ready_to_excute(fd, cmd_list, cmd_argv) == ERROR)
 		return (ERROR);
-	g_var.exit_status = exec_builtin(path, cmd_argv);
+	g_var.exit_status = execute_builtin(path, cmd_argv, P_PARENT);
 	execute_will_terminate(fd, cmd_list, cmd_argv);
 	return (SUCCESS);
 }

@@ -42,7 +42,7 @@ int	ft_echo(char **option)
 	i = 1;
 	if (!option || !(*option))
 	{
-		printf("ft_echo argument error!\n");
+		ft_putstr_fd("ft_echo argument error!\n", 2);
 		return (1);
 	}
 	while (is_valid_option(option[i]) == true)
