@@ -22,9 +22,10 @@ int	ft_export(char **argv)
 			continue ;
 		}
 		key = get_env_key(argv[i]);
-		key = get_env_value(argv[i]);
+		value = get_env_value(argv[i]);
 		if (set_env(key, value) != SUCCESS)
 			exit_status = 1;
 	}
+	update_envp();
 	return (exit_status);
 }
