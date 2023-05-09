@@ -9,12 +9,12 @@
  */
 char	*get_interpreted_env(char *trimmed_line, int start, int length)
 {
-	char	*env_name;
+	char	*key;
 	char	*interpreted;
 
-	env_name = ft_substr(trimmed_line, start, length);
-	interpreted = getenv(env_name);
-	free(env_name);
+	key = ft_substr(trimmed_line, start, length);
+	interpreted = find_value(key);
+	free(key);
 	return (interpreted);
 }
 
