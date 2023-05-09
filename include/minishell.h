@@ -32,12 +32,14 @@
 # include "builtin.h"
 # include "util.h"
 # include "execute.h"
+# include "env.h"
 
 typedef struct s_global
 {
 	int				argc;
 	char			**argv;
 	char			**envp;
+	t_env_dict		*env_dict;
 	int				exit_status;
 	struct termios	old_term;
 	struct termios	new_term;

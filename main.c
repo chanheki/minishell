@@ -15,6 +15,7 @@ t_global	g_var;
 void	jipshell_will_terminate(void)
 {
 	// free & clear setting
+	free_env_dict(g_var.env_dict);
 	tcsetattr(STDIN_FILENO, TCSANOW, &(g_var.old_term));
 }
 
@@ -54,6 +55,8 @@ int	main(int argc, char **argv, char **env)
 {
 	initialize_global_variable(argc, argv, env);
 	initialize_setting();
+	if (initialize_env(env) == ERROR)
+		return (1);
 	validator();
 	hosting_loop();
 	jipshell_will_terminate();
