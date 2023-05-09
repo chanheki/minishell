@@ -5,10 +5,10 @@
 
 typedef struct	s_env_dict
 {
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-	struct s_env	*prev;
+	char				*key;
+	char				*value;
+	struct s_env_dict	*next;
+	struct s_env_dict	*prev;
 }	t_env_dict;
 
 typedef struct	s_env
