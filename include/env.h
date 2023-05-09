@@ -18,6 +18,6 @@ typedef struct	s_env
 }	t_env;
 
 /*----------------------------------- ENV -----------------------------------*/
-int	initialize_envp(char **env);
+int	initialize_env(char **env);
 
 #endif
