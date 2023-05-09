@@ -25,6 +25,7 @@ char	*find_value(char *key);
 void	delete_env(char *key);
 
 /*----------------------------------- CAST ----------------------------------*/
+int		cast_env_to_strings(char **env);
 int		cast_env_to_dict(char **env);
 char	*get_env_key(char *env);
 char	*get_env_value(char *env);
