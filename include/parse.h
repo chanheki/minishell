@@ -109,6 +109,7 @@ void				set_operator_token(t_token **token,
 void				set_fd_redirection_token(t_token **token,
 						char *trimmed_line, int *i);
 void				set_token(t_token **token, char *trimmed_line, int *i);
+void				free_token(t_token **token);
 void				free_token_list(t_token **token);
 t_token				*tokenize_line(char *trimmed_line);
 bool				is_operator(t_token *token);

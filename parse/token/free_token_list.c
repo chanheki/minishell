@@ -1,6 +1,38 @@
 #include "../../include/minishell.h"
 
 /*
+ * Description: 토큰의 메모리를 해제한다.
+ * Param      : 해제할 토큰
+ * Return     : void
+ */
+void	free_token(t_token **token)
+{
+	if (!token || !*token)
+		return ;
+		if ((*token)->prev)
+		{
+			if ((*token)->next)
+				(*token)->prev->next = (*token)->next;
+			else
+				(*token)->prev->next = NULL;
+		}
+		if ((*token)->next)
+		{
+			if ((*token)->prev)
+				(*token)->next->prev = (*token)->prev;
+			else
+				(*token)->next->prev = NULL;
+		}
+		if ((*token)->value)
+		{
+			free((*token)->value);
+			(*token)->value = NULL;
+		}
+	free(*token);
+	*token = NULL;
+}
+
+/*
  * Description: 토큰 리스트의 메모리를 해제한다.
  * Param      : 해제할 토큰 리스트
  * Return     : void
@@ -14,12 +46,7 @@ void	free_token_list(t_token **token)
 	while (*token)
 	{
 		temp = (*token)->next;
-		if ((*token)->value)
-		{
-			free((*token)->value);
-			(*token)->value = NULL;
-		}
-		free(*token);
+		free_token(token);
 		*token = temp;
 	}
 	*token = NULL;
