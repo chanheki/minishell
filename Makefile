@@ -35,6 +35,8 @@ TREE 		=	ASTtree
 EXPANSION	=	expansion
 BUILTIN		=	builtin
 UTIL		=	util
+ENV			=	env
+DICT		=	dict
 
 # ---- escape ---- #
 
@@ -114,7 +116,10 @@ sources1 += $(BUILTIN)/ft_unset.c
 
 sources1 += $(UTIL)/utils.c
 
-
+sources1 += $(ENV)/cast.c
+sources1 += $(ENV)/initialize.c
+sources1 += $(ENV)/$(DICT)/add_to_env_dict.c
+sources1 += $(ENV)/$(DICT)/free.c
 
 # ---- Bonus ---- #
 

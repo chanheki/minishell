@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/09 19:23:24 by chanheki          #+#    #+#             */
+/*   Updated: 2023/05/09 20:02:31 by chanheki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -15,17 +27,19 @@
 /* custom includes */
 # include "error.h"
 # include "parse.h"
-# include "utill.h"
 # include "prompt.h"
 # include "signal.h"
-# include "execute.h"
 # include "builtin.h"
+# include "util.h"
+# include "execute.h"
+# include "env.h"
 
 typedef struct s_global
 {
 	int				argc;
 	char			**argv;
 	char			**envp;
+	t_env_dict		*env_dict;
 	int				exit_status;
 	struct termios	old_term;
 	struct termios	new_term;

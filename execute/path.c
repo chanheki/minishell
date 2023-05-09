@@ -36,7 +36,7 @@ static char	**parse_paths(char **envp)
 	return (paths);
 }
 
-static int	chech_path(char **path)
+static int	check_path(char **path)
 {
 	if (!is_directory(*path) && access(*path, X_OK) == 0)
 		return (1);
@@ -59,7 +59,7 @@ static int	make_path(char **path_list, char *cmd_name, char **path)
 			path_list = NULL;
 			return (-1);
 		}
-		if (chech_path(path) == 1)
+		if (check_path(path) == 1)
 			return (0);
 		i++;
 	}

@@ -11,7 +11,7 @@ static void	execute_tree(t_ASTnode *cmd)
 {
 	t_error	errno;
 
-	if (check_builtin(cmd->token->value))
+	if (is_builtin_command(cmd))
 		errno = execute_parent(cmd);
 	else
 		errno = execute_child(cmd);

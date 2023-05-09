@@ -40,30 +40,29 @@ static int	count_argument(char **argv)
 	return (i);
 }
 
-int	ft_exit(char **argv, int child)
+int	ft_exit(char **argv, t_process_type type)
 {
 	if (!argv || !(*argv))
 	{
-		printf("ft_exit argument error!\n");
-		return (1);
+		ft_putendl_fd("Jip-Shell: ft_exit argv error \n", STDERR_FILENO);
+		return (EXIT_BUILT_IN_FAIL);
 	}
-	if (!child)
+	jipshell_will_terminate();
+	if (type == P_PARENT)
 		ft_putendl_fd("exit", STDERR_FILENO);
 	if (is_valid_argument(argv[1]) == false)
 	{
-		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+		ft_putstr_fd("Jip-S ell: exit: ", STDERR_FILENO);
 		ft_putstr_fd(argv[1], STDERR_FILENO);
 		ft_putendl_fd(": numeric argument required", STDERR_FILENO);
 		exit(255);
 	}
 	if (count_argument(argv) > 2)
 	{
-		ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
-		return (1);
+		ft_putendl_fd("Jip-Shell: exit: too many arguments", STDERR_FILENO);
+		exit(1);
 	}
-	tcsetattr(STDIN_FILENO, TCSANOW, &(g_var.old_term));
 	if (count_argument(argv) == 2)
 		exit(ft_atoi(argv[1]));
-	exit(g_var.exit_status);
 	return (0);
 }

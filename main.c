@@ -12,9 +12,10 @@ t_global	g_var;
  *            : 현재 쉘이 정상적으로 종료전 실행되는 함수.
  *            : 처음 쉘이 실행됐을 때의 terminal 세팅을 원상복구 한다.
  */
-static void	jipshell_will_terminate(void)
+void	jipshell_will_terminate(void)
 {
 	// free & clear setting
+	free_env_dict(g_var.env_dict);
 	tcsetattr(STDIN_FILENO, TCSANOW, &(g_var.old_term));
 }
 
@@ -54,6 +55,8 @@ int	main(int argc, char **argv, char **env)
 {
 	initialize_global_variable(argc, argv, env);
 	initialize_setting();
+	if (initialize_env(env) == ERROR)
+		return (1);
 	validator();
 	hosting_loop();
 	jipshell_will_terminate();
