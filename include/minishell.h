@@ -20,6 +20,7 @@
 # include "signal.h"
 # include "execute.h"
 # include "builtin.h"
+# include "env.h"
 
 /*
  * <exit code>

@@ -54,6 +54,8 @@ int	main(int argc, char **argv, char **env)
 {
 	initialize_global_variable(argc, argv, env);
 	initialize_setting();
+	if (initialize_envp(env) == ERROR)
+		return (1);
 	validator();
 	hosting_loop();
 	jipshell_will_terminate();
