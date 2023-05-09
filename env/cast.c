@@ -57,7 +57,7 @@ int		cast_env_to_dict(char **env)
 		initialize_env_dict(&dict, key, value);
 		if (!dict)
 			return (ERROR);
-		add_to_env_dict(&g_var.env.dict, dict);
+		add_to_env_dict(g_var.env.dict, dict);
 		free(key);
 		free(value);
 	}
