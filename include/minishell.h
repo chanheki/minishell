@@ -47,7 +47,8 @@ typedef struct s_global
 {
 	int				argc;
 	char			**argv;
-	t_env			env;
+	char			**envp;
+	t_env_dict		*env_dict;
 	int				exit_status;
 	struct termios	old_term;
 	struct termios	new_term;
