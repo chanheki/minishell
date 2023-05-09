@@ -26,7 +26,10 @@ t_token	*tokenize_line(char *trimmed_line)
 		}
 		add_token_to_tail(&token, new_token);
 		set_token(&new_token, trimmed_line, &i);
-		token = new_token;
+		if (!new_token->value)
+			free_token(&new_token);
+		else
+			token = new_token;
 		while (trimmed_line[i] && trimmed_line[i] == BLANK)
 			i++;
 	}
