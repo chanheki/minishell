@@ -7,7 +7,7 @@
  * Param.   #3: 환경변수 키의 길이
  * Return     : 환경변수 키에 해당하는 값
  */
-char	*get_env_value(char *trimmed_line, int start, int length)
+char	*get_interpreted_env(char *trimmed_line, int start, int length)
 {
 	char	*env_name;
 	char	*interpreted;
@@ -41,7 +41,7 @@ void	interpret_env(t_token **token, char *trimmed_line, int *i)
 	while (trimmed_line[*i + length] && trimmed_line[*i + length] != BLANK
 		&& !ft_strchr("<>()|;&\'\"", trimmed_line[*i + length]))
 		length++;
-	interpreted = get_env_value(trimmed_line, *i, length);
+	interpreted = get_interpreted_env(trimmed_line, *i, length);
 	*i += length;
 	if (!interpreted)
 		return ;

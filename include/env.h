@@ -21,7 +21,7 @@ void	free_env_dict(t_env_dict *dict);
 
 /*----------------------------------- CAST ----------------------------------*/
 int		cast_env_to_dict(char **env);
-char	*get_key(char *env);
-char	*get_value(char *env);
+char	*get_env_key(char *env);
+char	*get_env_value(char *env);
 
 #endif
