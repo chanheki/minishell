@@ -26,7 +26,7 @@ int	check_unset_argv(char *argv)
  */
 int	ft_unset(char **argv)
 {
-	char	*env;
+	char	*value;
 	int		i;
 	int		exit_status;
 
@@ -39,9 +39,9 @@ int	ft_unset(char **argv)
 			exit_status = 1;
 			continue ;
 		}
-		env = getenv(argv[i]);
-		if (env)
-			*env = '\0';
+		value = find_value(argv[i]);
+		if (value)
+			delete_env(argv[i]);
 	}
 	return (exit_status);
 }

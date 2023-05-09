@@ -118,7 +118,7 @@ bool				is_quote(char c);
 void				interpret_expansion(t_token **token, char *trimmed_line,
 						int *i);
 void				postprocess_expansion(t_token **token);
-char				*get_env_value(char *trimmed_line, int start, int length);
+char				*get_interpreted_env(char *trimmed_line, int start, int length);
 void				interpret_env(t_token **token, char *trimmed_line, int *i);
 void				interpret_exit_status(t_token **token, int *i);
 void				delete_outer_quotes(t_token **token);

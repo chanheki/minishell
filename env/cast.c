@@ -5,7 +5,7 @@
  * Param.  #1 : 환경 변수의 문자열
  * Return     : 환경 변수의 key
  */
-char	*get_key(char *env)
+char	*get_env_key(char *env)
 {
 	int		i;
 	char	*key;
@@ -23,7 +23,7 @@ char	*get_key(char *env)
  * Param.  #1 : 환경 변수의 문자열
  * Return     : 환경 변수의 value
  */
-char	*get_value(char *env)
+char	*get_env_value(char *env)
 {
 	int		i;
 	char	*value;
@@ -52,8 +52,8 @@ int		cast_env_to_dict(char **env)
 	i = -1;
 	while (env[++i])
 	{
-		key = get_key(env[i]);
-		value = get_value(env[i]);
+		key = get_env_key(env[i]);
+		value = get_env_value(env[i]);
 		initialize_env_dict(&dict, key, value);
 		if (!dict)
 			return (ERROR);
