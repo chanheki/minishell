@@ -20,6 +20,11 @@ void	set_token(t_token **token, char *trimmed_line, int *i)
 	else
 	{
 		set_normal_token(token, trimmed_line, i);
+		if (!(*token)->value)
+		{
+			free_token(token);
+			return ;
+		}
 		if (ft_strchr((*token)->value, WILDCARD)
 			&& ((*token)->prev && (*token)->prev->type != DREDIRECT_IN))
 			(*token)->type = WILDCARD;
