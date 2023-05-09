@@ -23,7 +23,7 @@ static void	child_execve(t_ASTnode *node, char *path, char **argv)
 		exit(1);
 	tcsetattr(STDIN_FILENO, TCSANOW, &(g_var.old_term));
 	if (is_builtin_command(node) == true)
-		exit(exec_builtin(path, argv));
+		exit(execute_builtin(path, argv, P_CHILD));
 	execve(path, argv, g_var.envp);
 	exit(0);
 }

@@ -44,8 +44,13 @@ bool	is_builtin_command(t_ASTnode *node)
  * Return     : SUCCESS : 성공
  *            : EXIT_BUILT_IN_FAIL = 2 실패
  */
-int	exec_builtin(char *path, char **argv)
+int	execute_builtin(char *path, char **argv, t_process_type type)
 {
+	if (!path)
+	{
+		ft_putendl_fd("execute_builtin : path null", STDERR_FILENO);
+		return (-1);
+	}
 	if (!ft_strcmp(path, "cd"))
 		return (ft_cd(argv));
 	else if (!ft_strcmp(path, "echo"))
@@ -53,13 +58,13 @@ int	exec_builtin(char *path, char **argv)
 	else if (!ft_strcmp(path, "env"))
 		return (ft_env());
 	else if (!ft_strcmp(path, "exit"))
-		return (ft_exit());
+		return (ft_exit(argv, type));
 	else if (!ft_strcmp(path, "export"))
 		return (ft_export());
 	else if (!ft_strcmp(path, "pwd"))
 		return (ft_pwd());
 	else if (!ft_strcmp(path, "unset"))
-		return(ft_unset(argv));
-	ft_putendl_fd("exec_builtin : invalid path", STDERR_FILENO);
+		return (ft_unset(argv));
+	ft_putendl_fd("execute_builtin : invalid path", STDERR_FILENO);
 	return (-1);
 }
