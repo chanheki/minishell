@@ -7,7 +7,7 @@
  */
 int	move_to_dir(char *path)
 {
-	if (!chdir(path))
+	if (chdir(path))
 		return (update_cwd(path));
 	else
 	{
@@ -28,6 +28,7 @@ int	update_cwd(char *path)
 	char	*pwd;
 
 	pwd = find_value("PWD");
+	printf("path: %s\n", path);
 	if (!pwd)
 	{
 		ft_putstr_fd("minishell: cd: PWD failed\n", 2);
@@ -61,7 +62,7 @@ int	move_to_home(void)
 		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 		return (1);
 	}
-	if (!chdir(home_path))
+	if (chdir(home_path))
 	{
 		ft_putstr_fd("minishell: cd: change directory to HOME failed\n", 2);
 		return (1);
@@ -84,7 +85,7 @@ int	move_to_prev_dir(void)
 		ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
 		return (1);
 	}
-	if (!chdir(oldpwd))
+	if (chdir(oldpwd))
 	{
 		ft_putstr_fd("minishell: cd: change directory to OLDPWD failed\n", 2);
 		return (1);
@@ -99,7 +100,7 @@ int	move_to_prev_dir(void)
  */
 int	ft_cd(char **path)
 {
-	if (!(*path) || !path || ft_strcmp(*path, "~"))
+	if (!(*path) || !path || !ft_strcmp(*path, "~"))
 		return (move_to_home());
 	else if (!ft_strcmp(*path, "-"))
 		return (move_to_prev_dir());
