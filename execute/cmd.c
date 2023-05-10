@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 02:05:05 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 02:05:05 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 04:37:09 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,17 @@ static int	cmd_node_count(t_ASTnode *node)
  * Param.   #1: node
  * Return     : int count
  */
-static void	cmd_preorder(t_ASTnode *node, t_ASTnode **cmd_list, int idx)
+static void	cmd_preorder(t_ASTnode *node, t_ASTnode **cmd_list, int *idx)
 {
+	if (!node)
+		return ;
 	if (is_cmd(node))
 	{
-		cmd_list[idx] = node;
+		cmd_list[*idx] = node;
+		*idx += 1;
 		return ;
 	}
-	cmd_preorder(node->left, cmd_list, idx - 1);
+	cmd_preorder(node->left, cmd_list, idx);
 	cmd_preorder(node->right, cmd_list, idx);
 }
 
@@ -79,6 +82,7 @@ t_ASTnode	**generate_cmd_list(t_ASTnode *root)
 	cmd_list = (t_ASTnode **)ft_calloc(cmd_count + 1, sizeof(t_ASTnode *));
 	if (!cmd_list)
 		return (NULL);
-	cmd_preorder(root, cmd_list, cmd_count - 1);
+	cmd_count = 0;
+	cmd_preorder( root, cmd_list, &cmd_count);
 	return (cmd_list);
 }
