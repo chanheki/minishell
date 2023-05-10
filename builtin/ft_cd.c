@@ -5,6 +5,38 @@
  * Param.  #1 : 변경할 디렉토리 경로
  * Return     : 성공 시 0, 실패 시 1
  */
+int	move_to_dir(char *path)
+{
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+	{
+		ft_putstr_fd("minishell: cd: getcwd failed\n", 2);
+		return (1);
+	}
+	if (!chdir(path))
+	{
+		delete_env("OLDPWD");
+		set_env("OLDPWD", cwd);
+		free(cwd);
+		return (0);
+	}
+	else
+	{
+		ft_putstr_fd("minishell: cd: ", 2);
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd(": No such file or directory", 2);
+		free(cwd);
+		return (1);
+	}
+}
+
+/*
+ * Description: 환경 변수에 저장된 현재 작업 디렉토리를 변경한다.
+ * Param.  #1 : 변경할 디렉토리 경로
+ * Return     : 성공 시 0, 실패 시 1
+ */
 int	update_cwd(char *path)
 {
 	char	*cwd;
