@@ -52,7 +52,7 @@ int	execute_builtin(char *path, char **argv, t_process_type type)
 		return (-1);
 	}
 	if (!ft_strcmp(path, "cd"))
-		return (ft_cd(argv));
+		return (ft_cd(argv + 1));
 	else if (!ft_strcmp(path, "echo"))
 		return (ft_echo(argv));
 	else if (!ft_strcmp(path, "env"))

@@ -12,7 +12,12 @@ void	delete_env(char *key)
 	{
 		next = temp->next;
 		if (!ft_strcmp(temp->key, key))
+		{
+			if (!temp->prev)
+				g_var.env_dict = next;
 			free_one_env_dict(temp);
+		}
 		temp = next;
 	}
+	update_envp();
 }
