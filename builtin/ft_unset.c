@@ -43,5 +43,6 @@ int	ft_unset(char **argv)
 		if (value)
 			delete_env(argv[i]);
 	}
+	update_envp();
 	return (exit_status);
 }
