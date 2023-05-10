@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:53:33 by yena              #+#    #+#             */
-/*   Updated: 2023/05/11 07:10:06 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 07:15:39 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	make_redirection_node(t_ASTnode **ast_tree, t_token **current)
 	t_ASTnode	*file_node;
 
 	if (!(*current)->next)
-		return (FAIL);		
+		return (FAIL);
 	if (!*ast_tree || (*ast_tree)->token != *current)
 		new_node = create_new_node(*current);
 	else
