@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:52:52 by yena              #+#    #+#             */
-/*   Updated: 2023/05/10 21:23:33 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 00:11:07 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int					make_normal_node(t_ASTnode **ast_tree, t_token **current);
 void				add_token_to_tail(t_token **token, t_token *new);
 t_token				*create_new_token(void *value, enum e_token_type type);
 t_token				*get_tail_token(t_token **token);
-t_token				*get_head_token(t_token **token);
+t_token				*get_head_token(t_token *token);
 char				*get_join_source(char c);
 void				join_token_value(t_token **token,
 						char *trimmed_line, int *i);
