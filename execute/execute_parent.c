@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_parent.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/11 02:07:54 by chanheki          #+#    #+#             */
+/*   Updated: 2023/05/11 02:07:54 by chanheki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 /*
@@ -49,7 +61,7 @@ static void	execute_will_terminate(
 
 /*
  * Description: execute_parent(cmd)
- *            : 부모 process에서 실행.
+ *            : 부모 process에서 실행. (builtin)
  *            : 해당 노드의 argv와 cmdlist를 만들어서 실행 준비를 하고
  *            : builtin 함수를 실행 시킨다.
  * Param.   #1: node (cmd)
