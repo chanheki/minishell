@@ -6,11 +6,10 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 05:10:32 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 05:11:39 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 05:16:29 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
 #include "../include/minishell.h"
 
 /*

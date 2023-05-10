@@ -6,12 +6,17 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 04:57:33 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 04:57:34 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 05:28:32 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*
+ * Description: is_valid_option
+ *            : 유효한 옵션인지 확인한다.
+ * Param.   #1: *str
+ */
 static bool	is_valid_option(char *str)
 {
 	int	i;
@@ -28,6 +33,12 @@ static bool	is_valid_option(char *str)
 	return (true);
 }
 
+/*
+ * Description: print_argument
+ *            : option -n옵션을 고려하여 구현
+ * Param.   #1: **option
+ * Param.   #2: start_idx
+ */
 static void	print_argument(char **option, int start_idx)
 {
 	int	i;
@@ -42,6 +53,12 @@ static void	print_argument(char **option, int start_idx)
 	}
 }
 
+/*
+ * Description: ft_echo
+ *            : 쉘 내장 함수인 echo를 구현한다. -n 옵션 가능.
+ * Param.   #1: **option
+ * Return     : exit code 0 / ERROR
+ */
 int	ft_echo(char **option)
 {
 	int	i;
@@ -50,7 +67,7 @@ int	ft_echo(char **option)
 	if (!option || !(*option))
 	{
 		ft_putstr_fd("ft_echo argument error!\n", 2);
-		return (0);
+		return (1);
 	}
 	while (is_valid_option(option[i]) == true)
 	{
