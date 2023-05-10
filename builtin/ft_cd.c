@@ -8,14 +8,13 @@
 int	move_to_dir(char *path)
 {
 	if (chdir(path))
-		return (update_cwd(path));
-	else
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
 		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": No such file or directory", 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
 		return (1);
 	}
+	return (update_cwd(path));
 }
 
 /*
