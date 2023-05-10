@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/10 20:52:25 by yena              #+#    #+#             */
+/*   Updated: 2023/05/10 21:18:04 by yena             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 /*
@@ -24,7 +36,7 @@ int	ft_pwd(void)
 	else
 	{
 		ft_putstr_fd("minishell: pwd: can't find current working directory\n",
-					STDERR_FILENO);
+			STDERR_FILENO);
 		return (1);
 	}
 }
