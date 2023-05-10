@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:51:54 by yena              #+#    #+#             */
-/*   Updated: 2023/05/10 21:19:13 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 05:02:29 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	update_envp(void)
 		envp[++i] = create_env_string(temp->key, temp->value);
 		temp = temp->next;
 	}
-	envp[i + 1] = (char *)NULL;
+	envp[i + 1] = (char *) NULL;
 	ft_split_free(g_var.envp);
 	g_var.envp = envp;
 }
