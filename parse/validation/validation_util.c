@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:54:47 by yena              #+#    #+#             */
-/*   Updated: 2023/05/10 20:54:50 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 05:02:27 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,11 @@ bool	is_valid_command(t_token *token)
 	t_token	*prev;
 
 	temp = token;
+	if (is_operator(token))
+	{
+		print_syntax_error(token);
+		return (false);
+	}
 	while (temp)
 	{
 		prev = temp->prev;
