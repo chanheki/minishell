@@ -55,14 +55,15 @@ int	ft_exit(char **argv, t_process_type type)
 		ft_putstr_fd("Jip-S ell: exit: ", STDERR_FILENO);
 		ft_putstr_fd(argv[1], STDERR_FILENO);
 		ft_putendl_fd(": numeric argument required", STDERR_FILENO);
-		exit(255);
+		exit(EXIT_OUT_OF_RANGE);
 	}
 	if (count_argument(argv) > 2)
 	{
 		ft_putendl_fd("Jip-Shell: exit: too many arguments", STDERR_FILENO);
-		exit(1);
+		exit(EXIT_TOO_MANY_ARGUMENTS);
 	}
 	if (count_argument(argv) == 2)
 		exit(ft_atoi(argv[1]));
+	exit(g_var.exit_status);
 	return (0);
 }
