@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:53:41 by yena              #+#    #+#             */
-/*   Updated: 2023/05/10 20:53:42 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 05:52:16 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	interpret_env(t_token **token, char *trimmed_line, int *i)
 	(*i)++;
 	length = 0;
 	while (trimmed_line[*i + length] && trimmed_line[*i + length] != BLANK
+		&& trimmed_line[*i + length] != ':'
 		&& !ft_strchr("<>()|;&\'\"", trimmed_line[*i + length]))
 		length++;
 	interpreted = get_interpreted_env(trimmed_line, *i, length);
