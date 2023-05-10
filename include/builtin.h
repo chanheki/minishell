@@ -1,16 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 19:23:12 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/09 20:03:21 by chanheki         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
@@ -29,10 +16,16 @@ int		execute_builtin(char *path, char **argv, t_process_type type);
 // builtin dir
 int		ft_cd(char **option);
 int		ft_echo(char **option);
-int		ft_env();
+int		ft_env(void);
 int		ft_exit(char **argv, t_process_type type);
 int		ft_export(char **argv);
 int		ft_pwd(void);
+
+/*----------------------------------- CD ------------------------------------*/
+int		move_to_dir(char *path);
+int		update_cwd(void);
+int		move_to_home(void);
+int		ft_cd(char **path);
 
 /*---------------------------------- UNSET ----------------------------------*/
 int		check_env_argv(char *argv);

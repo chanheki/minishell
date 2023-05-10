@@ -1,4 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_wildcard.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/10 20:54:10 by yena              #+#    #+#             */
+/*   Updated: 2023/05/11 02:42:45 by yena             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
+
+/*
+ * Description: 주어진 루트 노드 바로 왼쪽에 노드를 끼워넣는다.
+ * Param.   #1: 루트 노드
+ * Param.   #2: 끼워넣을 새로운 노드
+ * Return     : 없음
+ */
+void	interrupt_to_left(t_ASTnode **node, t_ASTnode *new_node)
+{
+	t_ASTnode	*temp_node;
+
+	temp_node = (*node)->left;
+	(*node)->left = new_node;
+	new_node->left = temp_node;
+}
 
 /*
  * Description: 유효한 와일드카드인지 확인한다.
@@ -66,11 +93,14 @@ int	rebuild_wildcard(t_ASTnode **node, int *dir_count, char *dir_name)
 	}
 	else
 	{
-		new_token = create_new_token(dir_name, WILDCARD);
+		new_token = create_new_token(ft_strdup(dir_name), WILDCARD);
 		new_node = create_new_node(new_token);
 		if (!new_node || !new_token)
 			return (ERROR);
-		add_node_to_direction(node, new_node, LEFT);
+		if ((*node)->left)
+			interrupt_to_left(node, new_node);
+		else
+			add_node_to_direction(node, new_node, LEFT);
 		*node = new_node;
 	}
 	(*dir_count)++;

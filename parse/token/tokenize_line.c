@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenize_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/10 20:54:38 by yena              #+#    #+#             */
+/*   Updated: 2023/05/11 00:10:19 by yena             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 /*
@@ -31,5 +43,5 @@ t_token	*tokenize_line(char *trimmed_line)
 		while (trimmed_line[i] && trimmed_line[i] == BLANK)
 			i++;
 	}
-	return (get_head_token(&token));
+	return (get_head_token(token));
 }

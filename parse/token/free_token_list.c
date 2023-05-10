@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_token_list.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/10 20:53:54 by yena              #+#    #+#             */
+/*   Updated: 2023/05/10 21:01:08 by yena             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 /*
@@ -9,25 +21,25 @@ void	free_token(t_token **token)
 {
 	if (!token || !*token)
 		return ;
-		if ((*token)->prev)
-		{
-			if ((*token)->next)
-				(*token)->prev->next = (*token)->next;
-			else
-				(*token)->prev->next = NULL;
-		}
+	if ((*token)->prev)
+	{
 		if ((*token)->next)
-		{
-			if ((*token)->prev)
-				(*token)->next->prev = (*token)->prev;
-			else
-				(*token)->next->prev = NULL;
-		}
-		if ((*token)->value)
-		{
-			free((*token)->value);
-			(*token)->value = NULL;
-		}
+			(*token)->prev->next = (*token)->next;
+		else
+			(*token)->prev->next = NULL;
+	}
+	if ((*token)->next)
+	{
+		if ((*token)->prev)
+			(*token)->next->prev = (*token)->prev;
+		else
+			(*token)->next->prev = NULL;
+	}
+	if ((*token)->value)
+	{
+		free((*token)->value);
+		(*token)->value = NULL;
+	}
 	free(*token);
 	*token = NULL;
 }

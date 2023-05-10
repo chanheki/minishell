@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/10 20:54:55 by yena              #+#    #+#             */
+/*   Updated: 2023/05/10 20:59:04 by yena             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 /*
@@ -17,7 +29,7 @@ t_ASTnode	*parse_command_line(char *line)
 	token = tokenize_line(trimmed_line);
 	free(trimmed_line);
 	if (!token)
-		return (NULL);
+		return (free(line), NULL);
 	if (!is_valid_syntax(token))
 	{
 		free_token_list(&token);
