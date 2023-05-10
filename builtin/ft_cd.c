@@ -1,13 +1,15 @@
-
-// cd with only a relative or absolute path
-
-// 　오직 상대 또는 절대경로만 사용하는 cd
-
 #include "../include/minishell.h"
 
-int	ft_cd(char **option)
+/*
+ * Description: *path 값에 따라 현재 작업 디렉토리를 변경한다.
+ * Param.  #1 : 변경할 디렉토리 경로
+ * Return     : 성공 시 0, 실패 시 1
+ */
+int	ft_cd(char **path)
 {
-	if (!(*option) || !option)
-		return (1); // error;
+	if (!(*path) || !path || ft_strcmp(*path, "~"))
+		return (move_to_home());
+	else
+		return (move_to_dir(*path));
 	return (0);
 }
