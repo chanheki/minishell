@@ -35,12 +35,18 @@ void	sigint_prompt(int signumber)
  * Description: 시그널을 세팅한다.
  *            : 시그널 핸들러(signal handler) ctrl+c 를 비활성화하고, 해당 시그널을 구현한다.
  *            : ctrl+\를 ignore한다.
- *            : 둘 중 하나라도 실패하면 전역변수 exit_status에 에러값을 전달한다.
+ *            : 둘 중 하나라도 실패하면 전역변수 exit_status에 에러값을 전달하고 t_error을 반환한다.
+ * Return     : SUCCESS : 성공
+ *            : ERROR: 실패
  */
-void	set_signal(void)
+t_error	set_signal(void)
 {
 	rl_catch_signals = 0;
 	if (signal(SIGINT, sigint_prompt) == SIG_ERR
 		|| signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+	{
 		g_var.exit_status = -1;
+		return (ERROR);
+	}
+	return (SUCCESS);
 }

@@ -23,15 +23,15 @@ static void	child_execve(t_ASTnode *node, char *path, char **argv)
 		exit(1);
 	tcsetattr(STDIN_FILENO, TCSANOW, &(g_var.old_term));
 	if (is_builtin_command(node) == true)
-		exit(execute_builtin(path, argv, P_CHILD));
+		exit(execute_builtin(builtin, argv, P_CHILD));
 	execve(path, argv, g_var.envp);
 	exit(0);
 }
 
 static t_error	child_execute(t_ASTnode *cmd_node)
 {
-	char	**cmd_argv;
 	char	*path;
+	char	**cmd_argv;
 
 	cmd_argv = generate_argv(cmd_node);
 	if (!cmd_argv)
@@ -44,33 +44,6 @@ static t_error	child_execute(t_ASTnode *cmd_node)
 	}
 	child_execve(cmd_node, path, cmd_argv);
 	return (SUCCESS);
-}
-
-static pid_t	fork_child(t_ASTnode *cmd_node, int *before_fd)
-{
-	int		fd[2];
-	int		temp;
-	pid_t	child_pid;
-
-	if (pipe(fd) == -1)
-		return (0);
-	temp = *before_fd;
-	*before_fd = fd[FD_READ];
-	child_pid = fork();
-	if (child_pid == -1)
-		return (0);
-	if (child_pid == 0)
-	{
-		if (close(fd[FD_READ]) < 0
-			|| (temp != STDIN_FILENO && ft_dup2(temp, STDIN_FILENO) == ERROR)
-			|| ft_dup2(fd[FD_WRITE], STDOUT_FILENO) == ERROR
-			|| child_execute(cmd_node) == ERROR)
-			exit(1);
-	}
-	if ((temp != STDIN_FILENO && close(temp) == -1)
-		|| close(fd[FD_WRITE]) == -1)
-		return (0);
-	return (child_pid);
 }
 
 static pid_t	last_fork_child(t_ASTnode *cmd_node, int before_fd)
@@ -93,13 +66,41 @@ static pid_t	last_fork_child(t_ASTnode *cmd_node, int before_fd)
 	return (child_pid);
 }
 
+static pid_t	fork_child(t_ASTnode *cmd_node, int *before_fd)
+{
+	pid_t	child_pid;
+	int		fd[2];
+	int		temp_fd;
+
+	if (pipe(fd) == -1)
+		return (0);
+	temp_fd = *before_fd;
+	*before_fd = fd[FD_READ];
+	child_pid = fork();
+	if (child_pid == -1)
+		return (0);
+	if (child_pid == 0)
+	{
+		if (close(fd[FD_READ]) < 0
+			|| (temp_fd != STDIN_FILENO
+				&& ft_dup2(temp_fd, STDIN_FILENO) == ERROR)
+			|| ft_dup2(fd[FD_WRITE], STDOUT_FILENO) == ERROR
+			|| child_execute(cmd_node) == ERROR)
+			exit(1);
+	}
+	if ((temp_fd != STDIN_FILENO && close(temp_fd) == -1)
+		|| close(fd[FD_WRITE]) == -1)
+		return (0);
+	return (child_pid);
+}
+
 t_error	create_childs_processes(t_ASTnode **cmd_list, pid_t *pid_list)
 {
 	int	i;
 	int	before_fd;
 
 	before_fd = STDIN_FILENO;
-	if (signal(SIGINT, SIG_IGN) == SIG_ERR)
+	if (set_signal() == ERROR)
 		return (ERROR);
 	i = 0;
 	while (cmd_list[i + 1])
@@ -113,35 +114,6 @@ t_error	create_childs_processes(t_ASTnode **cmd_list, pid_t *pid_list)
 	if (pid_list[i] == 0)
 		return (ERROR);
 	return (SUCCESS);
-}
-
-static pid_t	*make_empty_pid_list(t_ASTnode **cmd_list)
-{
-	pid_t	*pid_list;
-	int		i;
-
-	i = 0;
-	while (cmd_list[i])
-		i++;
-	pid_list = (pid_t *)ft_calloc(i + 1, sizeof(pid_t));
-	return (pid_list);
-}
-
-static int	wait_proc(pid_t *pid_list)
-{
-	int	i;
-	int	status;
-
-	i = 0;
-	status = 0;
-	while (pid_list[i])
-	{
-		waitpid(pid_list[i], &status, 0);
-		if (0 < status && status < 256)
-			status = (128 + status) * 256;
-		i++;
-	}
-	return (status / 256);
 }
 
 t_error	execute_child(t_ASTnode *root)
@@ -161,7 +133,7 @@ t_error	execute_child(t_ASTnode *root)
 		free(cmd_list);
 		return (ERROR);
 	}
-	g_var.exit_status = wait_proc(pid_list);
+	g_var.exit_status = wait_process(pid_list);
 	free(pid_list);
 	free(cmd_list);
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:23:19 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/09 19:23:21 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:21:50 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,11 @@ void		set_termianl(void);
 t_error		execute_child(t_ASTnode *root);
 t_error		create_childs_processes(t_ASTnode **cmd_list, pid_t *pid_list);
 
+// excute_util.c
+pid_t		*make_empty_pid_list(t_ASTnode **cmd_list);
+int			wait_process(pid_t *pid_list);
+
 // builtin.c
-bool	is_builtin_cmd(t_ASTnode *node);
+bool		is_builtin_cmd(t_ASTnode *node);
 
 #endif
