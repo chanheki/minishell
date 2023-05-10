@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/11 03:13:12 by chanheki          #+#    #+#             */
+/*   Updated: 2023/05/11 03:19:08 by chanheki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 /*
@@ -11,12 +23,9 @@
 bool	is_builtin_command(t_ASTnode *node)
 {
 	int			i;
-	const char	cmd[8][8] = {"cd", \
-							"echo", \
-							"env", \
-							"exit", \
-							"export", \
-							"pwd", \
+	const char	cmd[8][8] = {"cd", "echo", \
+							"env", "exit", \
+							"export", "pwd", \
 							"unset"};
 
 	if (!(node->token->value))
@@ -49,10 +58,7 @@ bool	is_builtin_command(t_ASTnode *node)
 int	execute_builtin(char *path, char **argv, t_process_type type)
 {
 	if (!path)
-	{
-		// ft_putendl_fd("execute_builtin : command not found", STDERR_FILENO);
 		return (0);
-	}
 	if (!ft_strcmp(path, "cd"))
 		return (ft_cd(argv + 1));
 	else if (!ft_strcmp(path, "echo"))

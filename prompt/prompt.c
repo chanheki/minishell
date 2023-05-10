@@ -22,12 +22,14 @@ void	initialize_setting(void)
  * Param.   #2: argv - 미니쉘 실행시 입력되는 커맨드
  * Param.   #3: env - 실행시 해당 쉘로부터 가져오는 env
  */
-void	initialize_global_variable(int argc, char **argv, char **env)
+void	initialize_global_variable(int argc, char **argv, char **envp)
 {
 	g_var.argv = argv;
 	g_var.argc = argc;
-	g_var.envp = env;
+	g_var.envp = envp;
 	g_var.exit_status = 0;
+	if (initialize_env(envp) == ERROR)
+		g_var.exit_status = -2;
 }
 
 /*
@@ -42,11 +44,17 @@ void	validator(void)
 		ft_putendl_fd("JIP-shell: Terminal Setting Error", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
+	if (g_var.exit_status == -2)
+	{
+		ft_putendl_fd("JIP-shell: envp Error", STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
 	if (g_var.argc > 1)
 	{
 		ft_putendl_fd("JIP-shell: Do not support this mode", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
+	g_var.exit_status = 0;
 }
 
 

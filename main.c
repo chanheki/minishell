@@ -6,7 +6,7 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 02:00:36 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 03:06:17 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 03:15:18 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	hosting_loop(void)
 	while (1)
 	{
 		str = readline(PROMPT);
-		check_signal_eof( str);
+		check_signal_eof(str);
 		add_history(str);
 		root_node = parse_command_line(str);
 		if (!root_node)
@@ -56,12 +56,10 @@ static void	hosting_loop(void)
  * Param.   #3: env - 실행시 해당 쉘로부터 가져오는 env
  * Return     : 전역변수 g_var의 exit_status
  */
-int	main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **envp)
 {
-	initialize_global_variable(argc, argv, env);
+	initialize_global_variable(argc, argv, envp);
 	initialize_setting();
-	if (initialize_env(env) == ERROR)
-		return (1);
 	validator();
 	hosting_loop();
 	jipshell_will_terminate();
