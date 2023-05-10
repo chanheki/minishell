@@ -85,6 +85,12 @@ int	ft_cd(char **path)
 {
 	if (!(*path) || !path || ft_strcmp(*path, "~"))
 		return (move_to_home());
+	else if (!ft_strcmp(*path, "-"))
+		return (move_to_prev_dir());
+	else if (!ft_strcmp(*path, "."))
+		return (update_cwd(getcwd(NULL, 0)));
+	else if (!ft_strcmp(*path, "/"))
+		return (move_to_root());
 	else
 		return (move_to_dir(*path));
 }
