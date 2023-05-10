@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:53:33 by yena              #+#    #+#             */
-/*   Updated: 2023/05/11 01:31:04 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 07:10:06 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ int	make_redirection_node(t_ASTnode **ast_tree, t_token **current)
 	t_ASTnode	*file_node;
 
 	if (!(*current)->next)
-		return (FAIL);
-	if ((*ast_tree)->token != *current)
+		return (FAIL);		
+	if (!*ast_tree || (*ast_tree)->token != *current)
 		new_node = create_new_node(*current);
 	else
 		new_node = *ast_tree;
@@ -125,9 +125,12 @@ int	make_redirection_node(t_ASTnode **ast_tree, t_token **current)
 	file_node = create_new_node(*current);
 	if (!file_node)
 		return (ERROR);
-	while ((*ast_tree)->right)
+	while (*ast_tree && (*ast_tree)->right)
 		(*ast_tree) = (*ast_tree)->right;
-	add_node_to_direction(ast_tree, new_node, RIGHT);
+	if (!*ast_tree)
+		add_node_to_direction(ast_tree, new_node, ROOT);
+	else
+		add_node_to_direction(ast_tree, new_node, RIGHT);
 	add_node_to_direction(&new_node, file_node, LEFT);
 	return (SUCCESS);
 }
@@ -156,6 +159,11 @@ int	make_normal_node(t_ASTnode **ast_tree, t_token **current)
 	new_node = create_new_node(*current);
 	if (!new_node)
 		return (ERROR);
+	if (is_redirection((*ast_tree)->token))
+	{
+		add_node_to_direction(&new_node, *ast_tree, RIGHT);
+		return (SUCCESS);
+	}
 	while ((*ast_tree)->left)
 		(*ast_tree) = (*ast_tree)->left;
 	add_node_to_direction(ast_tree, new_node, LEFT);
@@ -178,7 +186,8 @@ int	make_command_node(t_ASTnode **ast_tree, t_token **current)
 {
 	t_ASTnode	*new_node;
 
-	if (!(*ast_tree) || is_operator((*ast_tree)->token))
+	if ((!(*ast_tree) || is_operator((*ast_tree)->token))
+		&& !is_redirection(*current))
 	{
 		new_node = create_new_node(*current);
 		if (!new_node)
@@ -187,9 +196,7 @@ int	make_command_node(t_ASTnode **ast_tree, t_token **current)
 		*ast_tree = new_node;
 		return (SUCCESS);
 	}
-	if ((*current)->type == REDIRECT_IN || (*current)->type == REDIRECT_OUT
-		|| (*current)->type == DREDIRECT_IN
-		|| (*current)->type == DREDIRECT_OUT)
+	if (is_redirection(*current))
 		return (make_redirection_node(ast_tree, current));
 	else if ((*current)->type == NORMAL || (*current)->type == WILDCARD)
 		return (make_normal_node(ast_tree, current));

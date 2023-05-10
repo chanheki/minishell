@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:53:05 by yena              #+#    #+#             */
-/*   Updated: 2023/05/10 20:53:06 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 07:07:07 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
  *                 새로운 노드의 부모 노드를 루트 노드로 지정한다.
  *              2. 방향이 오른쪽이라면, 루트 노드의 오른쪽 자식 노드로 추가하고,
  *                 새로운 노드의 부모 노드를 루트 노드로 지정한다.
+ *              3. 방향이 루트라면, 루트 노드를 새로운 노드로 지정한다.
  * Param.   #1: 트리의 루트 노드
  * Param.   #2: 추가할 노드
  * Param.   #3: 추가할 방향
@@ -32,6 +33,8 @@ void	add_node_to_direction(t_ASTnode **node, t_ASTnode *new_node,
 		(*node)->left = new_node;
 	else if (*node && direction == RIGHT)
 		(*node)->right = new_node;
+	else if (!*node && new_node && direction == ROOT)
+		(*node) = new_node;
 	if (new_node)
 		new_node->parent = *node;
 }

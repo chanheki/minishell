@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:52:52 by yena              #+#    #+#             */
-/*   Updated: 2023/05/11 05:08:44 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 06:54:30 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef enum e_token_type {
 enum	e_node_direction {
 	LEFT,
 	RIGHT,
+	ROOT,
 	PARENT,
 };
 
