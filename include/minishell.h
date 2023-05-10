@@ -6,7 +6,7 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:23:24 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 02:02:46 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 05:15:02 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <signal.h>
 # include <term.h>
+# include <sys/stat.h>
 # include <sys/ioctl.h>
 # include <fcntl.h>
 # include <readline/history.h>

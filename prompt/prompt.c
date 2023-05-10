@@ -6,7 +6,7 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 05:09:30 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 05:10:14 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 05:16:52 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  */
 void	initialize_setting(void)
 {
-	// ft_putstr_fd(JIPHEADER, 2);
+	ft_putstr_fd(JIPHEADER, 2);
 	set_signal();
 	set_termianl();
 	set_tmp();
