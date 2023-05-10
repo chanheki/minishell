@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:52:52 by yena              #+#    #+#             */
-/*   Updated: 2023/05/11 00:11:07 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 02:43:30 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void				delete_outer_quotes(t_token **token);
 void				check_delete_quote(char *value, char *delete_flag);
 void				rebuild_quote_string(t_token **temp_token,
 						char *delete_flag);
+void				interrupt_to_left(t_ASTnode **node, t_ASTnode *new_node);
 bool				is_valid_wildcard(char *wildcard_value, char *dir_name, size_t idx_w, size_t idx_d);
 int					rebuild_wildcard(t_ASTnode **node, int *dir_count,
 						char *dir_name);
