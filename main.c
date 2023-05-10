@@ -1,8 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/11 02:00:36 by chanheki          #+#    #+#             */
+/*   Updated: 2023/05/11 03:06:17 by chanheki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 #include "./include/minishell.h"
 
 t_global	g_var;
@@ -14,8 +21,6 @@ t_global	g_var;
  */
 void	jipshell_will_terminate(void)
 {
-	// free & clear setting
-//	free_env_dict(g_var.env_dict);
 	tcsetattr(STDIN_FILENO, TCSANOW, &(g_var.old_term));
 }
 
@@ -33,7 +38,7 @@ static void	hosting_loop(void)
 	while (1)
 	{
 		str = readline(PROMPT);
-		check_signal_eof(str);
+		check_signal_eof( str);
 		add_history(str);
 		root_node = parse_command_line(str);
 		if (!root_node)

@@ -6,7 +6,7 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:23:24 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/09 20:02:31 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 02:02:46 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # define PROMPT "\033[0;32;3mJIP-Shell$\033[0m "
 
-# include "../lib/libft.h"
-# include <signal.h>
 # include <stdio.h>
+# include <unistd.h>
+# include <signal.h>
 # include <term.h>
 # include <sys/ioctl.h>
 # include <fcntl.h>
@@ -25,6 +25,7 @@
 # include "readline/readline.h"
 
 /* custom includes */
+# include "../lib/libft.h"
 # include "error.h"
 # include "parse.h"
 # include "prompt.h"

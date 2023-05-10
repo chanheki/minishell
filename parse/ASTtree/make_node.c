@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make_node.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/10 20:53:33 by yena              #+#    #+#             */
+/*   Updated: 2023/05/11 01:31:04 by yena             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 /*
@@ -68,8 +80,13 @@ int	make_operator_node(t_ASTnode **ast_tree, t_token *current)
 	parent_node = get_parent_node(*ast_tree, current);
 	if (parent_node)
 	{
-		add_node_to_direction(&new_node, parent_node->right, LEFT);
-		add_node_to_direction(&parent_node, new_node, RIGHT);
+		if ((*ast_tree)->left && (*ast_tree)->right)
+			add_node_to_direction(&new_node, get_root_node(*ast_tree), LEFT);
+		else
+		{
+			add_node_to_direction(&new_node, parent_node->right, LEFT);
+			add_node_to_direction(&parent_node, new_node, RIGHT);
+		}
 	}
 	else
 		add_node_to_direction(&new_node, get_root_node(*ast_tree), LEFT);

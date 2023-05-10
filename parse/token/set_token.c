@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_token.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/10 20:54:35 by yena              #+#    #+#             */
+/*   Updated: 2023/05/11 00:19:55 by yena             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 /*
@@ -22,7 +34,8 @@ void	set_token(t_token **token, char *trimmed_line, int *i)
 		set_normal_token(token, trimmed_line, i);
 		if (!(*token)->value)
 		{
-			free_token(token);
+			if ((*token)->prev || (*token)->next)
+				free_token(token);
 			return ;
 		}
 		if (ft_strchr((*token)->value, WILDCARD)

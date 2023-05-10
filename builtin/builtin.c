@@ -19,6 +19,8 @@ bool	is_builtin_command(t_ASTnode *node)
 							"pwd", \
 							"unset"};
 
+	if (!(node->token->value))
+		return (true);
 	if (!node || !node->token)
 	{
 		ft_putendl_fd("is_builtin_command : node error", STDERR_FILENO);
@@ -48,11 +50,11 @@ int	execute_builtin(char *path, char **argv, t_process_type type)
 {
 	if (!path)
 	{
-		ft_putendl_fd("execute_builtin : path null", STDERR_FILENO);
-		return (-1);
+		// ft_putendl_fd("execute_builtin : command not found", STDERR_FILENO);
+		return (0);
 	}
 	if (!ft_strcmp(path, "cd"))
-		return (ft_cd(argv));
+		return (ft_cd(argv + 1));
 	else if (!ft_strcmp(path, "echo"))
 		return (ft_echo(argv));
 	else if (!ft_strcmp(path, "env"))

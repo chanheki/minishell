@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/10 20:52:52 by yena              #+#    #+#             */
+/*   Updated: 2023/05/11 02:43:30 by yena             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSE_H
 # define PARSE_H
 
@@ -8,7 +20,7 @@
 # include <dirent.h>
 # include <errno.h>
 
-typedef enum	e_token_type {
+typedef enum e_token_type {
 	NORMAL = 1,
 	REDIRECT_IN = '<',
 	DREDIRECT_IN,
@@ -58,8 +70,8 @@ typedef struct s_cursor {
 }	t_cursor;
 
 /*---------------------------------- ERROR ----------------------------------*/
-void    print_syntax_error(t_token *token);
-void	print_command_not_found(t_token *token);
+void				print_syntax_error(t_token *token);
+void				print_command_not_found(t_token *token);
 
 /*---------------------------------- PARSE ----------------------------------*/
 char				**preprocess_line(char *line);
@@ -94,7 +106,7 @@ int					make_normal_node(t_ASTnode **ast_tree, t_token **current);
 void				add_token_to_tail(t_token **token, t_token *new);
 t_token				*create_new_token(void *value, enum e_token_type type);
 t_token				*get_tail_token(t_token **token);
-t_token				*get_head_token(t_token **token);
+t_token				*get_head_token(t_token *token);
 char				*get_join_source(char c);
 void				join_token_value(t_token **token,
 						char *trimmed_line, int *i);
@@ -125,6 +137,7 @@ void				delete_outer_quotes(t_token **token);
 void				check_delete_quote(char *value, char *delete_flag);
 void				rebuild_quote_string(t_token **temp_token,
 						char *delete_flag);
+void				interrupt_to_left(t_ASTnode **node, t_ASTnode *new_node);
 bool				is_valid_wildcard(char *wildcard_value, char *dir_name, size_t idx_w, size_t idx_d);
 int					rebuild_wildcard(t_ASTnode **node, int *dir_count,
 						char *dir_name);

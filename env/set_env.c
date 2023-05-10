@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_env.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/10 20:51:54 by yena              #+#    #+#             */
+/*   Updated: 2023/05/10 21:19:13 by yena             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 /*
@@ -20,6 +32,7 @@ int	change_env_value(char *key, char *value)
 			temp->value = ft_strdup(value);
 			if (!temp->value)
 				return (ERROR);
+			update_envp();
 			return (SUCCESS);
 		}
 		temp = temp->next;
@@ -75,7 +88,7 @@ void	update_envp(void)
 		envp[++i] = create_env_string(temp->key, temp->value);
 		temp = temp->next;
 	}
-	envp[i] = NULL;
+	envp[i + 1] = (char *)NULL;
 	ft_split_free(g_var.envp);
 	g_var.envp = envp;
 }
@@ -102,6 +115,7 @@ int	set_env(char *key, char *value)
 		if (!new_dict)
 			return (ERROR);
 		add_to_env_dict(&g_var.env_dict, new_dict);
+		update_envp();
 	}
 	return (SUCCESS);
 }
