@@ -64,5 +64,6 @@ int	ft_exit(char **argv, t_process_type type)
 	}
 	if (count_argument(argv) == 2)
 		exit(ft_atoi(argv[1]));
+	exit(g_var.exit_status);
 	return (0);
 }

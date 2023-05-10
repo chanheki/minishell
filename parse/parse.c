@@ -17,7 +17,7 @@ t_ASTnode	*parse_command_line(char *line)
 	token = tokenize_line(trimmed_line);
 	free(trimmed_line);
 	if (!token)
-		return (NULL);
+		return (free(line), NULL);
 	if (!is_valid_syntax(token))
 	{
 		free_token_list(&token);
