@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/10 20:52:52 by yena              #+#    #+#             */
+/*   Updated: 2023/05/10 21:23:33 by yena             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSE_H
 # define PARSE_H
 
@@ -8,7 +20,7 @@
 # include <dirent.h>
 # include <errno.h>
 
-typedef enum	e_token_type {
+typedef enum e_token_type {
 	NORMAL = 1,
 	REDIRECT_IN = '<',
 	DREDIRECT_IN,
@@ -58,8 +70,8 @@ typedef struct s_cursor {
 }	t_cursor;
 
 /*---------------------------------- ERROR ----------------------------------*/
-void    print_syntax_error(t_token *token);
-void	print_command_not_found(t_token *token);
+void				print_syntax_error(t_token *token);
+void				print_command_not_found(t_token *token);
 
 /*---------------------------------- PARSE ----------------------------------*/
 char				**preprocess_line(char *line);
