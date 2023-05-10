@@ -87,5 +87,4 @@ int	ft_cd(char **path)
 		return (move_to_home());
 	else
 		return (move_to_dir(*path));
-	return (0);
 }
