@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:54:25 by yena              #+#    #+#             */
-/*   Updated: 2023/05/10 20:54:26 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 05:32:16 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ enum e_token_type	get_operator_token_type(char c)
 	else if (c == ')')
 		return (PARENTHESIS_CLOSE);
 	else if (c == '&')
-		return (AMPERSAND);
+		return (NORMAL);
 	else if (c == '<')
 		return (REDIRECT_IN);
 	else if (c == '>')
