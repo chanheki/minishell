@@ -6,7 +6,7 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:21:50 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/10 12:56:26 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 05:07:48 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ void		jipshell_will_terminate(void);
 int			check_token_type(t_token *token, t_token_type type);
 int			check_token_type_operator(t_token *token);
 bool		is_directory(char *path);
-t_error	ft_dup2(int fd1, int fd2);
+t_error		ft_dup2(int fd1, int fd2);
 #endif

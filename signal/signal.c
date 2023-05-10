@@ -1,7 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/11 05:10:32 by chanheki          #+#    #+#             */
+/*   Updated: 2023/05/11 05:11:39 by chanheki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <signal.h>
 #include "../include/minishell.h"
 
+/*
+ * Description: sigint heredoc 대체 함수의 구현
+ *            : heredoc 상황에서의 sigint 구현
+ *            : ctrl+c의 입력이 들어오면 해당 함수가 실행된다.
+ */
 void	sigint_heredoc(int signumber)
 {
 	if (signumber == SIGINT)

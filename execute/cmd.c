@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 02:05:05 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 04:37:09 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 05:02:40 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,6 @@ t_ASTnode	**generate_cmd_list(t_ASTnode *root)
 	if (!cmd_list)
 		return (NULL);
 	cmd_count = 0;
-	cmd_preorder( root, cmd_list, &cmd_count);
+	cmd_preorder(root, cmd_list, &cmd_count);
 	return (cmd_list);
 }

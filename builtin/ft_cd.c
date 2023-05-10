@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:52:37 by yena              #+#    #+#             */
-/*   Updated: 2023/05/10 21:17:15 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 05:02:05 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	move_to_dir(char *path)
 	if (chdir(path))
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(path, 2); 
+		ft_putstr_fd(path, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 		return (1);
 	}
