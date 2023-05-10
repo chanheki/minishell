@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_valid_syntax.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:54:45 by yena              #+#    #+#             */
-/*   Updated: 2023/05/10 20:54:52 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 04:57:05 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
  */
 bool	is_valid_syntax(t_token *token)
 {
+	g_var.exit_status = 2;
 	if (!is_pair_of_parenthesis(token))
 		return (false);
 	else if (!is_valid_parenthesis(token))
@@ -33,5 +34,8 @@ bool	is_valid_syntax(t_token *token)
 	else if (!is_valid_command(token))
 		return (false);
 	else
+	{
+		g_var.exit_status = 0;
 		return (true);
+	}
 }

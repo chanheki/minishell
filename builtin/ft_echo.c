@@ -1,7 +1,14 @@
-
-// echo with option -n
-
-// 　-n 옵션을 사용할 수 있는 echo
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/11 04:57:33 by chanheki          #+#    #+#             */
+/*   Updated: 2023/05/11 04:57:34 by chanheki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/minishell.h"
 
@@ -43,7 +50,7 @@ int	ft_echo(char **option)
 	if (!option || !(*option))
 	{
 		ft_putstr_fd("ft_echo argument error!\n", 2);
-		return (1);
+		return (0);
 	}
 	while (is_valid_option(option[i]) == true)
 	{

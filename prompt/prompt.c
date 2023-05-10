@@ -8,7 +8,7 @@
  */
 void	initialize_setting(void)
 {
-	ft_putstr_fd(JIPHEADER, 2);
+	// ft_putstr_fd(JIPHEADER, 2);
 	set_signal();
 	set_termianl();
 	set_tmp();
