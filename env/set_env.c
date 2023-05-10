@@ -76,7 +76,7 @@ void	update_envp(void)
 		envp[++i] = create_env_string(temp->key, temp->value);
 		temp = temp->next;
 	}
-	envp[i] = (char *)NULL;
+	envp[i + 1] = (char *)NULL;
 	ft_split_free(g_var.envp);
 	g_var.envp = envp;
 }
