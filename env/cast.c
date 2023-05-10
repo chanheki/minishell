@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cast.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/10 20:52:00 by yena              #+#    #+#             */
+/*   Updated: 2023/05/10 21:18:41 by yena             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 /*
@@ -67,7 +79,7 @@ char	*get_env_value(char *env)
  * Return     : SUCCESS: 성공
  *            : ERROR  : 실패
  */
-int		cast_env_to_dict(char **env)
+int	cast_env_to_dict(char **env)
 {
 	int			i;
 	char		*key;
