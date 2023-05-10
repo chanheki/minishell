@@ -33,7 +33,7 @@ static t_error	child_execute(t_ASTnode *cmd_node)
 	char	**cmd_argv;
 	char	*path;
 
-	cmd_argv = make_argv(cmd_node);
+	cmd_argv = generate_argv(cmd_node);
 	if (!cmd_argv)
 		return (ERROR);
 	if (redirect(cmd_node) == ERROR
@@ -149,7 +149,7 @@ t_error	execute_child(t_ASTnode *root)
 	t_ASTnode	**cmd_list;
 	pid_t		*pid_list;
 
-	cmd_list = make_cmd_list(root);
+	cmd_list = generate_cmd_list(root);
 	if (!cmd_list)
 		return (ERROR);
 	pid_list = make_empty_pid_list(cmd_list);

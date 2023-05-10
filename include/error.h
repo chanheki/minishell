@@ -38,7 +38,7 @@ typedef enum e_error
 {
 	ERROR	=	-2,
 	FAIL	=	-1,
-	SUCCESS	=	0
+	SUCCESS	=	0,
 }	t_error;
 
 #endif

@@ -35,9 +35,9 @@ void		execute(t_ASTnode *cmdTree);
 t_error		execute_parent(t_ASTnode *node);
 
 // argv.c
-char		**make_argv(t_ASTnode *node);
+char		**generate_argv(t_ASTnode *node);
 t_error		make_cmd_path(char *cmd_name, char **path, char **envp);
-t_ASTnode	**make_cmd_list(t_ASTnode *root);
+t_ASTnode	**generate_cmd_list(t_ASTnode *root);
 
 // redirect.c
 t_error		redirect(t_ASTnode *node);
@@ -54,5 +54,8 @@ void		set_termianl(void);
 // excute_child.c
 t_error		execute_child(t_ASTnode *root);
 t_error		create_childs_processes(t_ASTnode **cmd_list, pid_t *pid_list);
+
+// builtin.c
+bool	is_builtin_cmd(t_ASTnode *node);
 
 #endif

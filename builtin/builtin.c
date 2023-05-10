@@ -66,5 +66,5 @@ int	execute_builtin(char *path, char **argv, t_process_type type)
 	else if (!ft_strcmp(path, "unset"))
 		return (ft_unset(argv));
 	ft_putendl_fd("execute_builtin : invalid path", STDERR_FILENO);
-	return (-1);
+	return (EXIT_BUILT_IN_FAIL);
 }
