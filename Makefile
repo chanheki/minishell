@@ -66,6 +66,7 @@ sources1 += $(EXECUTE)/argv.c
 sources1 += $(EXECUTE)/cmd.c
 sources1 += $(EXECUTE)/execute_child.c
 sources1 += $(EXECUTE)/execute_parent.c
+sources1 += $(EXECUTE)/execute_util.c
 sources1 += $(EXECUTE)/execute.c
 sources1 += $(EXECUTE)/heredoc.c
 sources1 += $(EXECUTE)/heredoc_util.c
