@@ -15,7 +15,7 @@ static void	execute_tree(t_ASTnode *cmd)
 		errno = execute_parent(cmd);
 	else
 		errno = execute_child(cmd);
-	set_signal();
+	errno = set_signal();
 	set_terminal_attribute();
 	if (errno)
 		g_var.exit_status = 1;
