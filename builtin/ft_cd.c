@@ -7,27 +7,13 @@
  */
 int	move_to_dir(char *path)
 {
-	char	*cwd;
-
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-	{
-		ft_putstr_fd("minishell: cd: getcwd failed\n", 2);
-		return (1);
-	}
 	if (!chdir(path))
-	{
-		delete_env("OLDPWD");
-		set_env("OLDPWD", cwd);
-		free(cwd);
-		return (0);
-	}
+		return (update_cwd(path));
 	else
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
 		ft_putstr_fd(path, 2);
 		ft_putstr_fd(": No such file or directory", 2);
-		free(cwd);
 		return (1);
 	}
 }
@@ -118,7 +104,7 @@ int	ft_cd(char **path)
 	else if (!ft_strcmp(*path, "-"))
 		return (move_to_prev_dir());
 	else if (!ft_strcmp(*path, "."))
-		return (update_cwd(getcwd(NULL, 0)));
+		return (update_cwd(find_value("PWD")));
 	else
 		return (move_to_dir(*path));
 }
