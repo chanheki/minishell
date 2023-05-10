@@ -26,6 +26,5 @@ int	ft_export(char **argv)
 		if (set_env(key, value) != SUCCESS)
 			exit_status = 1;
 	}
-	update_envp();
 	return (exit_status);
 }

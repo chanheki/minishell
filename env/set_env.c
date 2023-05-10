@@ -20,6 +20,7 @@ int	change_env_value(char *key, char *value)
 			temp->value = ft_strdup(value);
 			if (!temp->value)
 				return (ERROR);
+			update_envp();
 			return (SUCCESS);
 		}
 		temp = temp->next;
@@ -75,7 +76,7 @@ void	update_envp(void)
 		envp[++i] = create_env_string(temp->key, temp->value);
 		temp = temp->next;
 	}
-	envp[i] = NULL;
+	envp[i] = (char *)NULL;
 	ft_split_free(g_var.envp);
 	g_var.envp = envp;
 }
@@ -102,6 +103,7 @@ int	set_env(char *key, char *value)
 		if (!new_dict)
 			return (ERROR);
 		add_to_env_dict(&g_var.env_dict, new_dict);
+		update_envp();
 	}
 	return (SUCCESS);
 }
