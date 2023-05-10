@@ -44,6 +44,7 @@ int	update_cwd()
 		ft_putstr_fd("minishell: cd: PWD setenv failed\n", 2);
 		return (1);
 	}
+	update_envp();
 	return (0);
 }
 
