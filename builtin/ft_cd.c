@@ -39,21 +39,19 @@ int	move_to_dir(char *path)
  */
 int	update_cwd(char *path)
 {
-	char	*cwd;
+	char	*pwd;
 
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
+	pwd = find_value("PWD");
+	if (!pwd)
 	{
-		ft_putstr_fd("minishell: cd: getcwd failed\n", 2);
+		ft_putstr_fd("minishell: cd: PWD failed\n", 2);
 		return (1);
 	}
-	if (set_env("OLDPWD", cwd) == ERROR)
+	if (set_env("OLDPWD", pwd) == ERROR)
 	{
 		ft_putstr_fd("minishell: cd: OLDPWD setenv failed\n", 2);
-		free (cwd);
 		return (1);
 	}
-	free(cwd);
 	if (set_env("PWD", path) == ERROR)
 	{
 		ft_putstr_fd("minishell: cd: PWD setenv failed\n", 2);
