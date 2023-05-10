@@ -22,23 +22,24 @@ int	move_to_dir(char *path)
  * Param.  #1 : 변경할 디렉토리 경로
  * Return     : 성공 시 0, 실패 시 1
  */
-int	update_cwd(char *path)
+int	update_cwd()
 {
+	char	*oldpwd;
 	char	*pwd;
 
-	pwd = find_value("PWD");
-	printf("path: %s\n", path);
+	oldpwd = find_value("PWD");
+	pwd = getcwd(NULL, 0);
 	if (!pwd)
 	{
 		ft_putstr_fd("minishell: cd: PWD failed\n", 2);
 		return (1);
 	}
-	if (set_env("OLDPWD", pwd) == ERROR)
+	if (set_env("OLDPWD", oldpwd) == ERROR)
 	{
 		ft_putstr_fd("minishell: cd: OLDPWD setenv failed\n", 2);
 		return (1);
 	}
-	if (set_env("PWD", path) == ERROR)
+	if (set_env("PWD", pwd) == ERROR)
 	{
 		ft_putstr_fd("minishell: cd: PWD setenv failed\n", 2);
 		return (1);
