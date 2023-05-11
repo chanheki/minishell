@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 03:02:15 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 03:02:16 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 11:42:45 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	run_code(char *str)
 	if (!root)
 		return ;
 	execute(root);
+	free_token_list(&(root->token));
 	clear_nodes(&root);
 }
 
