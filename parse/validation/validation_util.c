@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:54:47 by yena              #+#    #+#             */
-/*   Updated: 2023/05/11 11:16:57 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 12:09:19 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,8 @@ bool	is_valid_parenthesis(t_token *token)
 	while (temp && temp->type != PARENTHESIS_OPEN)
 		temp = temp->next;
 	open = temp;
-	if (open && open->prev
-		&& (open->prev->type == NORMAL || is_redirection(open->prev)))
+	if (open && ((open->next && (open->next->type != NORMAL))
+		|| (open->prev && (open->prev->type == NORMAL || is_redirection(open->prev)))))
 		return (print_syntax_error(open->next), false);
 	while (temp && temp->type != PARENTHESIS_CLOSE)
 		temp = temp->next;
