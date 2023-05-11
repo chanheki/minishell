@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 05:09:30 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 09:42:18 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 11:54:03 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,8 @@ void	validator(void)
  * Param.   #1: readline으로 들어온 str
  *            : ctrl+d은 EOF signal이고, 쉘을 종료하는 명령어로 사용된다. 쉘을 정상 종료한다.
  */
-void	check_signal_eof(char *str)
+void	check_signal_eof(void)
 {
-	if (str == NULL)
-	{
-		ft_putendl_fd("\x1b[1A\033[12Cexit", STDOUT_FILENO);
-		exit(EXIT_SUCCESS);
-	}
+	ft_putendl_fd("\x1b[1A\033[12Cexit", STDOUT_FILENO);
+	exit(EXIT_SUCCESS);
 }

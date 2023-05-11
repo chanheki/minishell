@@ -6,7 +6,7 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 02:00:36 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 05:37:10 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 11:53:25 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_global	g_var;
  */
 void	jipshell_will_terminate(void)
 {
+	free(g_var.tmp_path);
 	tcsetattr(STDIN_FILENO, TCSANOW, &(g_var.old_term));
 }
 
@@ -39,16 +40,12 @@ static void	hosting_loop(void)
 	{
 		str = readline(PROMPT);
 		if (str == NULL)
-		{
-			ft_putendl_fd("\x1b[1A\033[12Cexit", STDOUT_FILENO);
-			break ;
-		}
+			check_signal_eof();
 		if (ft_strcmp(str, "") == 0)
 		{
 			free(str);
 			continue ;
 		}
-		check_signal_eof(str);
 		add_history(str);
 		root_node = parse_command_line(str);
 		if (!root_node)
