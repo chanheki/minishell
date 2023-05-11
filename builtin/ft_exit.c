@@ -6,7 +6,7 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 03:13:03 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 08:35:51 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 11:13:09 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	ft_exit(char **argv, t_process_type type)
 	if (count_argument(argv) > 2)
 	{
 		ft_putendl_fd("Jip-Shell: exit: too many arguments", STDERR_FILENO);
-		exit(EXIT_TOO_MANY_ARGUMENTS);
+		return (1);
 	}
 	if (count_argument(argv) == 2)
 		exit(ft_atoi(argv[1]));
