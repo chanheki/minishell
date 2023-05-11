@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:52:43 by yena              #+#    #+#             */
-/*   Updated: 2023/05/10 21:21:20 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 11:11:44 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 */
 void	print_syntax_error(t_token *token)
 {
-	ft_putstr_fd("JIP-shell: syntax error near unexpected token `", 2);
+	ft_putstr_fd("JIP-shell: syntax error near unexpected token '", 2);
 	ft_putstr_fd(token->value, 2);
 	ft_putendl_fd("'", 2);
 }

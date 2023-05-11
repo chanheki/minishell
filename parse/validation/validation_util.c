@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:54:47 by yena              #+#    #+#             */
-/*   Updated: 2023/05/11 09:26:39 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 11:12:39 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@
 bool	is_pair_of_parenthesis(t_token *token)
 {
 	t_token	*temp;
+	t_token	*buffer;
 	int		parenthesis_count;
 
 	parenthesis_count = 0;
 	temp = token;
 	while (temp)
 	{
+		buffer = temp;
 		if (temp->type == PARENTHESIS_OPEN)
 			parenthesis_count++;
 		if (temp->type == PARENTHESIS_CLOSE)
@@ -41,7 +43,7 @@ bool	is_pair_of_parenthesis(t_token *token)
 	}
 	if (parenthesis_count == 0)
 		return (true);
-	print_syntax_error(temp);
+	print_syntax_error(buffer);
 	return (false);
 }
 
@@ -132,6 +134,8 @@ bool	is_valid_parenthesis(t_token *token)
 		return (false);
 	}
 	while (temp && temp->type != PARENTHESIS_CLOSE)
+		temp = temp->next;
+	while (temp && temp->next && temp->next->type == PARENTHESIS_CLOSE)
 		temp = temp->next;
 	close = temp;
 	if (close && close->next && close->next->type == NORMAL)
