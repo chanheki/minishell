@@ -6,7 +6,7 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 02:00:28 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 02:56:05 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 11:01:56 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static void	child_execve(t_ASTnode *node, char *path, char **argv)
 		ft_putendl_fd(": command not found", STDERR_FILENO);
 		exit(EXIT_COMMAND_NOT_FOUND);
 	}
-	if (signal(SIGINT, SIG_DFL) == SIG_ERR
-		|| signal(SIGQUIT, SIG_DFL) == SIG_ERR)
+	if (signal(SIGQUIT, SIG_DFL) == SIG_ERR
+		|| signal(SIGINT, SIG_DFL) == SIG_ERR)
 		exit(EXIT_SIGNAL_ERROR);
 	jipshell_will_terminate();
 	if (is_builtin_command(node) == true)
