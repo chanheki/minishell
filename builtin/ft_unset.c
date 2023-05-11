@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:52:22 by yena              #+#    #+#             */
-/*   Updated: 2023/05/10 20:52:23 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 06:23:24 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * Param.   #1: env 키를 담고 있는 문자열
  * Return     : 유효하지 않을 경우 exit status가 1임을 나타내는 1을, 유효할 경우 0을 반환한다.
  */
-int	check_env_argv(char *argv)
+static int	check_env_argv(char *argv)
 {
 	if (!((*argv >= 'A' && *argv <= 'Z')
 			|| (*argv >= 'a' && *argv <= 'z')))

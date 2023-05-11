@@ -6,7 +6,7 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 05:03:04 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 05:03:05 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 06:23:31 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int		move_to_home(void);
 int		ft_cd(char **path);
 
 /*---------------------------------- UNSET ----------------------------------*/
-int		check_env_argv(char *argv);
 int		ft_unset(char **argv);
 
 #endif
