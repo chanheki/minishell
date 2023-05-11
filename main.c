@@ -6,7 +6,7 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 02:00:36 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 03:15:18 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 05:37:10 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ static void	hosting_loop(void)
 	while (1)
 	{
 		str = readline(PROMPT);
+		if (str == NULL)
+		{
+			ft_putendl_fd("\x1b[1A\033[12Cexit", STDOUT_FILENO);
+			break ;
+		}
+		if (ft_strcmp(str, "") == 0)
+		{
+			free(str);
+			continue ;
+		}
 		check_signal_eof(str);
 		add_history(str);
 		root_node = parse_command_line(str);
