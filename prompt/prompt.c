@@ -6,7 +6,7 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 05:09:30 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 05:16:52 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:08:39 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  */
 void	initialize_setting(void)
 {
-	ft_putstr_fd(JIPHEADER, 2);
+	// ft_putstr_fd(JIPHEADER, 2);
 	set_signal();
 	set_termianl();
 	set_tmp();
@@ -33,13 +33,20 @@ void	initialize_setting(void)
  * Param.   #3: env - 실행시 해당 쉘로부터 가져오는 env
  */
 void	initialize_global_variable(int argc, char **argv, char **envp)
-{
+{	
+	char	*shlvl;
+	int		changed_shlvl;
+
 	g_var.argv = argv;
 	g_var.argc = argc;
 	g_var.envp = envp;
 	g_var.exit_status = 0;
 	if (initialize_env(envp) == ERROR)
 		g_var.exit_status = -2;
+
+	shlvl = find_value("SHLVL");
+	changed_shlvl = ft_atoi(shlvl);
+	change_env_value("SHLVL", ft_itoa(++changed_shlvl));
 }
 
 /*
