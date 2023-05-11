@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 03:02:06 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 05:02:54 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 11:48:10 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ static void	replace_node_value(t_ASTnode *node, char *random_file_name_path)
 	t_token	*path;
 
 	path = node->left->token;
-	path->value = NULL;
 	free(path->value);
+	path->value = NULL;
 	path->value = random_file_name_path;
 }
 

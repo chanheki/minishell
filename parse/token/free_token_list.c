@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:53:54 by yena              #+#    #+#             */
-/*   Updated: 2023/05/10 21:01:08 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 11:39:04 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	free_token_list(t_token **token)
 
 	if (!token)
 		return ;
+	*token = get_head_token(*token);
 	while (*token)
 	{
 		temp = (*token)->next;
