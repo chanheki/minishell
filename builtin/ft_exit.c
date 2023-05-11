@@ -6,7 +6,7 @@
 /*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 03:13:03 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 03:13:07 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 08:35:51 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_exit(char **argv, t_process_type type)
 		ft_putendl_fd("exit", STDERR_FILENO);
 	if (is_valid_argument(argv[1]) == false)
 	{
-		ft_putstr_fd("Jip-S ell: exit: ", STDERR_FILENO);
+		ft_putstr_fd("Jip-Shell: exit: ", STDERR_FILENO);
 		ft_putstr_fd(argv[1], STDERR_FILENO);
 		ft_putendl_fd(": numeric argument required", STDERR_FILENO);
 		exit(EXIT_OUT_OF_RANGE);
