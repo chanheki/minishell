@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:54:07 by yena              #+#    #+#             */
-/*   Updated: 2023/05/10 20:54:08 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 10:09:38 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_token	*get_tokens_in_parenthesis(t_token *open, t_token *close)
 	tokens_in_parent = NULL;
 	while (temp->next && temp != close)
 	{
+		if (ft_strnstr(temp->value, "exit", ft_strlen(temp->value)))
+			break ;
 		if (!tokens_in_parent)
 			tokens_in_parent = create_new_token(ft_strdup(temp->value),
 					temp->type);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 05:09:30 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 09:08:39 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:42:18 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  */
 void	initialize_setting(void)
 {
-	// ft_putstr_fd(JIPHEADER, 2);
+	ft_putstr_fd(JIPHEADER, 2);
 	set_signal();
 	set_termianl();
 	set_tmp();
@@ -43,10 +43,11 @@ void	initialize_global_variable(int argc, char **argv, char **envp)
 	g_var.exit_status = 0;
 	if (initialize_env(envp) == ERROR)
 		g_var.exit_status = -2;
-
 	shlvl = find_value("SHLVL");
 	changed_shlvl = ft_atoi(shlvl);
-	change_env_value("SHLVL", ft_itoa(++changed_shlvl));
+	shlvl = ft_itoa(++changed_shlvl);
+	change_env_value("SHLVL", shlvl);
+	free(shlvl);
 }
 
 /*

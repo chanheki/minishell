@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:54:47 by yena              #+#    #+#             */
-/*   Updated: 2023/05/11 05:02:27 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 09:26:39 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	is_pair_of_parenthesis(t_token *token)
 	{
 		if (temp->type == PARENTHESIS_OPEN)
 			parenthesis_count++;
-		else if (temp->type == PARENTHESIS_CLOSE)
+		if (temp->type == PARENTHESIS_CLOSE)
 			parenthesis_count--;
 		if (parenthesis_count < 0)
 		{
@@ -59,22 +59,19 @@ bool	is_valid_redirection(t_token *token)
 	temp = token;
 	while (temp)
 	{
+		if (is_redirection(token) && !token->prev
+			&& (!token->next->next || token->next->next->type != NORMAL))
+			return (print_syntax_error(temp), false);
 		if (temp->type == REDIRECT_IN || temp->type == REDIRECT_OUT)
 		{
 			if (!temp->next || (temp->next->type != NORMAL
 					&& temp->next->type != AMPERSAND))
-			{
-				print_syntax_error(temp);
-				return (false);
-			}
+				return (print_syntax_error(temp), false);
 		}
 		else if (temp->type == DREDIRECT_IN || temp->type == DREDIRECT_OUT)
 		{
 			if (!temp->next || temp->next->type != NORMAL)
-			{
-				print_syntax_error(temp);
-				return (false);
-			}
+				return (print_syntax_error(temp), false);
 		}
 		temp = temp->next;
 	}

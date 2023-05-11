@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:53:05 by yena              #+#    #+#             */
-/*   Updated: 2023/05/11 07:07:07 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/11 08:38:58 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	add_node_to_direction(t_ASTnode **node, t_ASTnode *new_node,
 	else if (*node && direction == RIGHT)
 		(*node)->right = new_node;
 	else if (!*node && new_node && direction == ROOT)
+	{
 		(*node) = new_node;
+		return ;
+	}
 	if (new_node)
 		new_node->parent = *node;
 }
