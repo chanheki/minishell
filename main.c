@@ -15,17 +15,6 @@
 t_global	g_var;
 
 /*
- * Description: jipshell_will_terminate
- *            : 현재 쉘이 정상적으로 종료전 실행되는 함수.
- *            : 처음 쉘이 실행됐을 때의 terminal 세팅을 원상복구 한다.
- */
-void	jipshell_will_terminate(void)
-{
-	free(g_var.tmp_path);
-	tcsetattr(STDIN_FILENO, TCSANOW, &(g_var.old_term));
-}
-
-/*
  * Description: hosting_loop
  *            : 실질적으로 prompt 되는 구간. 
  *            : 이 쉘은 JIP-Shell 문자열을 프롬프트로 사용한다.
@@ -69,6 +58,5 @@ int	main(int argc, char **argv, char **envp)
 	initialize_setting();
 	validator();
 	hosting_loop();
-	jipshell_will_terminate();
 	return (g_var.exit_status);
 }

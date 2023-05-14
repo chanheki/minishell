@@ -41,7 +41,6 @@ static void	child_execve(t_ASTnode *node, char *path, char **argv)
 	if (signal(SIGQUIT, SIG_DFL) == SIG_ERR
 		|| signal(SIGINT, SIG_DFL) == SIG_ERR)
 		exit(EXIT_SIGNAL_ERROR);
-	jipshell_will_terminate();
 	if (is_builtin_command(node) == true)
 		exit(execute_builtin(builtin, argv, P_CHILD));
 	execve(path, argv, g_var.envp);

@@ -72,7 +72,6 @@ sources1 += $(EXECUTE)/heredoc.c
 sources1 += $(EXECUTE)/heredoc_util.c
 sources1 += $(EXECUTE)/path.c
 sources1 += $(EXECUTE)/redirect.c
-sources1 += $(EXECUTE)/terminal.c
 
 sources1 += $(SIGNAL)/signal.c
 
