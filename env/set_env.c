@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:51:54 by yena              #+#    #+#             */
-/*   Updated: 2023/05/11 05:02:29 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/14 13:37:31 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	update_envp(void)
 		envp[++i] = create_env_string(temp->key, temp->value);
 		temp = temp->next;
 	}
-	envp[i + 1] = (char *) NULL;
+	envp[i + 1] = NULL;
 	ft_split_free(g_var.envp);
 	g_var.envp = envp;
 }
@@ -102,6 +102,14 @@ int	set_env(char *key, char *value)
 {
 	t_env_dict	*new_dict;
 
+	if (!key || !value)
+	{
+		if (key && *key)
+			free(key);
+		if (value && *value)
+			free(value);
+		return (SUCCESS);
+	}
 	if (find_value(key))
 	{
 		if (change_env_value(key, value) != SUCCESS)
@@ -113,7 +121,7 @@ int	set_env(char *key, char *value)
 		if (!new_dict)
 			return (ERROR);
 		add_to_env_dict(&g_var.env_dict, new_dict);
-		update_envp();
 	}
+	update_envp();
 	return (SUCCESS);
 }
