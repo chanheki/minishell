@@ -28,9 +28,11 @@ int	change_env_value(char *key, char *value)
 	{
 		if (!ft_strcmp(temp->key, key))
 		{
-			delete_env(key);
-			if (set_env(key, value) == ERROR)
+			free(temp->value);
+			temp->value = ft_strdup(value);
+			if (!temp->value)
 				return (ERROR);
+			update_envp();
 			return (SUCCESS);
 		}
 		temp = temp->next;
@@ -114,6 +116,8 @@ int	set_env(char *key, char *value)
 	{
 		if (change_env_value(key, value) != SUCCESS)
 			return (ERROR);
+		free(key);
+		free(value);
 	}
 	else
 	{
@@ -121,7 +125,7 @@ int	set_env(char *key, char *value)
 		if (!new_dict)
 			return (ERROR);
 		add_to_env_dict(&g_var.env_dict, new_dict);
+		update_envp();
 	}
-	update_envp();
 	return (SUCCESS);
 }
