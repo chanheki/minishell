@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:52:00 by yena              #+#    #+#             */
-/*   Updated: 2023/05/10 21:18:41 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/14 13:31:33 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ char	*get_env_key(char *env)
 	while (env[i] && env[i] != '=')
 		i++;
 	key = ft_substr(env, 0, i);
+	key[i] = '\0';
+	if (*key == '\0')
+	{
+		free(key);
+		key = NULL;
+	}
 	return (key);
 }
 
@@ -70,6 +76,11 @@ char	*get_env_value(char *env)
 	while (env[i] && env[i] != '=')
 		i++;
 	value = ft_substr(env, i + 1, ft_strlen(env) - i - 1);
+	if (*value == '\0')
+	{
+		free(value);
+		value = NULL;
+	}
 	return (value);
 }
 
@@ -91,6 +102,8 @@ int	cast_env_to_dict(char **env)
 	{
 		key = get_env_key(env[i]);
 		value = get_env_value(env[i]);
+		if (!key || !value)
+			continue ;
 		initialize_env_dict(&dict, key, value);
 		if (!dict)
 			return (ERROR);
