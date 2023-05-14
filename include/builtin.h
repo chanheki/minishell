@@ -33,6 +33,9 @@ int		ft_exit(char **argv, t_process_type type);
 int		ft_export(char **argv);
 int		ft_pwd(void);
 
+/*--------------------------------- EXPORT ----------------------------------*/
+int		print_envp();
+
 /*----------------------------------- CD ------------------------------------*/
 int		move_to_dir(char *path);
 int		update_cwd(void);

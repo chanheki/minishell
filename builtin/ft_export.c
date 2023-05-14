@@ -51,6 +51,8 @@ int	ft_export(char **argv)
 
 	i = 0;
 	exit_status = 0;
+	if (!argv[1])
+		return (print_envp());
 	while (argv[++i])
 	{
 		if (check_env_argv(argv[i]))

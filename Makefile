@@ -111,6 +111,7 @@ sources1 += $(BUILTIN)/ft_echo.c
 sources1 += $(BUILTIN)/ft_env.c
 sources1 += $(BUILTIN)/ft_exit.c
 sources1 += $(BUILTIN)/ft_export.c
+sources1 += $(BUILTIN)/ft_export_util.c
 sources1 += $(BUILTIN)/ft_pwd.c
 sources1 += $(BUILTIN)/ft_unset.c
 
