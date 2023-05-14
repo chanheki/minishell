@@ -43,8 +43,6 @@ typedef struct s_global
 	char			**envp;
 	t_env_dict		*env_dict;
 	int				exit_status;
-	struct termios	old_term;
-	struct termios	new_term;
 	int				is_signal;
 	char			*tmp_path;
 }	t_global;
