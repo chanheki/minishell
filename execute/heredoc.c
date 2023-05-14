@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 03:02:15 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 11:42:45 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/14 15:25:07 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	run_code(char *str)
 	if (!root)
 		return ;
 	execute(root);
-	free_token_list(&(root->token));
 	clear_nodes(&root);
 }
 

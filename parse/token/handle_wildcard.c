@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:54:10 by yena              #+#    #+#             */
-/*   Updated: 2023/05/11 02:42:45 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/14 15:24:11 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ int	rebuild_wildcard(t_ASTnode **node, int *dir_count, char *dir_name)
 	{
 		new_token = create_new_token(ft_strdup(dir_name), WILDCARD);
 		new_node = create_new_node(new_token);
-		if (!new_node || !new_token)
+		free_token(&new_token);
+		if (!new_node)
 			return (ERROR);
 		if ((*node)->left)
 			interrupt_to_left(node, new_node);
