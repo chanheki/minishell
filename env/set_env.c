@@ -28,11 +28,9 @@ int	change_env_value(char *key, char *value)
 	{
 		if (!ft_strcmp(temp->key, key))
 		{
-			free(temp->value);
-			temp->value = ft_strdup(value);
-			if (!temp->value)
+			delete_env(key);
+			if (set_env(key, value) == ERROR)
 				return (ERROR);
-			update_envp();
 			return (SUCCESS);
 		}
 		temp = temp->next;
