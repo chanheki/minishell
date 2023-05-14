@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 02:00:36 by chanheki          #+#    #+#             */
-/*   Updated: 2023/05/11 12:01:16 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/14 15:11:55 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static void	hosting_loop(void)
 		if (!root_node)
 			continue ;
 		execute(root_node);
-		free_token_list(&(root_node->token));
 		clear_nodes(&root_node);
 		free(str);
 	}
