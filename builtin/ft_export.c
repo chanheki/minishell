@@ -26,7 +26,8 @@ static int	check_env_argv(char *argv)
 	while (argv[++i])
 	{
 		if (!((*argv >= 'A' && *argv <= 'Z')
-			  || (*argv >= 'a' && *argv <= 'z'))) {
+				|| (*argv >= 'a' && *argv <= 'z')))
+		{
 			ft_putstr_fd("minishell: export: ", STDERR_FILENO);
 			ft_putstr_fd(argv, STDERR_FILENO);
 			ft_putstr_fd(": not a valid identifier\n", STDERR_FILENO);

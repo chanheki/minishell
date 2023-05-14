@@ -107,10 +107,9 @@ int	set_env(char *key, char *value)
 	if (!key || !value)
 	{
 		if (key && *key)
-			free(key);
+			return (free(key), SUCCESS);
 		if (value && *value)
-			free(value);
-		return (SUCCESS);
+			return (free(value), SUCCESS);
 	}
 	if (find_value(key))
 	{
