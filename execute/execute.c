@@ -16,7 +16,6 @@
  * Description: execute_tree(cmd)
  *            : cmd가 builtin 함수인 경우 fork를 뜨지 않고 부모 process에서 실행.
  *            : 해당 경우가 아닌 경우 child process에서 실행.
- *            : 실행하고 나서 signal과 terminal 설정을 원상복구 시킨다.
  * Param.   #1: cmd (parsing tree의 root node)
  */
 static void	execute_tree(t_ASTnode *cmd)
@@ -28,7 +27,6 @@ static void	execute_tree(t_ASTnode *cmd)
 	else
 		errno = execute_child(cmd);
 	errno = set_signal();
-	set_terminal_attribute();
 	if (errno)
 		g_var.exit_status = 1;
 }

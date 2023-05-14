@@ -54,7 +54,6 @@ int	ft_exit(char **argv, t_process_type type)
 		ft_putendl_fd("Jip-Shell: ft_exit argv error \n", STDERR_FILENO);
 		return (EXIT_BUILT_IN_FAIL);
 	}
-	jipshell_will_terminate();
 	if (type == P_PARENT)
 		ft_putendl_fd("exit", STDERR_FILENO);
 	if (is_valid_argument(argv[1]) == false)

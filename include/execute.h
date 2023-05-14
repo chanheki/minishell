@@ -48,10 +48,6 @@ t_error		heredoc(t_ASTnode **cmd_list);
 t_error		execute_heredoc(t_ASTnode *node);
 void		set_tmp(void);
 
-// terminal.c
-void		set_terminal_attribute(void);
-void		set_termianl(void);
-
 // excute_child.c
 t_error		execute_child(t_ASTnode *root);
 t_error		create_childs_processes(t_ASTnode **cmd_list, pid_t *pid_list);
