@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:54:55 by yena              #+#    #+#             */
-/*   Updated: 2023/05/11 11:46:35 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/14 15:11:47 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ t_ASTnode	*parse_command_line(char *line)
 	handle_wildcard(ast_tree);
 	if (!ast_tree)
 		return (free(line), free_token_list(&token), NULL);
+	free_token_list(&token);
 	return (ast_tree);
 }

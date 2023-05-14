@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:53:08 by yena              #+#    #+#             */
-/*   Updated: 2023/05/11 11:40:37 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/14 15:17:09 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	clear_nodes(t_ASTnode **root)
 		return ;
 	clear_nodes(&(*root)->left);
 	clear_nodes(&(*root)->right);
+	free_token(&(*root)->token);
 	(*root)->left = NULL;
 	(*root)->right = NULL;
 	(*root)->parent = NULL;
