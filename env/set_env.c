@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:51:54 by yena              #+#    #+#             */
-/*   Updated: 2023/05/14 13:37:31 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/15 15:50:42 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,15 @@ int	change_env_value(char *key, char *value)
 char	*create_env_string(char *key, char *value)
 {
 	char	*env;
-	char	*temp;
+	char	*key_equal;
 
-	temp = ft_strjoin(key, "=");
-	if (!temp)
+	key_equal = ft_strjoin(key, "=");
+	if (!key_equal)
 		return (NULL);
-	env = ft_strjoin(temp, value);
-	free(temp);
+	env = ft_strjoin(key_equal, value);
+	free(key_equal);
+	if (!env)
+		return (ft_strdup(key));
 	return (env);
 }
 
@@ -75,7 +77,8 @@ void	update_envp(void)
 	temp = g_var.env_dict;
 	while (temp)
 	{
-		i++;
+		if (temp->key && temp->value)
+			i++;
 		temp = temp->next;
 	}
 	envp = (char **)malloc(sizeof(char *) * (i + 1));
@@ -85,7 +88,8 @@ void	update_envp(void)
 	temp = g_var.env_dict;
 	while (temp)
 	{
-		envp[++i] = create_env_string(temp->key, temp->value);
+		if (temp->key && temp->value)
+			envp[++i] = create_env_string(temp->key, temp->value);
 		temp = temp->next;
 	}
 	envp[i + 1] = NULL;
@@ -106,7 +110,7 @@ int	set_env(char *key, char *value)
 
 	if (!key && !value)
 		return (SUCCESS);
-	if (find_value(key))
+	if (is_already_in(key))
 	{
 		if (change_env_value(key, value) != SUCCESS)
 			return (ERROR);
