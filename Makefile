@@ -9,7 +9,7 @@ LIBCC		=	-L./lib -lft
 CC = cc
 CFLAGS = -Wall -Wextra -Werror ${DBGS}
 
-DBGS = -fsanitize=address -g3
+DBGS = -g3 #-fsanitize=address -g3
 # while true; do leaks minishell & sleep 1; done;
 
 AR = ar

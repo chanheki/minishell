@@ -28,7 +28,7 @@ int		execute_builtin(char *path, char **argv, t_process_type type);
 // builtin dir
 int		ft_cd(char **option);
 int		ft_echo(char **option);
-int		ft_env(char **argv);
+int		ft_env(void);
 int		ft_exit(char **argv, t_process_type type);
 int		ft_export(char **argv);
 int		ft_pwd(void);
