@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:52:17 by yena              #+#    #+#             */
-/*   Updated: 2023/05/10 21:20:32 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/15 16:53:12 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ void	free_one_env_dict(t_env_dict *dict)
 		else
 			dict->next->prev = NULL;
 	}
-	free(dict->key);
+	if (dict->key)
+		free(dict->key);
 	dict->key = NULL;
-	free(dict->value);
+	if (dict->value)
+		free(dict->value);
 	dict->value = NULL;
 	free(dict);
 	dict = NULL;

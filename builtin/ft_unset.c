@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:52:22 by yena              #+#    #+#             */
-/*   Updated: 2023/05/11 06:23:24 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:53:25 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static int	check_env_argv(char *argv)
  */
 int	ft_unset(char **argv)
 {
-	char	*value;
 	int		i;
 	int		exit_status;
 
@@ -51,8 +50,7 @@ int	ft_unset(char **argv)
 			exit_status = 1;
 			continue ;
 		}
-		value = find_value(argv[i]);
-		if (value)
+		if (is_already_in(argv[i]))
 			delete_env(argv[i]);
 	}
 	return (exit_status);
