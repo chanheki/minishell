@@ -46,12 +46,12 @@ int	update_cwd(void)
 		ft_putstr_fd("minishell: cd: PWD failed\n", 2);
 		return (1);
 	}
-	if (set_env("OLDPWD", oldpwd) == ERROR)
+	if (set_env(ft_strdup("OLDPWD"), ft_strdup(oldpwd)) == ERROR)
 	{
 		ft_putstr_fd("minishell: cd: OLDPWD setenv failed\n", 2);
 		return (1);
 	}
-	if (set_env("PWD", pwd) == ERROR)
+	if (set_env(ft_strdup("PWD"), pwd) == ERROR)
 	{
 		ft_putstr_fd("minishell: cd: PWD setenv failed\n", 2);
 		return (1);
