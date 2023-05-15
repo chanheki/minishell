@@ -64,7 +64,7 @@ int	execute_builtin(char *path, char **argv, t_process_type type)
 	else if (!ft_strcmp(path, "echo"))
 		return (ft_echo(argv));
 	else if (!ft_strcmp(path, "env"))
-		return (ft_env());
+		return (ft_env(argv));
 	else if (!ft_strcmp(path, "exit"))
 		return (ft_exit(argv, type));
 	else if (!ft_strcmp(path, "export"))

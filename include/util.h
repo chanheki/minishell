@@ -16,8 +16,8 @@
 # include "minishell.h"
 
 # define JIPHEADER "\n\033[36m\
-		   ('-')              .-. .-') _  .-')    ('-.    _  .-')              \n\
-		  ( OO )              \\  ( OO ( \\( -O )  ( OO ).-( \\( O- )             \n\
+           ('-')              .-. .-') _  .-')    ('-.    _  .-')              \n\
+          ( OO )              \\  ( OO ( \\( -O )  ( OO ).-( \\( O- )             \n\
     .---.  .-----.,--.     ,-.-');-----.\\,------.  / . --. /,------.  ,--.   ,--.\n\
    / .  | / ,-.   |  |.-') |  |OO| .-.  ||   /`. ' | \\-.  \\ |   /`. '  \\  `.'  / \n\
   / /|  | '-'  |  |  | OO )|  |  | '-' /_|  /  | .-'-'  |  ||  /  | |.-')     /  \n\
@@ -30,6 +30,6 @@
 /*---------------------------------- UTIL ----------------------------------*/
 int			check_token_type(t_token *token, t_token_type type);
 int			check_token_type_operator(t_token *token);
-bool			is_directory(char *path);
+bool		is_directory(char *path);
 t_error		ft_dup2(int fd1, int fd2);
 #endif

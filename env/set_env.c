@@ -104,19 +104,16 @@ int	set_env(char *key, char *value)
 {
 	t_env_dict	*new_dict;
 
-	if (!key || !value)
-	{
-		if (key && *key)
-			return (free(key), SUCCESS);
-		if (value && *value)
-			return (free(value), SUCCESS);
-	}
+	if (!key && !value)
+		return (SUCCESS);
 	if (find_value(key))
 	{
 		if (change_env_value(key, value) != SUCCESS)
 			return (ERROR);
-		free(key);
-		free(value);
+		if (key)
+			free(key);
+		if (value)
+			free(value);
 	}
 	else
 	{
