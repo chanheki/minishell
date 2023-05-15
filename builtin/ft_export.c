@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:52:27 by yena              #+#    #+#             */
-/*   Updated: 2023/05/15 16:21:17 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/15 17:12:54 by chanheki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static int	check_env_argv(char *key)
 	i = -1;
 	if (!*key)
 	{
-		ft_putstr_fd("minishell: export: `=': not a valid identifier\n",
-					STDERR_FILENO);
+		ft_putstr_fd("minishell: export: `=': not a valid identifier\n", \
+						STDERR_FILENO);
 		free(key);
 		key = NULL;
 		return (1);
@@ -88,7 +88,7 @@ int	ft_export(char **argv)
 		if (!ft_strchr(argv[i], '='))
 		{
 			ft_export_with_equal(argv[i]);
-			continue;
+			continue ;
 		}
 		key = get_env_key(argv[i]);
 		exit_status = check_env_argv(key);
