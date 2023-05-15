@@ -128,7 +128,8 @@ bool	is_valid_parenthesis(t_token *token)
 		temp = temp->next;
 	open = temp;
 	if (open && ((open->next && (open->next->type != NORMAL))
-		|| (open->prev && (open->prev->type == NORMAL || is_redirection(open->prev)))))
+			|| (open->prev && (open->prev->type == NORMAL
+					|| is_redirection(open->prev)))))
 		return (print_syntax_error(open->next), false);
 	while (temp && temp->type != PARENTHESIS_CLOSE)
 		temp = temp->next;

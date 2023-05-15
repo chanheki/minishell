@@ -1,4 +1,3 @@
-
 #include "../include/minishell.h"
 
 static void	sort_arr(char **arr_key, int len)
@@ -25,7 +24,7 @@ static void	sort_arr(char **arr_key, int len)
 	}
 }
 
-static int	envp_length()
+static int	envp_length(void)
 {
 	int			i;
 	t_env_dict	*dic;
@@ -56,7 +55,7 @@ static void	print_envp_line(char *key)
 	ft_putchar_fd('\n', STDOUT_FILENO);
 }
 
-static char	**generate_envp_arr()
+static char	**generate_envp_arr(void)
 {
 	char		**arr_key;
 	t_env_dict	*dic;
@@ -67,7 +66,7 @@ static char	**generate_envp_arr()
 	arr_key = (char **)calloc(sizeof(char *), (len + 1));
 	if (!arr_key)
 		return (NULL);
-	i=0;
+	i = 0;
 	dic = g_var.env_dict;
 	while (dic)
 	{
@@ -79,7 +78,7 @@ static char	**generate_envp_arr()
 	return (arr_key);
 }
 
-int	print_envp()
+int	print_envp(void)
 {
 	int		i;
 	char	**arr_key;

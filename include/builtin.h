@@ -34,7 +34,7 @@ int		ft_export(char **argv);
 int		ft_pwd(void);
 
 /*--------------------------------- EXPORT ----------------------------------*/
-int		print_envp();
+int		print_envp(void);
 
 /*----------------------------------- CD ------------------------------------*/
 int		move_to_dir(char *path);
