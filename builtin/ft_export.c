@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanheki <chanheki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:52:27 by yena              #+#    #+#             */
-/*   Updated: 2023/05/11 06:24:50 by chanheki         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:21:17 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,47 @@ static int	check_env_argv(char *key)
 	int	i;
 
 	i = -1;
+	if (!*key)
+	{
+		ft_putstr_fd("minishell: export: `=': not a valid identifier\n",
+					STDERR_FILENO);
+		free(key);
+		key = NULL;
+		return (1);
+	}
 	while (key[++i])
 	{
-		if (!((*key >= 'A' && *key <= 'Z')
-				|| (*key >= 'a' && *key <= 'z')))
+		if (ft_isdigit(key[0]) || !ft_isalnum(*key) || key[i] == BLANK)
 		{
 			ft_putstr_fd("minishell: export: ", STDERR_FILENO);
 			ft_putstr_fd(key, STDERR_FILENO);
 			ft_putstr_fd(": not a valid identifier\n", STDERR_FILENO);
+			free(key);
+			key = NULL;
 			return (1);
 		}
 	}
+	return (0);
+}
+
+/*
+ * Description: argv에 문자 '='이 있는 경우의 환경변수를 추가한다.
+ * Param.   #1: 환경변수를 추가할 문자열
+ * Return     : exit status를 반환한다.
+ */
+int	ft_export_with_equal(char *argv)
+{
+	char	*argv_dup;
+
+	argv_dup = ft_strdup(argv);
+	if (check_env_argv(argv_dup))
+		return (1);
+	free(argv_dup);
+	argv_dup = NULL;
+	if (is_already_in(argv))
+		return (0);
+	if (set_env(ft_strdup(argv), NULL) != SUCCESS)
+		return (1);
 	return (0);
 }
 
@@ -55,20 +85,15 @@ int	ft_export(char **argv)
 		return (print_envp());
 	while (argv[++i])
 	{
-		key = get_env_key(argv[i]);
-		if (check_env_argv(key))
-		{
-			exit_status = 1;
-			continue ;
-		}
 		if (!ft_strchr(argv[i], '='))
 		{
-			if (find_value(key))
-				continue ;
-			if (set_env(key, NULL) != SUCCESS)
-				exit_status = 1;
-			continue ;
+			ft_export_with_equal(argv[i]);
+			continue;
 		}
+		key = get_env_key(argv[i]);
+		exit_status = check_env_argv(key);
+		if (exit_status)
+			continue ;
 		value = get_env_value(argv[i]);
 		if (set_env(key, value) != SUCCESS)
 			exit_status = 1;

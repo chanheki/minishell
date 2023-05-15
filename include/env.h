@@ -6,7 +6,7 @@
 /*   By: yena <yena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 21:22:14 by yena              #+#    #+#             */
-/*   Updated: 2023/05/10 21:22:25 by yena             ###   ########.fr       */
+/*   Updated: 2023/05/15 14:41:39 by yena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	update_envp(void);
 void	add_to_env_dict(t_env_dict **dict, t_env_dict *new_dict);
 void	free_one_env_dict(t_env_dict *dict);
 void	free_env_dict(t_env_dict *dict);
+bool	is_already_in(char *key);
 char	*find_value(char *key);
 void	delete_env(char *key);
 
