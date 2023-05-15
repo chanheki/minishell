@@ -60,6 +60,8 @@ int	ft_export(char **argv)
 			exit_status = 1;
 			continue ;
 		}
+		if (!ft_strchr(argv[i], '='))
+			continue ;
 		key = get_env_key(argv[i]);
 		value = get_env_value(argv[i]);
 		if (set_env(key, value) != SUCCESS)
