@@ -18,18 +18,18 @@
  * Param.   #1: env 키를 담고 있는 문자열
  * Return     : 유효하지 않을 경우 exit status가 1임을 나타내는 1을, 유효할 경우 0을 반환한다.
  */
-static int	check_env_argv(char *argv)
+static int	check_env_argv(char *key)
 {
 	int	i;
 
 	i = -1;
-	while (argv[++i])
+	while (key[++i])
 	{
-		if (!((*argv >= 'A' && *argv <= 'Z')
-				|| (*argv >= 'a' && *argv <= 'z')))
+		if (!((*key >= 'A' && *key <= 'Z')
+				|| (*key >= 'a' && *key <= 'z')))
 		{
 			ft_putstr_fd("minishell: export: ", STDERR_FILENO);
-			ft_putstr_fd(argv, STDERR_FILENO);
+			ft_putstr_fd(key, STDERR_FILENO);
 			ft_putstr_fd(": not a valid identifier\n", STDERR_FILENO);
 			return (1);
 		}
@@ -55,14 +55,20 @@ int	ft_export(char **argv)
 		return (print_envp());
 	while (argv[++i])
 	{
-		if (check_env_argv(argv[i]))
+		key = get_env_key(argv[i]);
+		if (check_env_argv(key))
 		{
 			exit_status = 1;
 			continue ;
 		}
 		if (!ft_strchr(argv[i], '='))
+		{
+			if (find_value(key))
+				continue ;
+			if (set_env(key, NULL) != SUCCESS)
+				exit_status = 1;
 			continue ;
-		key = get_env_key(argv[i]);
+		}
 		value = get_env_value(argv[i]);
 		if (set_env(key, value) != SUCCESS)
 			exit_status = 1;
