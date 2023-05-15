@@ -52,12 +52,6 @@ char	*get_env_key(char *env)
 	while (env[i] && env[i] != '=')
 		i++;
 	key = ft_substr(env, 0, i);
-	key[i] = '\0';
-	if (*key == '\0')
-	{
-		free(key);
-		key = NULL;
-	}
 	return (key);
 }
 
@@ -76,11 +70,6 @@ char	*get_env_value(char *env)
 	while (env[i] && env[i] != '=')
 		i++;
 	value = ft_substr(env, i + 1, ft_strlen(env) - i - 1);
-	if (*value == '\0')
-	{
-		free(value);
-		value = NULL;
-	}
 	return (value);
 }
 
